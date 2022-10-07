@@ -1,8 +1,18 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  
+ --black-coral: hsla(213, 23%, 39%, 1);
+ --aero: hsla(203, 77%, 67%, 1);
+ --mango: hsla(42, 95%, 57%, 1);
+ --permanent-geranium-lake: hsla(2, 70%, 53%, 1);
+--bittersweet: hsla(9, 85%, 65%, 1);
+--font-color:  rgb(226, 223, 222);
 
-  
+  --backgrond-color:var(--black-coral)
+
 }
 
+body{
+  background-color: var(--backgrond-color);
+  color: var(--font-color);
+}
 
