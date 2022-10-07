@@ -1,19 +1,24 @@
 <script>
 	import { onMount } from 'svelte';
+	import { svgContainerSize } from './stores/appStores';
 	import SvgGraph from './lib/svg-graph.svelte';
 
 	let containerRef;
-	let containerSize;
-	$: console.log('containerSize :>> ', containerSize);
+	// let containerSize;
+	$: console.log('containerSize :>> ', $svgContainerSize);
 
 	onMount(() => {
 		const resizeObserver = new ResizeObserver((entries) => {
 			const entry = entries.at(0);
-			containerSize = {
-				...containerSize,
+			// containerSize = {
+			// 	...containerSize,
+			// 	width: entry.contentRect.width,
+			// 	height: entry.contentRect.height,
+			// };
+			svgContainerSize.set({
 				width: entry.contentRect.width,
 				height: entry.contentRect.height,
-			};
+			});
 		});
 
 		resizeObserver.observe(containerRef);
