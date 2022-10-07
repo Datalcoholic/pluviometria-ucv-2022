@@ -1,10 +1,11 @@
 <script>
+	import SvgGraph from './lib/svg-graph.svelte';
 </script>
 
 <main class="main">
 	<h1>Title</h1>
 	<article class="svg-container">
-		<!-- svg -->
+		<SvgGraph />
 	</article>
 </main>
 
