@@ -1,10 +1,29 @@
 <script>
+	import { onMount } from 'svelte';
 	import SvgGraph from './lib/svg-graph.svelte';
+
+	let containerRef;
+	let containerSize;
+	$: console.log('containerSize :>> ', containerSize);
+
+	onMount(() => {
+		const resizeObserver = new ResizeObserver((entries) => {
+			const entry = entries.at(0);
+			containerSize = {
+				...containerSize,
+				width: entry.contentRect.width,
+				height: entry.contentRect.height,
+			};
+		});
+
+		resizeObserver.observe(containerRef);
+		return () => resizeObserver.unobserve(containerRef);
+	});
 </script>
 
 <main class="main">
 	<h1>Title</h1>
-	<article class="svg-container">
+	<article class="svg-container" bind:this={containerRef}>
 		<SvgGraph />
 	</article>
 </main>
@@ -16,7 +35,7 @@
 		align-items: center;
 	}
 	.svg-container {
-		width: 800px;
+		width: clamp(600px, 70vw, 900px);
 		height: 900px;
 		outline: solid tomato;
 	}
