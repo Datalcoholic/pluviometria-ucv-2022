@@ -38,6 +38,8 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 
 	//Previus Years Statistics
 	let previusYears = resp.filter((d) => d.year < 2022 && d.mm > 0);
+	let toSavePrevius = JSON.stringify(previusYears);
+	// writeFileSync('previusYears.json', toSavePrevius);
 	let statisticsByYears = Array.from(
 		d3.rollup(
 			previusYears,
@@ -63,5 +65,5 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 	);
 	//console.log('previusYears :>> ', statisticsByYears);
 	let toSaveStatistics = JSON.stringify(statisticsByYears);
-	writeFileSync('statisticsByYears.json', toSaveStatistics);
+	//writeFileSync('statisticsByYears.json', toSaveStatistics);
 });
