@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import { readFile, writeFile } from 'fs';
+import { readFile, writeFile, writeFileSync } from 'fs';
 
 let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 	if (err) throw err;
@@ -33,8 +33,35 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 		})
 	);
 	//console.log('resp :>> ', thisYear2022);
-	let toSave = JSON.stringify(thisYear2022);
-	writeFile('year2022.json', toSave, (err) => {
-		if (err) throw err;
-	});
+	//let toSave = JSON.stringify(thisYear2022);
+	//
+
+	//Previus Years Statistics
+	let previusYears = resp.filter((d) => d.year < 2022 && d.mm > 0);
+	let statisticsByYears = Array.from(
+		d3.rollup(
+			previusYears,
+			(d) => d.length,
+			(m) => m.month,
+			(y) => y.year
+		),
+		([month, value]) => {
+			const objValues = Array.from(value, ([year, numDays]) => ({
+				y: year,
+				days: numDays,
+			}));
+			//console.log('objValues :>> ', objValues);
+			const max = d3.max(objValues, (d) => d.days);
+			//console.log('max :>> ', max);
+			const rainyDayMax = objValues.filter((d) => d.days === max);
+			return {
+				month,
+				rainyDaysMean: d3.mean(Array.from(value, ([_, d]) => d)),
+				rainyDayMax,
+			};
+		}
+	);
+	//console.log('previusYears :>> ', statisticsByYears);
+	let toSaveStatistics = JSON.stringify(statisticsByYears);
+	writeFileSync('statisticsByYears.json', toSaveStatistics);
 });
