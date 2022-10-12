@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-
+import { isAfter, min } from 'date-fns';
 import { readFile, writeFile, writeFileSync } from 'fs';
 
 let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
@@ -34,36 +34,103 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 	);
 	//console.log('resp :>> ', thisYear2022);
 	//let toSave = JSON.stringify(thisYear2022);
-	//
 
 	//Previus Years Statistics
 	let previusYears = resp.filter((d) => d.year < 2022 && d.mm > 0);
 	let toSavePrevius = JSON.stringify(previusYears);
 	// writeFileSync('previusYears.json', toSavePrevius);
-	let statisticsByYears = Array.from(
-		d3.rollup(
+	// let statisticsByYears = Array.from(
+	// 	d3.rollup(
+	// 		previusYears,
+	// 		(d) => d.length,
+	// 		(m) => m.month,
+	// 		(y) => y.year
+	// 	),
+	// 	([month, value]) => {
+	// 		const objValues = Array.from(value, ([year, numDays]) => ({
+	// 			y: year,
+	// 			days: numDays,
+	// 		}));
+	// 		//console.log('objValues :>> ', objValues);
+	// 		const max = d3.max(objValues, (d) => d.days);
+	// 		//console.log('max :>> ', max);
+	// 		const rainyDayMax = objValues.filter((d) => d.days === max);
+	// 		return {
+	// 			month,
+	// 			rainyDaysMean: d3.mean(Array.from(value, ([_, d]) => d)),
+	// 			rainyDayMax,
+	// 		};
+	// 	}
+	// );
+	//console.log('previusYears :>> ', statisticsByYears);
+	//let toSaveStatistics = JSON.stringify(statisticsByYears);
+	//writeFileSync('statisticsByYears.json', toSaveStatistics);
+
+	// Previus years rainy days by month
+
+	let previusRainyDaysByMonths = Array.from(
+		d3.group(
 			previusYears,
-			(d) => d.length,
-			(m) => m.month,
-			(y) => y.year
+			(y) => y.year,
+			(d) => d.month
 		),
-		([month, value]) => {
-			const objValues = Array.from(value, ([year, numDays]) => ({
-				y: year,
-				days: numDays,
-			}));
-			//console.log('objValues :>> ', objValues);
-			const max = d3.max(objValues, (d) => d.days);
-			//console.log('max :>> ', max);
-			const rainyDayMax = objValues.filter((d) => d.days === max);
-			return {
+		([year, value]) => {
+			const data = Array.from(value, ([month, days]) => ({
 				month,
-				rainyDaysMean: d3.mean(Array.from(value, ([_, d]) => d)),
-				rainyDayMax,
-			};
+				days,
+			}));
+			return { year, data };
 		}
 	);
-	//console.log('previusYears :>> ', statisticsByYears);
-	let toSaveStatistics = JSON.stringify(statisticsByYears);
-	//writeFileSync('statisticsByYears.json', toSaveStatistics);
+
+	let previusRainyDaysRange = previusRainyDaysByMonths.map(({ year, data }) => {
+		let rangeValue = data.map((d) => {
+			const month = d.month;
+			const minDay = d3.min(d.days, (d) => d.date);
+			const maxDay = d3.max(d.days, (d) => d.date);
+			const range = d.days.filter(
+				(a) => a.date === minDay || a.date === maxDay
+			);
+			return { month, range };
+		});
+
+		let rainyDaysLength = data.map((d) => {
+			const month = d.month;
+			const monthLength = d.days.length;
+			return { month, monthLength };
+		});
+		return { year, rangeValue, rainyDaysLength };
+	});
+
+	console.log('previusRainyDaysByMonth :>> ', previusRainyDaysRange);
+	const ToSavePreviusRainyDaysRange = JSON.stringify(previusRainyDaysRange);
+	writeFileSync('previusRainyDaysRange.json', ToSavePreviusRainyDaysRange);
+
+	// Calculate the longest consecutive rainy days
+	// let consecutiveLongest = Array.from(
+	// 	d3.group(
+	// 		previusYears,
+	// 		(y) => y.year,
+	// 		(m) => m.month
+	// 	),
+	// 	([year, value]) => {
+	// 		const data = Array.from(value, ([month, rainData]) => [
+	// 			//month,
+	// 			[...rainData],
+	// 		]);
+	// 		return { year, data: data };
+	// 	}
+	// );
+
+	// let testData = consecutiveLongest[0].data[1];
+	// testData[0].forEach((d, i) => {
+	// 	console.log(
+	// 		'testConsecutive :>> ',
+	// 		d.date,
+	// 		testData[0][i - 1]?.date,
+	// 		isAfter(d.date, testData[0][i - 1]?.date)
+	// 	);
+	// });
+	// console.log('consecutiveLongest :>> ', testData);
+	// console.log('consecutiveLongest :>> ', consecutiveLongest[0].data[1]);
 });
