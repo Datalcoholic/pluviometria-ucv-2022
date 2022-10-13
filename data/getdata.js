@@ -114,42 +114,42 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 	function getCansecutiveDays(arr) {
 		let i = 0;
 		//let daysToCheck = [];
-		let resp = arr.reduce(
-			(stack, currentObj) => {
-				let group = stack[i];
-				let prevDate = group ? group[group.length - 1] : currentObj.date;
-				//let prevDay = getDay(prevDate);
+		let resp = arr.reduce((stack, currentObj) => {
+			let group = stack[i];
+			let prevDate = group ? group[group.length - 1] : currentObj.date;
+			let currentDate = currentObj.date;
+			if (differenceInDays(currentDate, prevDate) > 1) {
+				i++;
+			}
+			if (!stack[i]) stack[i] = [];
 
-				let currentDate = currentObj.date;
-				//let currentDay = getDay(currentDate);
-				if (differenceInDays(currentDate, prevDate) > 1) {
-					i++;
-				}
-				if (!stack[i]) stack[i] = [];
+			stack[i].push(currentDate);
 
-				stack[i].push(currentDate);
-				// else {
-				// group.push(currentDate);
-				// }
-				console.log(
-					'i',
-					i,
-					'currentDate:',
-					currentDate,
-					'Group:',
-					group,
-					'prevDate :>> ',
-					prevDate,
-					'delta:',
-					differenceInDays(currentDate, prevDate) > 1
-				);
-				return stack;
-			},
-			[[]]
-		);
+			// console.log(
+			// 	'i',
+			// 	i,
+			// 	'currentDate:',
+			// 	currentDate,
+			// 	'Group:',
+			// 	group,
+			// 	'prevDate :>> ',
+			// 	prevDate,
+			// 	'delta:',
+			// 	differenceInDays(currentDate, prevDate) > 1
+			// );
+			return stack;
+		}, []);
 		return resp.filter((d) => d.length > 1);
 	}
-	console.log('test_Consecutive :>> ', getCansecutiveDays(dayArray));
+	function getMaxConsecutiveDays(arr) {
+		const max = d3.max(arr, (d) => d.length);
+		const resp = arr.filter((d) => d.length >= max);
+		return { maxConsecutiveRainyDays: max, consecutiveRainyDays: resp.flat() };
+	}
+	console.log(
+		'test_Consecutive :>> ',
+		getMaxConsecutiveDays(getCansecutiveDays(dayArray))
+	);
 	// testData[0].forEach((d, i) => {
 	// 	console.log(
 	// 		'testConsecutive :>> ',
