@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { isAfter, min } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 import { readFile, writeFile, writeFileSync } from 'fs';
 
 let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
@@ -108,8 +108,48 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 
 	// Calculate the longest consecutive rainy days
 	let consecutiveLongest = previusRainyDaysByMonths;
-	console.log('consecutiveLongest :>> ', consecutiveLongest);
+	// console.log('consecutiveLongest :>> ', consecutiveLongest[0].data[0].days);
 
+	let dayArray = consecutiveLongest[0].data[0].days;
+	function getCansecutiveDays(arr) {
+		let i = 0;
+		//let daysToCheck = [];
+		let resp = arr.reduce(
+			(stack, currentObj) => {
+				let group = stack[i];
+				let prevDate = group ? group[group.length - 1] : currentObj.date;
+				//let prevDay = getDay(prevDate);
+
+				let currentDate = currentObj.date;
+				//let currentDay = getDay(currentDate);
+				if (differenceInDays(currentDate, prevDate) > 1) {
+					i++;
+				}
+				if (!stack[i]) stack[i] = [];
+
+				stack[i].push(currentDate);
+				// else {
+				// group.push(currentDate);
+				// }
+				console.log(
+					'i',
+					i,
+					'currentDate:',
+					currentDate,
+					'Group:',
+					group,
+					'prevDate :>> ',
+					prevDate,
+					'delta:',
+					differenceInDays(currentDate, prevDate) > 1
+				);
+				return stack;
+			},
+			[[]]
+		);
+		return resp.filter((d) => d.length > 1);
+	}
+	console.log('test_Consecutive :>> ', getCansecutiveDays(dayArray));
 	// testData[0].forEach((d, i) => {
 	// 	console.log(
 	// 		'testConsecutive :>> ',
