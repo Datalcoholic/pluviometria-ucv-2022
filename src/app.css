@@ -1,13 +1,18 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
- --black-coral: hsla(213, 23%, 39%, 1);
- --aero: hsla(203, 77%, 67%, 1);
- --mango: hsla(42, 95%, 57%, 1);
- --permanent-geranium-lake: hsla(2, 70%, 53%, 1);
---bittersweet: hsla(9, 85%, 65%, 1);
---font-color:  rgb(226, 223, 222);
+ 
 
-  --backgrond-color:var(--black-coral)
+--indigo-dye: hsl(209, 77%, 23%);
+--indigo-dye-1: hsl(209, 77%, 50%);
+--indigo-dye-2: hsl(209, 77%, 35%);
+--lemon-meringue: hsl(48, 82%, 89%);
+--orange-yellow-crayola: hsl(47, 87%, 66%);
+--orange-yellow-crayola-1: hsl(47, 87%, 80%);
+--sandy-brown: hsl(28, 83%, 61%);
+--orange-soda: hsl(10, 94%, 60%);
+
+--backgrond-color: var(--indigo-dye);
+--font-color:  var(--orange-yellow-crayola-1);
 
 }
 
