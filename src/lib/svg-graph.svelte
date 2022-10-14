@@ -22,11 +22,14 @@
 	});
 
 	// Scales
+	//Days
 	const dayScale = d3.scaleLinear().domain([1, 31]).range([0, width]);
+	//Month
 	const monthScale = d3
 		.scaleBand()
 		.domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 		.range([height, 0]);
+	//Fill
 	const mm = rainData2022.flat(1).map((m) => m.mm);
 	const mmExtend = d3.extent(mm);
 	const fillScale = d3
@@ -34,7 +37,6 @@
 			d3.interpolateRgbBasis([palette.indigoDye2, palette.indigoDye1])
 		)
 		.domain(mmExtend);
-	console.log('fillScale :>> ', fillScale(41), mmExtend, mm);
 	console.log('year2022 :>> ', $year2022);
 </script>
 
