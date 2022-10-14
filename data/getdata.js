@@ -27,13 +27,32 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 	);
 	thisYear2022 = Array.from(
 		d3.group(thisYear2022, (m) => m.month),
-		([month, monthlyData]) => ({
-			month,
-			monthlyData,
-		})
+		([month, monthlyData]) => {
+			// get the 2022 year rainy days
+			const rainyDays = monthlyData
+				.filter((d) => d.mm > 0)
+				.map((date) => date.date);
+			const rainyDaysLength = rainyDays.length;
+
+			// get the 2022 year consecutive rainy days
+
+			const consecutiveRainyDays = getMaxConsecutiveDays(
+				getConsecutiveDays(rainyDays)
+			);
+
+			return {
+				month,
+				monthlyData,
+				rainyDaysLength,
+				rainyDays,
+				consecutiveRainyDays,
+			};
+		}
 	);
-	//console.log('resp :>> ', thisYear2022);
-	//let toSave = JSON.stringify(thisYear2022);
+
+	// console.log('resp :>> ', thisYear2022);
+	// let toSave = JSON.stringify(thisYear2022);
+	// writeFileSync('year2022.json', toSave);
 
 	//Previus Years Statistics
 	let previusYears = resp.filter((d) => d.year < 2022 && d.mm > 0);
@@ -105,9 +124,9 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 		return { year, rangeValue };
 	});
 
-	console.log('previusRainyDaysByMonth :>> ', previusRainyDaysRange);
-	const ToSavePreviusRainyDaysRange = JSON.stringify(previusRainyDaysRange);
-	writeFileSync('previusRainyDaysRange.json', ToSavePreviusRainyDaysRange);
+	// console.log('previusRainyDaysByMonth :>> ', previusRainyDaysRange);
+	// const ToSavePreviusRainyDaysRange = JSON.stringify(previusRainyDaysRange);
+	// writeFileSync('previusRainyDaysRange.json', ToSavePreviusRainyDaysRange);
 
 	// Calculate the longest consecutive rainy days
 	// let consecutiveLongest = previusRainyDaysRange[0].rangeValue[5].rainyDays;
