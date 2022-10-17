@@ -5,6 +5,7 @@
 	import { year2022 } from '../stores/dataStore';
 	import * as d3 from 'd3';
 	import YAxis from './yAxis.svelte';
+	import XAvis from './xAvis.svelte';
 
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
@@ -31,7 +32,11 @@
 
 	// Scales
 	//Days
-	const dayScale = d3.scaleLinear().domain([1, 31]).range([0, width]);
+	const rangeDays = d3.range(1, 31, 1);
+	$: dayScale = d3
+		.scaleBand()
+		.domain(rangeDays)
+		.range([margin.right + 45, width - margin.left]);
 	//Month
 	const months = rainData2022.map((d) => {
 		const firstDateOfTheMonth = d[0].date;
@@ -56,6 +61,7 @@
 
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
+	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
 </Svg>
 
 <!-- markup (zero or more items) goes here -->
