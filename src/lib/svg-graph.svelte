@@ -1,56 +1,13 @@
 <script>
 	import Svg from './svg.svelte';
 	import { startOfMonth } from 'date-fns';
-	import { svgContainerSize } from '../stores/appStores';
+	import { svgContainerSize, localeEs } from '../stores/appStores';
 	import { year2022 } from '../stores/dataStore';
 	import * as d3 from 'd3';
 	import YAxis from './yAxis.svelte';
-	const localeEs = {
-		dateTime: '%A, %e de %B de %Y, %X',
-		date: '%d/%m/%Y',
-		time: '%H:%M:%S',
-		periods: ['AM', 'PM'],
-		days: [
-			'domingo',
-			'lunes',
-			'martes',
-			'miércoles',
-			'jueves',
-			'viernes',
-			'sábado',
-		],
-		shortDays: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-		months: [
-			'enero',
-			'febrero',
-			'marzo',
-			'abril',
-			'mayo',
-			'junio',
-			'julio',
-			'agosto',
-			'septiembre',
-			'octubre',
-			'noviembre',
-			'diciembre',
-		],
-		shortMonths: [
-			'Ene',
-			'Feb',
-			'Mar',
-			'Abr',
-			'May',
-			'Jun',
-			'Jul',
-			'Ago',
-			'Sep',
-			'Oct',
-			'Nov',
-			'Dic',
-		],
-	};
-	d3.timeFormatDefaultLocale(localeEs);
-	d3.formatDefaultLocale(localeEs);
+
+	d3.timeFormatDefaultLocale($localeEs);
+	d3.formatDefaultLocale($localeEs);
 
 	$: width = $svgContainerSize?.width;
 	$: height = $svgContainerSize?.height;
