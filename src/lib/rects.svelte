@@ -23,6 +23,7 @@
 
 <style>
 	.rects {
-		stroke: black;
+		stroke: var(--black-coral-1);
+		stroke-width: 0.5px;
 	}
 </style>
