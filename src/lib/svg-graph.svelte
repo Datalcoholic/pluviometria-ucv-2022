@@ -16,8 +16,9 @@
 
 	//Palette
 	const palette = {
-		indigoDye1: 'hsl(209, 77%, 50%)',
-		indigoDye2: 'hsl(209, 77%, 35%)',
+		indigoDye1: 'hsl(203, 77%, 67%)',
+		indigoDye2: 'hsl(203, 77%, 16%)',
+		blackcoral1: 'hsla(213, 23%, 42%, 1)',
 	};
 
 	let rainData2022 = $year2022?.map((d) => {
@@ -55,10 +56,10 @@
 	const mm = rainData2022.flat(1).map((m) => m.mm);
 	const mmExtend = d3.extent(mm);
 	const fillScale = d3
-		.scaleSequential(
-			d3.interpolateRgbBasis([palette.indigoDye2, palette.indigoDye1])
-		)
-		.domain(mmExtend);
+		.scaleLinear()
+		.domain(mmExtend)
+		.range([palette.indigoDye2, palette.indigoDye1])
+		.interpolate(d3.interpolateHsl);
 </script>
 
 <Svg {width} {height}>
