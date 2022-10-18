@@ -13,5 +13,7 @@
 	.x-axis {
 		fill: currentColor;
 		text-anchor: middle;
+		font-weight: var(--axis-labels-font-weight);
+		font-size: 0.95rem;
 	}
 </style>

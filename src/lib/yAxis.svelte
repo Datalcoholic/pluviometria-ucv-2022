@@ -13,5 +13,10 @@
 <style>
 	.y-axis {
 		fill: currentColor;
+		font-weight: var(--axis-labels-font-weight);
+		font-size: 1.1rem;
+	}
+	text {
+		alignment-baseline: central;
 	}
 </style>

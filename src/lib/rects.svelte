@@ -3,7 +3,7 @@
 	export let monthScale, dayScale, fillScale, days, format;
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
-	const h = 20;
+	const h = 25;
 	const r = 4.5;
 </script>
 
@@ -26,6 +26,5 @@
 		stroke: var(--black-coral-1);
 		stroke-width: 2px;
 		paint-order: stroke;
-		alignment-baseline: central;
 	}
 </style>
