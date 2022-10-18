@@ -3,14 +3,14 @@
 	export let monthScale, dayScale, fillScale, days, format;
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
-	const h = 30;
-	const r = 5;
+	const h = 20;
+	const r = 4.5;
 </script>
 
 <g class="rects">
 	{#each days as day}
 		<rect
-			x={dayScale(+dayFormat(day.date))}
+			x={dayScale(+dayFormat(day.date)) - w / 2}
 			y={monthScale(format(day.date)) - h / 2}
 			width={w}
 			height={h}
@@ -24,7 +24,8 @@
 <style>
 	.rects {
 		stroke: var(--black-coral-1);
-		stroke-width: 1.5px;
+		stroke-width: 2px;
 		paint-order: stroke;
+		alignment-baseline: central;
 	}
 </style>

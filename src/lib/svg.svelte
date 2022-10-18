@@ -9,6 +9,6 @@
 <!-- markup (zero or more items) goes here -->
 <style>
 	svg {
-		background-color: #d3d3d3;
+		/* background-color: #d3d3d3; */
 	}
 </style>

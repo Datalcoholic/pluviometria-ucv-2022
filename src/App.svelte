@@ -41,7 +41,7 @@
 	}
 	.svg-container {
 		width: clamp(600px, 70vw, 900px);
-		height: 900px;
+		height: 700px;
 		outline: solid tomato;
 	}
 </style>

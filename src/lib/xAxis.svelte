@@ -12,5 +12,6 @@
 <style>
 	.x-axis {
 		fill: currentColor;
+		text-anchor: middle;
 	}
 </style>

@@ -11,7 +11,7 @@
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
-	$: width = $svgContainerSize?.width;
+	$: width = $svgContainerSize?.width < 600 ? 660 : $svgContainerSize?.width;
 	$: height = $svgContainerSize?.height;
 
 	//Palette
@@ -38,7 +38,9 @@
 	$: dayScale = d3
 		.scaleBand()
 		.domain(rangeDays)
-		.range([margin.right + 45, width - margin.left]);
+		.paddingInner(-1)
+		.paddingOuter(0.8)
+		.range([margin.right + 45, width - margin.left - margin.right]);
 	//Month
 	const monthFormat = d3.timeFormat('%b');
 	const months = rainData2022.map((d) => {
@@ -49,8 +51,9 @@
 	$: monthScale = d3
 		.scaleBand()
 		.domain(months)
-		.padding(0.5)
-		.range([margin.top, height - margin.bottom]);
+		.paddingOuter(1)
+		.paddingInner(1)
+		.range([margin.top, height]);
 
 	//Fill
 	const mm = rainData2022.flat(1).map((m) => m.mm);
