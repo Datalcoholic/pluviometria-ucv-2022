@@ -11,11 +11,11 @@
 	{#each days as day}
 		<rect
 			x={dayScale(+dayFormat(day.date))}
-			y={monthScale(format(day.date))}
+			y={monthScale(format(day.date)) - h / 2}
 			width={w}
 			height={h}
 			rx={r}
-			fill={day.mm !== 0 ? fillScale(day.mm) : 'none'}
+			fill={day.mm !== 0 ? fillScale(day.mm) : 'var(--black-coral)'}
 			>{dayFormat(day.date)}
 		</rect>
 	{/each}
@@ -24,6 +24,7 @@
 <style>
 	.rects {
 		stroke: var(--black-coral-1);
-		stroke-width: 0.5px;
+		stroke-width: 1.5px;
+		paint-order: stroke;
 	}
 </style>
