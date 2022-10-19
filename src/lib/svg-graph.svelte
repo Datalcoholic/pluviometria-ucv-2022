@@ -7,7 +7,7 @@
 	import YAxis from './yAxis.svelte';
 	import XAvis from './xAxis.svelte';
 	import Rects from './rects.svelte';
-
+	import ButtonsDiv from './devComponents/buttonsDiv.svelte';
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
@@ -23,9 +23,10 @@
 
 	let rainData2022 = $year2022?.map((d) => {
 		let data = d.monthlyData;
-		data = data.map((d) => {
+		data = data.map((d, i) => {
 			let { date, day, month, year, mm } = d;
-			return { date: new Date(date), day, month, year, mm };
+			const indexDay = i + 1;
+			return { date: new Date(date), day, month, year, mm, indexDay };
 		});
 		return data;
 	});
@@ -63,8 +64,20 @@
 		.domain(mmExtend)
 		.range([palette.indigoDye2, palette.indigoDye1])
 		.interpolate(d3.interpolateHsl);
+
+	// Filter functions
+	const getRainyDays = () => {
+		let data = rainData2022.map((d) => d.filter((a) => a.mm !== 0));
+		data = data.map((d) => {
+			return d.map((a, i) => {
+				return { ...a, indexDay: i + 1 };
+			});
+		});
+		console.log('data :>> ', data);
+	};
 </script>
 
+<ButtonsDiv onclick={getRainyDays} />
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
