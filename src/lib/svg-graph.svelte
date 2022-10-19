@@ -73,7 +73,8 @@
 				return { ...a, indexDay: i + 1 };
 			});
 		});
-		console.log('data :>> ', data);
+		rainData2022 = data;
+		//console.log('data :>> ', data);
 	};
 </script>
 

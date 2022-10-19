@@ -10,7 +10,7 @@
 <g class="rects">
 	{#each days as day}
 		<rect
-			x={dayScale(+dayFormat(day.date)) - w / 2}
+			x={dayScale(day.indexDay) - w / 2}
 			y={monthScale(format(day.date)) - h / 2}
 			width={w}
 			height={h}
