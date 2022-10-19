@@ -3,8 +3,8 @@
 </script>
 
 <section class="buttons-container">
-	<button on:click={onclick}>Rainy Days</button>
-	<button>Cons Rainy Days</button>
+	<button on:click={onclick.getRainyDays}>Rainy Days</button>
+	<button on:click={onclick.getconsecutiveRainyDays}>Cons Rainy Days</button>
 </section>
 
 <style>

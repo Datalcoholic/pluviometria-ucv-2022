@@ -31,6 +31,12 @@
 		return data;
 	});
 	console.log('rainData2022 :>> ', rainData2022);
+
+	const consecutiveRainyDays = $year2022?.map(
+		(month) => month.consecutiveRainyDays.consecutiveRainyDays
+	);
+	console.log('$year2022 :>> ', $year2022);
+	console.log('consecutiveRainyDays :>> ', consecutiveRainyDays);
 	const margin = { top: 35, right: 20, bottom: 15, left: 15 };
 
 	// Scales
@@ -74,11 +80,27 @@
 			});
 		});
 		rainData2022 = data;
-		//console.log('data :>> ', data);
+	};
+	const dateFormat = d3.timeFormat('%d.%b.%Y');
+	const getconsecutiveRainyDays = () => {
+		let data = rainData2022.map((month, i) => {
+			const arrfilter = consecutiveRainyDays[i]?.map((date) =>
+				dateFormat(new Date(date))
+			);
+			return month.filter((d) => arrfilter.includes(dateFormat(d.date)));
+			// console.log('month :>> ', month, 'dates:', arrfilter);
+		});
+		data = data.map((d) => {
+			return d.map((a, i) => {
+				return { ...a, indexDay: i + 1 };
+			});
+		});
+		rainData2022 = data;
+		console.log('cosecutive :>> ', data);
 	};
 </script>
 
-<ButtonsDiv onclick={getRainyDays} />
+<ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} />
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
