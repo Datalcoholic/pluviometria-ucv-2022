@@ -44,15 +44,15 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 				month,
 				monthlyData,
 				rainyDaysLength,
-				rainyDays,
+				// rainyDays,
 				consecutiveRainyDays,
 			};
 		}
 	);
 
 	// console.log('resp :>> ', thisYear2022);
-	// let toSave = JSON.stringify(thisYear2022);
-	// writeFileSync('year2022.json', toSave);
+	let toSave = JSON.stringify(thisYear2022);
+	writeFileSync('year2022.json', toSave);
 
 	//Previus Years Statistics
 	let previusYears = resp.filter((d) => d.year < 2022 && d.mm > 0);
@@ -168,8 +168,9 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 	}
 	function getMaxConsecutiveDays(arr) {
 		const max = d3.max(arr, (d) => d.length);
-		const resp = arr.filter((d) => d.length === max);
-		return { maxConsecutiveRainyDays: max, consecutiveRainyDays: resp[0] };
+		const resp = arr.filter((d) => d.length > 1);
+		// const resp = arr.filter((d) => d.length === max);
+		return { maxConsecutiveRainyDays: max, consecutiveRainyDays: resp };
 	}
 	// console.log(
 	// 	'test_Consecutive :>> ',
