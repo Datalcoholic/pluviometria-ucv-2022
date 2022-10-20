@@ -84,11 +84,17 @@
 	const dateFormat = d3.timeFormat('%d.%b.%Y');
 	const getconsecutiveRainyDays = () => {
 		let data = rainData2022.map((month, i) => {
-			const arrfilter = consecutiveRainyDays[i]?.map((date) =>
-				dateFormat(new Date(date))
+			const arrfilter = consecutiveRainyDays[i]?.map((date) => {
+				// console.log('date :>> ', date);
+				return date.map((d) => {
+					return dateFormat(new Date(d));
+				});
+			});
+			//console.log('month :>> ', month, 'dates:', arrfilter.flat(1));
+
+			return month.filter((d) =>
+				arrfilter.flat(1).includes(dateFormat(d.date))
 			);
-			return month.filter((d) => arrfilter.includes(dateFormat(d.date)));
-			// console.log('month :>> ', month, 'dates:', arrfilter);
 		});
 		data = data.map((d) => {
 			return d.map((a, i) => {
@@ -98,6 +104,8 @@
 		rainData2022 = data;
 		console.log('cosecutive :>> ', data);
 	};
+	//TODO
+	// Seria importante incluir los todos los dias consecutivos de lluvia por mes y no solo los 1eros
 </script>
 
 <ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} />
