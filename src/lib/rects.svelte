@@ -1,19 +1,21 @@
 <script>
 	import * as d3 from 'd3';
-	export let monthScale, dayScale, fillScale, days, format;
+	import { flip } from 'svelte/animate';
+
+	export let monthScale, dayScale, fillScale, sizeScale, days, format;
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
 	const h = 25;
-	const r = 4.5;
+	const r = 2.5;
 </script>
 
 <g class="rects">
-	{#each days as day}
+	{#each days as day, i (`${i}_${day.day}`)}
 		<rect
-			x={dayScale(day.indexDay) - w / 2}
-			y={monthScale(format(day.date)) - h / 2}
-			width={w}
-			height={h}
+			x={dayScale(day.indexDay) - sizeScale(day.mm) / 2}
+			y={monthScale(format(day.date)) - sizeScale(day.mm) / 2}
+			width={sizeScale(day.mm)}
+			height={sizeScale(day.mm)}
 			rx={r}
 			fill={day.mm !== 0 ? fillScale(day.mm) : 'var(--black-coral)'}
 			>{dayFormat(day.date)}

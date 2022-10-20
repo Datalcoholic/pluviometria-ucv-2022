@@ -66,10 +66,15 @@
 	const mm = rainData2022.flat(1).map((m) => m.mm);
 	const mmExtend = d3.extent(mm);
 	const fillScale = d3
+
 		.scaleLinear()
 		.domain(mmExtend)
 		.range([palette.indigoDye2, palette.indigoDye1])
 		.interpolate(d3.interpolateHsl);
+
+	// Size
+
+	const sizeScale = d3.scaleSqrt().domain(mmExtend).range([0, 25]);
 
 	// Filter functions
 	const getRainyDays = () => {
@@ -104,8 +109,6 @@
 		rainData2022 = data;
 		console.log('cosecutive :>> ', data);
 	};
-	//TODO
-	// Seria importante incluir los todos los dias consecutivos de lluvia por mes y no solo los 1eros
 </script>
 
 <ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} />
@@ -116,6 +119,7 @@
 		{monthScale}
 		{dayScale}
 		{fillScale}
+		{sizeScale}
 		days={rainData2022.flat(1)}
 		format={monthFormat}
 	/>
