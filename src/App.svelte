@@ -40,7 +40,7 @@
 <style>
 	.main {
 		display: grid;
-		justify-content: center;
+		justify-items: center;
 		align-items: center;
 	}
 
@@ -49,6 +49,8 @@
 		position: absolute;
 		top: 60px;
 		height: 350%;
+		display: grid;
+		justify-items: center;
 	}
 	.svg-container {
 		width: clamp(600px, 70vw, 900px);
