@@ -6,7 +6,7 @@
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
 	const h = 25;
-	const r = 2.5;
+	const r = 2.2;
 </script>
 
 <g class="rects">
@@ -18,6 +18,7 @@
 			height={sizeScale(day.mm)}
 			rx={r}
 			fill={day.mm !== 0 ? fillScale(day.mm) : 'var(--black-coral)'}
+			stroke={d3.hsl(fillScale(day.mm)).darker(2)}
 			>{dayFormat(day.date)}
 		</rect>
 	{/each}
@@ -26,7 +27,7 @@
 <style>
 	.rects {
 		stroke: var(--black-coral-1);
-		stroke-width: 2.5px;
+		stroke-width: 2px;
 		paint-order: stroke;
 	}
 </style>
