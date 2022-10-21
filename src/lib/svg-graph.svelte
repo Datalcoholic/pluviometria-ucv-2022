@@ -16,8 +16,8 @@
 
 	//Palette
 	const palette = {
-		indigoDye1: 'hsl(203, 77%, 67%)',
-		indigoDye2: 'hsl(203, 77%, 16%)',
+		indigoDye1: 'hsl(28, 83%, 81%)',
+		indigoDye2: 'hsl(28, 83%, 55%)',
 		blackcoral1: 'hsla(213, 23%, 42%, 1)',
 	};
 
@@ -69,7 +69,7 @@
 
 		.scaleLinear()
 		.domain(mmExtend)
-		.range([palette.indigoDye2, palette.indigoDye1])
+		.range([palette.indigoDye1, palette.indigoDye2])
 		.interpolate(d3.interpolateHsl);
 
 	// Size

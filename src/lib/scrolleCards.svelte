@@ -42,7 +42,7 @@
 		width: 65vw;
 		height: 1500px;
 		outline: solid turquoise;
-		position: relative;
+		/* position: absolute; */
 		display: flex;
 		flex-direction: column;
 		align-items: center;

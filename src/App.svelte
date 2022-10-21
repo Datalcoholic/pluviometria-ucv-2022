@@ -28,8 +28,8 @@
 </script>
 
 <main class="main">
-	<h1>Title</h1>
 	<article class="main-container">
+		<h1>Title</h1>
 		<section class="svg-container" bind:this={containerRef}>
 			<SvgGraph />
 		</section>
@@ -45,10 +45,10 @@
 	}
 
 	.main-container {
+		/* position: relative; */
 		outline: solid tomato;
-		position: absolute;
 		top: 60px;
-		height: 350%;
+		height: 200%;
 		display: grid;
 		justify-items: center;
 	}
@@ -56,6 +56,7 @@
 		width: clamp(600px, 70vw, 900px);
 		height: 700px;
 		position: sticky;
-		top: 50px;
+		top: 0px;
+		z-index: -10;
 	}
 </style>
