@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { svgContainerSize } from './stores/appStores';
 	import SvgGraph from './lib/svg-graph.svelte';
+	import ScrolleCards from './lib/scrolleCards.svelte';
 
 	let containerRef;
 	// let containerSize;
@@ -28,8 +29,11 @@
 
 <main class="main">
 	<h1>Title</h1>
-	<article class="svg-container" bind:this={containerRef}>
-		<SvgGraph />
+	<article class="main-container">
+		<section class="svg-container" bind:this={containerRef}>
+			<SvgGraph />
+		</section>
+		<ScrolleCards />
 	</article>
 </main>
 
@@ -39,9 +43,17 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	.main-container {
+		outline: solid tomato;
+		position: absolute;
+		top: 60px;
+		height: 350%;
+	}
 	.svg-container {
 		width: clamp(600px, 70vw, 900px);
 		height: 700px;
-		outline: solid tomato;
+		position: sticky;
+		top: 50px;
 	}
 </style>

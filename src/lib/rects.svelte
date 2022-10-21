@@ -10,7 +10,7 @@
 </script>
 
 <g class="rects">
-	{#each days as day, i (`${i}_${day.day}`)}
+	{#each days as day, i (`${day.year}_${day.month}_${day.day}`)}
 		<rect
 			x={dayScale(day.indexDay) - sizeScale(day.mm) / 2}
 			y={monthScale(format(day.date)) - sizeScale(day.mm) / 2}
@@ -26,7 +26,7 @@
 <style>
 	.rects {
 		stroke: var(--black-coral-1);
-		stroke-width: 2px;
+		stroke-width: 2.5px;
 		paint-order: stroke;
 	}
 </style>
