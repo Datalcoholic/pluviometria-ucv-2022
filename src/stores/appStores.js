@@ -45,4 +45,6 @@ let localeEs = readable({
 		'Dic',
 	],
 });
-export { svgContainerSize, localeEs };
+
+const cardsStored = writable([]);
+export { svgContainerSize, localeEs, cardsStored };
