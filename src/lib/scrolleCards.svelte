@@ -39,7 +39,7 @@
 
 <style>
 	.cards-container {
-		width: 65vw;
+		width: 45vw;
 		height: 1500px;
 		outline: solid turquoise;
 		/* position: absolute; */
@@ -47,5 +47,6 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 3.5em;
+		z-index: 25;
 	}
 </style>

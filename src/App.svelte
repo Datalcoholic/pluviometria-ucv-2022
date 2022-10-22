@@ -57,6 +57,5 @@
 		height: 700px;
 		position: sticky;
 		top: 0px;
-		z-index: -10;
 	}
 </style>
