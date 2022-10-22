@@ -1,13 +1,16 @@
 <script>
 	import Svg from './svg.svelte';
 	import { startOfMonth } from 'date-fns';
-	import { svgContainerSize, localeEs } from '../stores/appStores';
+	import { svgContainerSize, localeEs, cardsStored } from '../stores/appStores';
 	import { year2022 } from '../stores/dataStore';
 	import * as d3 from 'd3';
+	import gsap from 'gsap';
+	import ScrollTrigger from 'gsap/ScrollTrigger';
 	import YAxis from './yAxis.svelte';
 	import XAvis from './xAxis.svelte';
 	import Rects from './rects.svelte';
 	import ButtonsDiv from './devComponents/buttonsDiv.svelte';
+	import { onMount } from 'svelte';
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
@@ -109,6 +112,47 @@
 		rainData2022 = data;
 		console.log('cosecutive :>> ', data);
 	};
+
+	//Scroll Animations
+	gsap.registerPlugin(ScrollTrigger);
+
+	onMount(() => {
+		ScrollTrigger.defaults({
+			start: 'top 85%',
+			end: 'bottom 25%',
+			markers: { startColor: 'white', endColor: '#ff6347' },
+		});
+		const card1 = ScrollTrigger.create({
+			trigger: $cardsStored[0],
+			onEnter: (self) => {
+				gsap.to($cardsStored[0], {
+					opacity: 0,
+					duration: 0.5,
+				});
+			},
+			onLeave: (self) => {
+				gsap.to($cardsStored[0], {
+					opacity: 1,
+					duration: 0.5,
+				});
+			},
+		});
+
+		const card2 = ScrollTrigger.create({
+			trigger: $cardsStored[1],
+			onEnter: (self) => {
+				gsap.to($cardsStored[1], {
+					opacity: 0,
+					duration: 0.5,
+				});
+			},
+			onLeave: () => {
+				gsap.to($cardsStored[1], {
+					opacity: 1,
+				});
+			},
+		});
+	});
 </script>
 
 <ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} />
