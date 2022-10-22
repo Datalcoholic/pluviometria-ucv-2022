@@ -1,5 +1,6 @@
 <script>
 	import Cards from './cards.svelte';
+	import { cardsStored } from '../stores/appStores';
 
 	// CARDS
 	const cards = [
@@ -29,11 +30,14 @@
 
 		{ name: 'card-6', text: 'Distribuidos de la siguiente manera en el mes' },
 	];
+
+	let cardsRef = [];
+	cardsStored.set(cardsRef);
 </script>
 
 <section class="cards-container">
-	{#each cards as card}
-		<Cards text={card} />
+	{#each cards as card, i (card.name)}
+		<Cards text={card} {cardsRef} {i} />
 	{/each}
 </section>
 

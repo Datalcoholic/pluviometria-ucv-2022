@@ -1,8 +1,8 @@
 <script>
-	export let text;
+	export let text, cardsRef, i;
 </script>
 
-<div class="card {text.name}">
+<div class="card {text.name}" bind:this={cardsRef[i]}>
 	<p>{text.text}</p>
 </div>
 
