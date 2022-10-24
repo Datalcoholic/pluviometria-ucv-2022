@@ -166,7 +166,7 @@
 	});
 </script>
 
-<ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} />
+<!-- <ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} /> -->
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
