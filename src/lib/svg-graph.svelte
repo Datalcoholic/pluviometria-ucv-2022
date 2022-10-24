@@ -128,20 +128,24 @@
 			trigger: $cardsStored[0],
 			onEnter: (self) => {
 				gsap.to($cardsStored[0], {
-					opacity: 0,
+					opacity: 1,
 					duration: 0.5,
 				});
 				card1IsVisible = true;
 			},
 			onLeave: (self) => {
 				gsap.to($cardsStored[0], {
-					opacity: 1,
+					opacity: 0,
 					duration: 0.5,
 				});
 				// card1IsVisible = false;
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
+				gsap.to($cardsStored[0], {
+					opacity: 1,
+					duration: 0.5,
+				});
 			},
 		});
 
@@ -149,13 +153,13 @@
 			trigger: $cardsStored[1],
 			onEnter: (self) => {
 				gsap.to($cardsStored[1], {
-					opacity: 0,
+					opacity: 1,
 					duration: 0.5,
 				});
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[1], {
-					opacity: 1,
+					opacity: 0,
 				});
 			},
 		});
