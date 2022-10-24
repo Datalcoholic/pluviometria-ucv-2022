@@ -1,7 +1,7 @@
 <script>
 	import * as d3 from 'd3';
 	import { flip } from 'svelte/animate';
-	import { fly, scale, slide } from 'svelte/transition';
+	import { fade, fly, scale, slide } from 'svelte/transition';
 	import { elasticIn, elasticOut } from 'svelte/easing';
 	import gsap from 'gsap';
 
@@ -27,17 +27,16 @@
 <g class="rects">
 	{#each days as day, i (`${day.year}_${day.month}_${day.day}`)}
 		<rect
-			style="translate:{dayScale(day.indexDay) -
-				sizeScale(day.mm) / 2}px {monthScale(format(day.date)) -
-				sizeScale(day.mm) / 2}px;
-				transform-box: fill-box;
-				transform-origin: center;"
+			x={dayScale(day.indexDay) - sizeScale(day.mm) / 2}
+			y={monthScale(format(day.date)) - sizeScale(day.mm) / 2}
 			width={sizeScale(day.mm)}
 			height={sizeScale(day.mm)}
 			rx={r}
 			fill={day.mm !== 0 ? fillScale(day.mm) : 'var(--black-coral)'}
 			stroke={d3.hsl(fillScale(day.mm)).darker(2)}
-			in:theScale={{ duration: 550, delay: i * 20, easing: elasticOut }}
+			in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
+			out:fade|local={{ duration: 200 }}
+			animate:flip={{ duration: 850, easing: elasticOut }}
 			>{dayFormat(day.date)}
 		</rect>
 	{/each}
