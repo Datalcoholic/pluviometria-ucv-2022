@@ -116,6 +116,8 @@
 	//Scroll Animations
 	gsap.registerPlugin(ScrollTrigger);
 
+	let card1IsVisible = false;
+
 	onMount(() => {
 		ScrollTrigger.defaults({
 			start: 'top 85%',
@@ -129,12 +131,17 @@
 					opacity: 0,
 					duration: 0.5,
 				});
+				card1IsVisible = true;
 			},
 			onLeave: (self) => {
 				gsap.to($cardsStored[0], {
 					opacity: 1,
 					duration: 0.5,
 				});
+				// card1IsVisible = false;
+			},
+			onEnterBack: (self) => {
+				card1IsVisible = true;
 			},
 		});
 
@@ -164,7 +171,7 @@
 		{dayScale}
 		{fillScale}
 		{sizeScale}
-		days={rainData2022.flat(1)}
+		days={card1IsVisible ? rainData2022.flat(1) : []}
 		format={monthFormat}
 	/>
 </Svg>
