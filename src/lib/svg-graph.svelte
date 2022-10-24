@@ -24,15 +24,28 @@
 		blackcoral1: 'hsla(213, 23%, 42%, 1)',
 	};
 
-	let rainData2022 = $year2022?.map((d) => {
-		let data = d.monthlyData;
-		data = data.map((d, i) => {
-			let { date, day, month, year, mm } = d;
-			const indexDay = i + 1;
-			return { date: new Date(date), day, month, year, mm, indexDay };
+	const getRainData2022 = (arr) => {
+		return arr?.map((d) => {
+			let data = d.monthlyData;
+			data = data.map((d, i) => {
+				let { date, day, month, year, mm } = d;
+				const indexDay = i + 1;
+				return { date: new Date(date), day, month, year, mm, indexDay };
+			});
+			return data;
 		});
-		return data;
-	});
+	};
+
+	// let rainData2022 = $year2022?.map((d) => {
+	// 	let data = d.monthlyData;
+	// 	data = data.map((d, i) => {
+	// 		let { date, day, month, year, mm } = d;
+	// 		const indexDay = i + 1;
+	// 		return { date: new Date(date), day, month, year, mm, indexDay };
+	// 	});
+	// 	return data;
+	// });
+	let rainData2022 = getRainData2022($year2022);
 	console.log('rainData2022 :>> ', rainData2022);
 
 	const consecutiveRainyDays = $year2022?.map(
@@ -53,7 +66,7 @@
 		.range([margin.right + 45, width - margin.left - margin.right]);
 	//Month
 	const monthFormat = d3.timeFormat('%b');
-	const months = rainData2022.map((d) => {
+	const months = rainData2022?.map((d) => {
 		const firstDateOfTheMonth = d[0].date;
 		return monthFormat(startOfMonth(firstDateOfTheMonth));
 	});
@@ -66,7 +79,7 @@
 		.range([margin.top, height]);
 
 	//Fill
-	const mm = rainData2022.flat(1).map((m) => m.mm);
+	const mm = rainData2022?.flat(1).map((m) => m.mm);
 	const mmExtend = d3.extent(mm);
 	const fillScale = d3
 
@@ -124,17 +137,18 @@
 			end: 'bottom 25%',
 			markers: { startColor: 'white', endColor: '#ff6347' },
 		});
+		const cardIndex1 = 0;
 		const card1 = ScrollTrigger.create({
-			trigger: $cardsStored[0],
+			trigger: $cardsStored[cardIndex1],
 			onEnter: (self) => {
-				gsap.to($cardsStored[0], {
+				gsap.to($cardsStored[cardIndex1], {
 					opacity: 1,
 					duration: 0.5,
 				});
 				card1IsVisible = true;
 			},
 			onLeave: (self) => {
-				gsap.to($cardsStored[0], {
+				gsap.to($cardsStored[cardIndex1], {
 					opacity: 0,
 					duration: 0.5,
 				});
@@ -142,23 +156,42 @@
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
-				gsap.to($cardsStored[0], {
+				gsap.to($cardsStored[cardIndex1], {
 					opacity: 1,
 					duration: 0.5,
 				});
+				rainData2022 = getRainData2022($year2022);
 			},
 		});
 
+		const cardIndex2 = 1;
 		const card2 = ScrollTrigger.create({
-			trigger: $cardsStored[1],
+			trigger: $cardsStored[cardIndex2],
 			onEnter: (self) => {
-				gsap.to($cardsStored[1], {
+				gsap.to($cardsStored[cardIndex2], {
 					opacity: 1,
 					duration: 0.5,
 				});
+				getRainyDays();
 			},
 			onLeave: () => {
-				gsap.to($cardsStored[1], {
+				gsap.to($cardsStored[cardIndex2], {
+					opacity: 0,
+				});
+			},
+		});
+		const cardIndex3 = 2;
+		const card3 = ScrollTrigger.create({
+			trigger: $cardsStored[cardIndex3],
+			onEnter: (self) => {
+				gsap.to($cardsStored[cardIndex3], {
+					opacity: 1,
+					duration: 0.5,
+				});
+				getRainyDays();
+			},
+			onLeave: () => {
+				gsap.to($cardsStored[cardIndex3], {
 					opacity: 0,
 				});
 			},
