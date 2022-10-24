@@ -17,5 +17,6 @@
 		width: 40ch;
 		padding: 0.8em;
 		margin: 2em 0;
+		opacity: 0;
 	}
 </style>
