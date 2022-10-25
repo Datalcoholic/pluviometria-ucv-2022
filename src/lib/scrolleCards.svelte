@@ -6,29 +6,33 @@
 	const cards = [
 		{
 			name: 'card-1',
-			text: 'Esta ha sido la distribución de lluvias hasta la fecha de este 2022',
+			text: 'Para este 2022 las lluvias en Caracas se han distribuido de la siguiente manera: ',
 		},
 
 		{
 			name: 'card-2',
+			text: '',
+		},
+		{
+			name: 'card-3',
 			text: 'En la cual tenemos que los meses que presentan la mayor cantidad de  días con lluvias son Junio con un total de “ “ días, Agosto con “ “ días y Septiembre con “ “ días',
 		},
 
 		{
-			name: 'card-3',
+			name: 'card-4',
 			text: 'Lo cual pone a mes tal tantas veces por encima/de bajo del promedio de tantos meses',
 		},
 		{
-			name: 'card-4',
+			name: 'card-5',
 			text: 'Pero lo que realmente hay que tomar en cuenta son los días consecutivos de lluvias. Donde tenemos que se produjeron tantos días en mes “este” tantos días en el mes cual y tantos días en este mes.',
 		},
 
 		{
-			name: 'card-5',
+			name: 'card-6',
 			text: 'Lo cual pone (Estadisticas comparativas respecto a los meses anteriores)',
 		},
 
-		{ name: 'card-6', text: 'Distribuidos de la siguiente manera en el mes' },
+		{ name: 'card-7', text: 'Distribuidos de la siguiente manera en el mes' },
 	];
 
 	let cardsRef = [];
@@ -45,7 +49,7 @@
 	.cards-container {
 		width: 45vw;
 		height: 1500px;
-		outline: solid turquoise;
+		/* outline: solid turquoise; */
 		/* position: absolute; */
 		display: flex;
 		flex-direction: column;
