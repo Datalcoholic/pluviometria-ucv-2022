@@ -11,7 +11,7 @@
 
 		{
 			name: 'card-2',
-			text: '',
+			text: 'Los dias que se registaron mayor candidad de lluvias se produjeron el 22 de Abril, 26 de Agosto y 26 de Septiembre ',
 		},
 		{
 			name: 'card-3',
