@@ -144,6 +144,7 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	let card1IsVisible = false;
+	let isAnnotation = false;
 
 	onMount(() => {
 		ScrollTrigger.defaults({
@@ -190,6 +191,7 @@
 				});
 				//rainData2022 = dataForCard2;
 				isTop3 = true;
+				isAnnotation = true;
 				//getRainyDays();
 			},
 			onLeave: () => {
@@ -265,6 +267,7 @@
 		format={monthFormat}
 		topDays={topRainyDays2022}
 		isTop={isTop3}
+		{isAnnotation}
 	/>
 </Svg>
 

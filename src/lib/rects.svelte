@@ -13,7 +13,8 @@
 		days,
 		format,
 		isTop,
-		topDays;
+		topDays,
+		isAnnotation;
 
 	const [top1, top2, top3] = topDays.map((d) => d.date);
 	//$: console.log('isTop :>> ', isTop, top1, top2, top3);
@@ -66,18 +67,20 @@
 		</rect>
 	{/each}
 
-	<g class="label" />
-	{#each topDays as top}
-		<Annotations
-			rectCenter={sizeScale(top.mm) / 2}
-			x={dayScale(top.indexDay)}
-			y={monthScale(format(top.date))}
-			date={top.date}
-			mm={top.mm}
-			generator={pathGenerator}
-			stroke={top.year === 2022 ? 'var(--sandy-brown)' : 'var(--orange-soda)'}
-		/>
-	{/each}
+	{#if isAnnotation}
+		<g class="labels" />
+		{#each topDays as top}
+			<Annotations
+				rectCenter={sizeScale(top.mm) / 2}
+				x={dayScale(top.indexDay)}
+				y={monthScale(format(top.date))}
+				date={top.date}
+				mm={top.mm}
+				generator={pathGenerator}
+				stroke={top.year === 2022 ? 'var(--sandy-brown)' : 'var(--orange-soda)'}
+			/>
+		{/each}
+	{/if}
 </g>
 
 <style>
