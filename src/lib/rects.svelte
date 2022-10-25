@@ -4,6 +4,7 @@
 	import { fade, fly, scale, slide } from 'svelte/transition';
 	import { elasticIn, elasticOut } from 'svelte/easing';
 	import gsap from 'gsap';
+	import Annotations from './annotations.svelte';
 
 	export let monthScale,
 		dayScale,
@@ -15,7 +16,7 @@
 		topDays;
 
 	const [top1, top2, top3] = topDays.map((d) => d.date);
-	$: console.log('isTop :>> ', isTop, top1, top2, top3);
+	//$: console.log('isTop :>> ', isTop, top1, top2, top3);
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
 	const h = 25;
@@ -31,6 +32,14 @@
 				return `scale:${eased}`;
 			},
 		};
+	}
+
+	function pathGenerator(params) {
+		const path = d3.path();
+		path.moveTo(0, 0);
+		path.arcTo(0, -65, 150, -60, 50);
+		//path.lineTo(200, -80);
+		return path.toString();
 	}
 </script>
 
@@ -55,6 +64,19 @@
 			animate:flip={{ duration: 850, easing: elasticOut }}
 			>{dayFormat(day.date)}
 		</rect>
+	{/each}
+
+	<g class="label" />
+	{#each topDays as top}
+		<Annotations
+			rectCenter={sizeScale(top.mm) / 2}
+			x={dayScale(top.indexDay)}
+			y={monthScale(format(top.date))}
+			date={top.date}
+			mm={top.mm}
+			generator={pathGenerator}
+			stroke={top.year === 2022 ? 'var(--sandy-brown)' : 'var(--orange-soda)'}
+		/>
 	{/each}
 </g>
 
