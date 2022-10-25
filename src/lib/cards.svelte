@@ -16,7 +16,7 @@
 		font-weight: 300;
 		width: 40ch;
 		padding: 0.8em;
-		margin: 2em 0;
+		margin: 1em 0 20em;
 		opacity: 0;
 	}
 </style>
