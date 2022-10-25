@@ -32,7 +32,7 @@
 				const indexDay = i + 1;
 				return { date: new Date(date), day, month, year, mm, indexDay };
 			});
-			return data;
+			return data.filter((d) => d.mm > 0);
 		});
 	};
 
@@ -45,7 +45,8 @@
 	// 	});
 	// 	return data;
 	// });
-	let rainData2022 = getRainData2022($year2022);
+	const dataForCard1 = getRainData2022($year2022);
+	let rainData2022; //= getRainData2022($year2022);
 	console.log('rainData2022 :>> ', rainData2022);
 
 	const consecutiveRainyDays = $year2022?.map(
@@ -66,8 +67,8 @@
 		.range([margin.right + 45, width - margin.left - margin.right]);
 	//Month
 	const monthFormat = d3.timeFormat('%b');
-	const months = rainData2022?.map((d) => {
-		const firstDateOfTheMonth = d[0].date;
+	const months = dataForCard1?.map((d) => {
+		const firstDateOfTheMonth = d[0]?.date;
 		return monthFormat(startOfMonth(firstDateOfTheMonth));
 	});
 
@@ -79,7 +80,7 @@
 		.range([margin.top, height]);
 
 	//Fill
-	const mm = rainData2022?.flat(1).map((m) => m.mm);
+	const mm = dataForCard1?.flat(1).map((m) => m.mm);
 	const mmExtend = d3.extent(mm);
 	const fillScale = d3
 
@@ -94,17 +95,21 @@
 
 	// Filter functions
 	const getRainyDays = () => {
-		let data = rainData2022.map((d) => d.filter((a) => a.mm !== 0));
+		//let data = rainData2022.map((d) => d.filter((a) => a.mm !== 0));
+		let data = dataForCard1;
 		data = data.map((d) => {
 			return d.map((a, i) => {
 				return { ...a, indexDay: i + 1 };
 			});
 		});
-		rainData2022 = data;
+		//rainData2022 = data;
+		return data;
 	};
+	const dataForCard2 = getRainyDays();
+
 	const dateFormat = d3.timeFormat('%d.%b.%Y');
 	const getconsecutiveRainyDays = () => {
-		let data = rainData2022.map((month, i) => {
+		let data = dataForCard2.map((month, i) => {
 			const arrfilter = consecutiveRainyDays[i]?.map((date) => {
 				// console.log('date :>> ', date);
 				return date.map((d) => {
@@ -122,9 +127,10 @@
 				return { ...a, indexDay: i + 1 };
 			});
 		});
-		rainData2022 = data;
-		console.log('cosecutive :>> ', data);
+		return data;
 	};
+
+	const dataForCard3 = getconsecutiveRainyDays();
 
 	//Scroll Animations
 	gsap.registerPlugin(ScrollTrigger);
@@ -134,7 +140,7 @@
 	onMount(() => {
 		ScrollTrigger.defaults({
 			start: 'top 85%',
-			end: 'bottom 25%',
+			end: '70% 25%',
 			markers: { startColor: 'white', endColor: '#ff6347' },
 		});
 		const cardIndex1 = 0;
@@ -145,6 +151,7 @@
 					opacity: 1,
 					duration: 0.5,
 				});
+				rainData2022 = dataForCard1;
 				card1IsVisible = true;
 			},
 			onLeave: (self) => {
@@ -152,7 +159,7 @@
 					opacity: 0,
 					duration: 0.5,
 				});
-				// card1IsVisible = false;
+				//card1IsVisible = false;
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
@@ -160,7 +167,7 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				rainData2022 = getRainData2022($year2022);
+				rainData2022 = dataForCard1;
 			},
 		});
 
@@ -172,12 +179,21 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				getRainyDays();
+				rainData2022 = dataForCard2;
+				//getRainyDays();
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[cardIndex2], {
 					opacity: 0,
 				});
+			},
+			onEnterBack: (self) => {
+				card1IsVisible = true;
+				gsap.to($cardsStored[cardIndex2], {
+					opacity: 1,
+					duration: 0.5,
+				});
+				rainData2022 = dataForCard2;
 			},
 		});
 		const cardIndex3 = 2;
@@ -188,7 +204,7 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				getRainyDays();
+				rainData2022 = dataForCard3;
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[cardIndex3], {
