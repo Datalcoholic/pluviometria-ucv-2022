@@ -5,13 +5,23 @@
 	import { elasticIn, elasticOut } from 'svelte/easing';
 	import gsap from 'gsap';
 
-	export let monthScale, dayScale, fillScale, sizeScale, days, format;
+	export let monthScale,
+		dayScale,
+		fillScale,
+		sizeScale,
+		days,
+		format,
+		isTop,
+		topDays;
+
+	const [top1, top2, top3] = topDays.map((d) => d.date);
+	$: console.log('isTop :>> ', isTop, top1, top2, top3);
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
 	const h = 25;
 	const r = 2.2;
 
-	$: console.log('days :>> ', days);
+	// $: console.log('days :>> ', days);
 	function theScale(node, { delay = 0, duration = 400, easing = elasticIn }) {
 		return {
 			delay,
@@ -32,7 +42,13 @@
 			width={sizeScale(day.mm)}
 			height={sizeScale(day.mm)}
 			rx={r}
-			fill={day.mm !== 0 ? fillScale(day.mm) : 'var(--black-coral)'}
+			fill={(isTop && day.date === top1) ||
+			(isTop && day.date === top2) ||
+			(isTop && day.date === top3)
+				? fillScale(day.mm)
+				: isTop
+				? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 })
+				: fillScale(day.mm)}
 			stroke={d3.hsl(fillScale(day.mm)).darker(2)}
 			in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
 			out:fade|local={{ duration: 200 }}

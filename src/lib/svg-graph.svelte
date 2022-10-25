@@ -47,13 +47,21 @@
 	// });
 	const dataForCard1 = getRainData2022($year2022);
 	let rainData2022; //= getRainData2022($year2022);
+
+	// Top 3 rainy days 2022
+	let isTop3 = false;
+	const topRainyDays2022 = dataForCard1
+		.flat(1)
+		.sort((a, b) => b.mm - a.mm)
+		.splice(0, 3);
+	console.log('topRainyDays2022 :>> ', topRainyDays2022);
 	console.log('rainData2022 :>> ', rainData2022);
 
 	const consecutiveRainyDays = $year2022?.map(
 		(month) => month.consecutiveRainyDays.consecutiveRainyDays
 	);
 	console.log('$year2022 :>> ', $year2022);
-	console.log('consecutiveRainyDays :>> ', consecutiveRainyDays);
+	// console.log('consecutiveRainyDays :>> ', consecutiveRainyDays);
 	const margin = { top: 35, right: 20, bottom: 15, left: 15 };
 
 	// Scales
@@ -168,6 +176,7 @@
 					duration: 0.5,
 				});
 				rainData2022 = dataForCard1;
+				isTop3 = false;
 			},
 		});
 
@@ -179,13 +188,15 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				rainData2022 = dataForCard2;
+				//rainData2022 = dataForCard2;
+				isTop3 = true;
 				//getRainyDays();
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[cardIndex2], {
 					opacity: 0,
 				});
+				isTop3 = false;
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
@@ -193,7 +204,8 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				rainData2022 = dataForCard2;
+				rainData2022 = dataForCard1;
+				isTop3 = true;
 			},
 		});
 		const cardIndex3 = 2;
@@ -205,9 +217,34 @@
 					duration: 0.5,
 				});
 				rainData2022 = dataForCard3;
+				//getRainyDays();
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[cardIndex3], {
+					opacity: 0,
+				});
+			},
+			onEnterBack: (self) => {
+				card1IsVisible = true;
+				gsap.to($cardsStored[cardIndex3], {
+					opacity: 1,
+					duration: 0.5,
+				});
+				rainData2022 = dataForCard2;
+			},
+		});
+		const cardIndex4 = 2;
+		const card4 = ScrollTrigger.create({
+			trigger: $cardsStored[cardIndex4],
+			onEnter: (self) => {
+				gsap.to($cardsStored[cardIndex4], {
+					opacity: 1,
+					duration: 0.5,
+				});
+				rainData2022 = dataForCard3;
+			},
+			onLeave: () => {
+				gsap.to($cardsStored[cardIndex4], {
 					opacity: 0,
 				});
 			},
@@ -226,6 +263,8 @@
 		{sizeScale}
 		days={card1IsVisible ? rainData2022.flat(1) : []}
 		format={monthFormat}
+		topDays={topRainyDays2022}
+		isTop={isTop3}
 	/>
 </Svg>
 
