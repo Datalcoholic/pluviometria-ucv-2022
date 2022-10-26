@@ -1,13 +1,40 @@
 <script>
 	import * as d3 from 'd3';
+	import { onMount } from 'svelte';
+	import gsap from 'gsap';
 	export let rectCenter, generator, x, y, date, mm, stroke;
 
 	const labelFormatDate = d3.timeFormat('%d de %b del %Y');
 	let arcRef;
 	let dateTextRef;
+	let labelRef;
+
+	onMount(() => {
+		const arcs = Array.from(
+			labelRef.querySelectorAll(['path', '.date', '.mm'])
+		);
+		const tl = gsap.timeline();
+
+		tl.fromTo(
+			arcs[0],
+			{
+				strokeDashoffset: '0',
+				strokeDasharray: '0 100',
+			},
+			{
+				keyframes: {
+					'100%': { strokeDasharray: '100 0', strokeDashoffset: 0 },
+				},
+			}
+		)
+			.from(arcs[1], { y: -10, opacity: 0 })
+			.from(arcs[2], { y: -10, opacity: 0 }, '+=0.02');
+
+		console.log('arcs :>> ', arcs);
+	});
 </script>
 
-<g class="label">
+<g class="label" bind:this={labelRef}>
 	<path
 		bind:this={arcRef}
 		d={generator()}
