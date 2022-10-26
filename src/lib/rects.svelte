@@ -59,7 +59,13 @@
 				: isTop
 				? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 })
 				: fillScale(day.mm)}
-			stroke={d3.hsl(fillScale(day.mm)).darker(2)}
+			stroke={(isTop && day.date === top1) ||
+			(isTop && day.date === top2) ||
+			(isTop && day.date === top3)
+				? 'var(--sandy-brown-2)'
+				: isTop
+				? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 }).darker(2)
+				: d3.hsl(fillScale(day.mm)).darker(2)}
 			in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
 			out:fade|local={{ duration: 200 }}
 			animate:flip={{ duration: 850, easing: elasticOut }}
@@ -77,7 +83,9 @@
 				date={top.date}
 				mm={top.mm}
 				generator={pathGenerator}
-				stroke={top.year === 2022 ? 'var(--sandy-brown)' : 'var(--orange-soda)'}
+				stroke={top.year === 2022
+					? 'var(--sandy-brown-2)'
+					: 'var(--orange-soda)'}
 			/>
 		{/each}
 	{/if}
