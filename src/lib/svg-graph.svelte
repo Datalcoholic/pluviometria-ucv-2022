@@ -199,6 +199,7 @@
 					opacity: 0,
 				});
 				isTop3 = false;
+				isAnnotation = false;
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
@@ -208,6 +209,10 @@
 				});
 				rainData2022 = dataForCard1;
 				isTop3 = true;
+				isAnnotation = true;
+			},
+			onLeaveBack: (self) => {
+				isAnnotation = false;
 			},
 		});
 		const cardIndex3 = 2;
