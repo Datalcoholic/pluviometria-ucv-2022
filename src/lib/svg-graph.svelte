@@ -147,6 +147,7 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	let card1IsVisible = false;
+	let card3IsVisible = false;
 	let isAnnotation = false;
 
 	onMount(() => {
@@ -226,7 +227,8 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				rainData2022 = dataForCard3;
+				card3IsVisible = true;
+				//rainData2022 = dataForCard3;
 				//getRainyDays();
 			},
 			onLeave: () => {
@@ -240,25 +242,25 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				rainData2022 = dataForCard2;
+				//rainData2022 = dataForCard2;
 			},
 		});
-		const cardIndex4 = 2;
-		const card4 = ScrollTrigger.create({
-			trigger: $cardsStored[cardIndex4],
-			onEnter: (self) => {
-				gsap.to($cardsStored[cardIndex4], {
-					opacity: 1,
-					duration: 0.5,
-				});
-				rainData2022 = dataForCard3;
-			},
-			onLeave: () => {
-				gsap.to($cardsStored[cardIndex4], {
-					opacity: 0,
-				});
-			},
-		});
+		// const cardIndex4 = 2;
+		// const card4 = ScrollTrigger.create({
+		// 	trigger: $cardsStored[cardIndex4],
+		// 	onEnter: (self) => {
+		// 		gsap.to($cardsStored[cardIndex4], {
+		// 			opacity: 1,
+		// 			duration: 0.5,
+		// 		});
+		// 		rainData2022 = dataForCard3;
+		// 	},
+		// 	onLeave: () => {
+		// 		gsap.to($cardsStored[cardIndex4], {
+		// 			opacity: 0,
+		// 		});
+		// 	},
+		// });
 	});
 </script>
 
@@ -266,19 +268,21 @@
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
+	{#if card3IsVisible}
+		<Rects
+			{monthScale}
+			{dayScale}
+			{fillScale}
+			{sizeScale}
+			days={card1IsVisible ? top3PrevYears : []}
+			format={monthFormat}
+			topDays={topRainyDays2022}
+			isTop={isTop3}
+			{isAnnotation}
+			period={1900}
+		/>
+	{/if}
 
-	<Rects
-		{monthScale}
-		{dayScale}
-		{fillScale}
-		{sizeScale}
-		days={card1IsVisible ? top3PrevYears : []}
-		format={monthFormat}
-		topDays={topRainyDays2022}
-		isTop={isTop3}
-		{isAnnotation}
-		period={1900}
-	/>
 	<Rects
 		{monthScale}
 		{dayScale}
