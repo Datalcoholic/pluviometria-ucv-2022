@@ -2,12 +2,44 @@
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 	import gsap from 'gsap';
-	export let rectCenter, generator, x, y, date, mm, stroke;
+	export let rectCenter, typeGenerator, x, y, date, mm, stroke;
+
+	//TODO:
+	// Buscar la manera que pathGeneretor pueda tomar la referencia del texto
+	// Falta crear los path para la izquierda
+	// actualizar eñ texto de la carta 3
+
+	function pathGenerator(type = 'top-right', ref) {
+		const path = d3.path();
+		let style;
+
+		if (type === 'top-right') {
+			path.moveTo(0, 0);
+			path.arcTo(0, -65, 150, -60, 50);
+			style = `translate:${x + rectCenter - 1.5}px ${y - rectCenter}px`;
+		}
+
+		if (type === 'bottom-right') {
+			path.moveTo(0, 0);
+			path.arcTo(0, 65, 150, 60, 50);
+			style = `translate:${x + rectCenter - 1.5}px ${y + rectCenter}px`;
+		}
+		if (type === 'top-left') {
+			path.moveTo(0, 0);
+			path.arcTo(0, 65, 150, 60, 50);
+		}
+		if (type === 'bottom-left') {
+			path.moveTo(0, 0);
+			path.arcTo(0, 65, 150, 60, 50);
+		}
+		return { path: path.toString(), style };
+	}
 
 	const labelFormatDate = d3.timeFormat('%d de %b del %Y');
 	let arcRef;
 	let dateTextRef;
 	let labelRef;
+	const { path, style } = pathGenerator(typeGenerator, arcRef);
 
 	onMount(() => {
 		const arcs = Array.from(
@@ -29,19 +61,11 @@
 		)
 			.from(arcs[1], { y: -10, opacity: 0 })
 			.from(arcs[2], { y: -10, opacity: 0 }, '+=0.02');
-
-		console.log('arcs :>> ', arcs);
 	});
 </script>
 
 <g class="label" bind:this={labelRef}>
-	<path
-		bind:this={arcRef}
-		d={generator()}
-		fill="none"
-		style="translate:{x + rectCenter - 1.5}px {y - rectCenter}px"
-		{stroke}
-	/>
+	<path bind:this={arcRef} d={path} fill="none" {style} {stroke} />
 	<text
 		class="date"
 		bind:this={dateTextRef}
