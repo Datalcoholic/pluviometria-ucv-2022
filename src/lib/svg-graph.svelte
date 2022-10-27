@@ -266,17 +266,7 @@
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
-	<Rects
-		{monthScale}
-		{dayScale}
-		{fillScale}
-		{sizeScale}
-		days={card1IsVisible ? rainData2022.flat(1) : []}
-		format={monthFormat}
-		topDays={topRainyDays2022}
-		isTop={isTop3}
-		{isAnnotation}
-	/>
+
 	<Rects
 		{monthScale}
 		{dayScale}
@@ -288,6 +278,17 @@
 		isTop={isTop3}
 		{isAnnotation}
 		period={1900}
+	/>
+	<Rects
+		{monthScale}
+		{dayScale}
+		{fillScale}
+		{sizeScale}
+		days={card1IsVisible ? rainData2022.flat(1) : []}
+		format={monthFormat}
+		topDays={topRainyDays2022}
+		isTop={isTop3}
+		{isAnnotation}
 	/>
 </Svg>
 
