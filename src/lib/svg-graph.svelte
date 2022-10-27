@@ -83,7 +83,6 @@
 		}
 		return monthFormat(startOfMonth(firstDateOfTheMonth));
 	});
-	console.log('months :>> ', months);
 
 	$: monthScale = d3
 		.scaleBand()
@@ -288,6 +287,7 @@
 		topDays={topRainyDays2022}
 		isTop={isTop3}
 		{isAnnotation}
+		period={1900}
 	/>
 </Svg>
 

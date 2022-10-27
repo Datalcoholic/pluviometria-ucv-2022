@@ -16,6 +16,8 @@
 		topDays,
 		isAnnotation;
 
+	export let period = 2022;
+
 	const [top1, top2, top3] = topDays.map((d) => d.date);
 	//$: console.log('isTop :>> ', isTop, top1, top2, top3);
 	const dayFormat = d3.timeFormat('%e');
@@ -45,33 +47,66 @@
 </script>
 
 <g class="rects">
-	{#each days as day, i (`${day.year}_${day.month}_${day.day}`)}
-		<rect
-			x={dayScale(day.indexDay) - sizeScale(day.mm) / 2}
-			y={monthScale(format(day.date)) - sizeScale(day.mm) / 2}
-			width={sizeScale(day.mm)}
-			height={sizeScale(day.mm)}
-			rx={r}
-			fill={(isTop && day.date === top1) ||
-			(isTop && day.date === top2) ||
-			(isTop && day.date === top3)
-				? fillScale(day.mm)
-				: isTop
-				? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 })
-				: fillScale(day.mm)}
-			stroke={(isTop && day.date === top1) ||
-			(isTop && day.date === top2) ||
-			(isTop && day.date === top3)
-				? 'var(--sandy-brown-2)'
-				: isTop
-				? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 }).darker(2)
-				: d3.hsl(fillScale(day.mm)).darker(2)}
-			in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
-			out:fade|local={{ duration: 200 }}
-			animate:flip={{ duration: 850, easing: elasticOut }}
-			>{dayFormat(day.date)}
-		</rect>
-	{/each}
+	<defs>
+		<pattern id="line" viewBox="0, 0 ,60 ,18" width="60%" height="18%">
+			<line
+				class="pattern-line"
+				x1="0"
+				y1="0"
+				x2="200"
+				y2="0"
+				stroke="var(--indigo-dye-3)"
+			/>
+			<!-- <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2" /> -->
+		</pattern>
+	</defs>
+
+	{#if period === 2022}
+		{#each days as day, i (`${day.year}_${day.month}_${day.day}`)}
+			<rect
+				x={dayScale(day.indexDay) - sizeScale(day.mm) / 2}
+				y={monthScale(format(day.date)) - sizeScale(day.mm) / 2}
+				width={sizeScale(day.mm)}
+				height={sizeScale(day.mm)}
+				rx={r}
+				fill={(isTop && day.date === top1) ||
+				(isTop && day.date === top2) ||
+				(isTop && day.date === top3)
+					? fillScale(day.mm)
+					: isTop
+					? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 })
+					: fillScale(day.mm)}
+				stroke={(isTop && day.date === top1) ||
+				(isTop && day.date === top2) ||
+				(isTop && day.date === top3)
+					? 'var(--sandy-brown-2)'
+					: isTop
+					? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 }).darker(2)
+					: d3.hsl(fillScale(day.mm)).darker(2)}
+				in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
+				out:fade|local={{ duration: 200 }}
+				animate:flip={{ duration: 850, easing: elasticOut }}
+				>{dayFormat(day.date)}
+			</rect>
+		{/each}
+	{:else}
+		{#each days as day, i (`${day.year}_${day.month}_${day.day}`)}
+			<rect
+				x={dayScale(day.indexDay) - sizeScale(day.mm) / 2}
+				y={monthScale(format(day.date)) - sizeScale(day.mm) / 2}
+				width={sizeScale(day.mm)}
+				height={sizeScale(day.mm)}
+				rx={r}
+				fill="url(#line)"
+				stroke="var(--indigo-dye-3)"
+				in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
+				out:fade|local={{ duration: 200 }}
+				animate:flip={{ duration: 850, easing: elasticOut }}
+				>{dayFormat(day.date)}
+			</rect>
+		{/each}
+		<!-- else content here -->
+	{/if}
 
 	{#if isAnnotation}
 		<g class="labels" />
@@ -96,5 +131,11 @@
 		stroke: var(--black-coral-1);
 		stroke-width: 2px;
 		paint-order: stroke;
+	}
+	#line {
+		transform: rotate(45deg);
+	}
+	.pattern-line {
+		stroke-width: 20px;
 	}
 </style>
