@@ -120,7 +120,7 @@
 				generator={pathGenerator}
 				stroke={top.year === 2022
 					? 'var(--sandy-brown-2)'
-					: 'var(--orange-soda)'}
+					: 'var(--indigo-dye-3)'}
 			/>
 		{/each}
 	{/if}
