@@ -50,7 +50,7 @@
 		.sort((a, b) => b.mm - a.mm)
 		.splice(0, 3);
 
-	topRainyDays2022 = topRainyDays2022.concat(top3PrevYears);
+	// topRainyDays2022 = topRainyDays2022.concat(top3PrevYears);
 	console.log('topRainyDays2022 :>> ', topRainyDays2022);
 	console.log('rainData2022 :>> ', rainData2022);
 
@@ -147,6 +147,7 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	let card1IsVisible = false;
+	let card2IsVisible = false;
 	let card3IsVisible = false;
 	let isAnnotation = false;
 
@@ -193,17 +194,13 @@
 					opacity: 1,
 					duration: 0.5,
 				});
-				//rainData2022 = dataForCard2;
-				isTop3 = true;
-				isAnnotation = true;
-				//getRainyDays();
+				card2IsVisible = true;
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[cardIndex2], {
 					opacity: 0,
 				});
-				isTop3 = false;
-				isAnnotation = false;
+				card2IsVisible = false;
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
@@ -212,11 +209,10 @@
 					duration: 0.5,
 				});
 				rainData2022 = dataForCard1;
-				isTop3 = true;
-				isAnnotation = true;
+				card2IsVisible = true;
 			},
 			onLeaveBack: (self) => {
-				isAnnotation = false;
+				card2IsVisible = false;
 			},
 		});
 		const cardIndex3 = 2;
@@ -235,6 +231,7 @@
 				gsap.to($cardsStored[cardIndex3], {
 					opacity: 0,
 				});
+				card3IsVisible = false;
 			},
 			onEnterBack: (self) => {
 				card1IsVisible = true;
@@ -242,7 +239,15 @@
 					opacity: 1,
 					duration: 0.5,
 				});
+				card3IsVisible = true;
 				//rainData2022 = dataForCard2;
+			},
+			onLeaveBack: (self) => {
+				gsap.to($cardsStored[cardIndex3], {
+					opacity: 0,
+					duration: 0.5,
+				});
+				card3IsVisible = false;
 			},
 		});
 		// const cardIndex4 = 2;
@@ -276,9 +281,9 @@
 			{sizeScale}
 			days={card1IsVisible ? top3PrevYears : []}
 			format={monthFormat}
-			topDays={topRainyDays2022}
+			topDays={top3PrevYears}
 			isTop={isTop3}
-			{isAnnotation}
+			isAnnotation={card3IsVisible}
 			period={1900}
 		/>
 	{/if}
@@ -292,7 +297,7 @@
 		format={monthFormat}
 		topDays={topRainyDays2022}
 		isTop={isTop3}
-		{isAnnotation}
+		isAnnotation={card2IsVisible}
 	/>
 </Svg>
 
