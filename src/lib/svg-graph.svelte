@@ -2,7 +2,7 @@
 	import Svg from './svg.svelte';
 	import { startOfMonth } from 'date-fns';
 	import { svgContainerSize, localeEs, cardsStored } from '../stores/appStores';
-	import { year2022 } from '../stores/dataStore';
+	import { year2022, prevYears } from '../stores/dataStore';
 	import * as d3 from 'd3';
 	import gsap from 'gsap';
 	import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -36,24 +36,21 @@
 		});
 	};
 
-	// let rainData2022 = $year2022?.map((d) => {
-	// 	let data = d.monthlyData;
-	// 	data = data.map((d, i) => {
-	// 		let { date, day, month, year, mm } = d;
-	// 		const indexDay = i + 1;
-	// 		return { date: new Date(date), day, month, year, mm, indexDay };
-	// 	});
-	// 	return data;
-	// });
 	const dataForCard1 = getRainData2022($year2022);
 	let rainData2022; //= getRainData2022($year2022);
 
 	// Top 3 rainy days 2022
+	const top3PrevYears = $prevYears.maxRainyDay.map((d) => {
+		const { date, day, month, year, mm } = d;
+		return { date: new Date(date), day, indexDay: day, month, year, mm };
+	});
 	let isTop3 = false;
-	const topRainyDays2022 = dataForCard1
+	let topRainyDays2022 = dataForCard1
 		.flat(1)
 		.sort((a, b) => b.mm - a.mm)
 		.splice(0, 3);
+
+	topRainyDays2022 = topRainyDays2022.concat(top3PrevYears);
 	console.log('topRainyDays2022 :>> ', topRainyDays2022);
 	console.log('rainData2022 :>> ', rainData2022);
 
@@ -75,10 +72,18 @@
 		.range([margin.right + 45, width - margin.left - margin.right]);
 	//Month
 	const monthFormat = d3.timeFormat('%b');
-	const months = dataForCard1?.map((d) => {
-		const firstDateOfTheMonth = d[0]?.date;
+	const months = dataForCard1?.map((d, i) => {
+		let firstDateOfTheMonth;
+		if (i + 1 === 11) {
+			firstDateOfTheMonth = new Date('2022/11/01');
+		} else if (i + 1 === 12) {
+			firstDateOfTheMonth = new Date('01/12/2022');
+		} else {
+			firstDateOfTheMonth = d[0]?.date;
+		}
 		return monthFormat(startOfMonth(firstDateOfTheMonth));
 	});
+	console.log('months :>> ', months);
 
 	$: monthScale = d3
 		.scaleBand()
@@ -91,7 +96,6 @@
 	const mm = dataForCard1?.flat(1).map((m) => m.mm);
 	const mmExtend = d3.extent(mm);
 	const fillScale = d3
-
 		.scaleLinear()
 		.domain(mmExtend)
 		.range([palette.indigoDye1, palette.indigoDye2])
@@ -99,7 +103,7 @@
 
 	// Size
 
-	const sizeScale = d3.scaleSqrt().domain(mmExtend).range([0, 25]);
+	const sizeScale = d3.scaleSqrt().domain([mmExtend[0], 105]).range([0, 35]);
 
 	// Filter functions
 	const getRainyDays = () => {
@@ -269,6 +273,17 @@
 		{fillScale}
 		{sizeScale}
 		days={card1IsVisible ? rainData2022.flat(1) : []}
+		format={monthFormat}
+		topDays={topRainyDays2022}
+		isTop={isTop3}
+		{isAnnotation}
+	/>
+	<Rects
+		{monthScale}
+		{dayScale}
+		{fillScale}
+		{sizeScale}
+		days={card1IsVisible ? top3PrevYears : []}
 		format={monthFormat}
 		topDays={topRainyDays2022}
 		isTop={isTop3}
