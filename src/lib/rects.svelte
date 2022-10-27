@@ -12,8 +12,7 @@
 		sizeScale,
 		days,
 		format,
-		isTop,
-		topDays,
+		topDays, // days to labels
 		isAnnotation;
 
 	export let period = 2022;
@@ -35,14 +34,6 @@
 				return `scale:${eased}`;
 			},
 		};
-	}
-
-	function pathGenerator(params) {
-		const path = d3.path();
-		path.moveTo(0, 0);
-		path.arcTo(0, -65, 150, -60, 50);
-		//path.lineTo(200, -80);
-		return path.toString();
 	}
 </script>
 
@@ -69,18 +60,18 @@
 				width={sizeScale(day.mm)}
 				height={sizeScale(day.mm)}
 				rx={r}
-				fill={(isTop && day.date === top1) ||
-				(isTop && day.date === top2) ||
-				(isTop && day.date === top3)
+				fill={(isAnnotation && day.date === top1) ||
+				(isAnnotation && day.date === top2) ||
+				(isAnnotation && day.date === top3)
 					? fillScale(day.mm)
-					: isTop
+					: isAnnotation
 					? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 })
 					: fillScale(day.mm)}
-				stroke={(isTop && day.date === top1) ||
-				(isTop && day.date === top2) ||
-				(isTop && day.date === top3)
+				stroke={(isAnnotation && day.date === top1) ||
+				(isAnnotation && day.date === top2) ||
+				(isAnnotation && day.date === top3)
 					? 'var(--sandy-brown-2)'
-					: isTop
+					: isAnnotation
 					? d3.hsl(fillScale(day.mm)).copy({ opacity: 0.4 }).darker(2)
 					: d3.hsl(fillScale(day.mm)).darker(2)}
 				in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
@@ -89,6 +80,20 @@
 				>{dayFormat(day.date)}
 			</rect>
 		{/each}
+		{#if isAnnotation}
+			<g class="labels" />
+			{#each topDays as top}
+				<Annotations
+					rectCenter={sizeScale(top.mm) / 2}
+					x={dayScale(top.indexDay)}
+					y={monthScale(format(top.date))}
+					date={top.date}
+					mm={top.mm}
+					typeGenerator={'bottom-right'}
+					stroke={'var(--sandy-brown-2)'}
+				/>
+			{/each}
+		{/if}
 	{:else}
 		{#each days as day, i (`${day.year}_${day.month}_${day.day}`)}
 			<rect
@@ -105,24 +110,20 @@
 				>{dayFormat(day.date)}
 			</rect>
 		{/each}
-		<!-- else content here -->
-	{/if}
-
-	{#if isAnnotation}
-		<g class="labels" />
-		{#each topDays as top}
-			<Annotations
-				rectCenter={sizeScale(top.mm) / 2}
-				x={dayScale(top.indexDay)}
-				y={monthScale(format(top.date))}
-				date={top.date}
-				mm={top.mm}
-				generator={pathGenerator}
-				stroke={top.year === 2022
-					? 'var(--sandy-brown-2)'
-					: 'var(--indigo-dye-3)'}
-			/>
-		{/each}
+		{#if isAnnotation}
+			<g class="labels" />
+			{#each topDays as top}
+				<Annotations
+					rectCenter={sizeScale(top.mm) / 2}
+					x={dayScale(top.indexDay)}
+					y={monthScale(format(top.date))}
+					date={top.date}
+					mm={top.mm}
+					typeGenerator={'top-right'}
+					stroke={'var(--indigo-dye-3)'}
+				/>
+			{/each}
+		{/if}
 	{/if}
 </g>
 
