@@ -1,0 +1,125 @@
+{
+  "maxRainyDay": [
+    {
+      "date": "2008-11-17T04:30:00.000Z",
+      "day": 17,
+      "month": 11,
+      "year": 2008,
+      "mm": 105
+    },
+    {
+      "date": "1994-10-22T04:00:00.000Z",
+      "day": 22,
+      "month": 10,
+      "year": 1994,
+      "mm": 94
+    },
+    {
+      "date": "2020-09-02T04:00:00.000Z",
+      "day": 2,
+      "month": 9,
+      "year": 2020,
+      "mm": 85.8
+    }
+  ],
+  "rainyDaysMean": [
+    {
+      "month": 1,
+      "monthMean": 5.541666666666667
+    },
+    {
+      "month": 2,
+      "monthMean": 3.9130434782608696
+    },
+    {
+      "month": 3,
+      "monthMean": 4.102564102564102
+    },
+    {
+      "month": 4,
+      "monthMean": 6.02
+    },
+    {
+      "month": 5,
+      "monthMean": 11.39622641509434
+    },
+    {
+      "month": 6,
+      "monthMean": 14.60377358490566
+    },
+    {
+      "month": 7,
+      "monthMean": 15.056603773584905
+    },
+    {
+      "month": 8,
+      "monthMean": 15.226415094339623
+    },
+    {
+      "month": 9,
+      "monthMean": 13.018867924528301
+    },
+    {
+      "month": 10,
+      "monthMean": 14.358490566037736
+    },
+    {
+      "month": 12,
+      "monthMean": 8.313725490196079
+    },
+    {
+      "month": 11,
+      "monthMean": 12.686274509803921
+    }
+  ],
+  "consecutiveMean": [
+    {
+      "month": 1,
+      "monthMean": 3.1666666666666665
+    },
+    {
+      "month": 2,
+      "monthMean": 2.260869565217391
+    },
+    {
+      "month": 3,
+      "monthMean": 2.3333333333333335
+    },
+    {
+      "month": 4,
+      "monthMean": 4.26
+    },
+    {
+      "month": 5,
+      "monthMean": 8.773584905660377
+    },
+    {
+      "month": 6,
+      "monthMean": 11.754716981132075
+    },
+    {
+      "month": 7,
+      "monthMean": 12.169811320754716
+    },
+    {
+      "month": 8,
+      "monthMean": 12.09433962264151
+    },
+    {
+      "month": 9,
+      "monthMean": 9.716981132075471
+    },
+    {
+      "month": 10,
+      "monthMean": 10.943396226415095
+    },
+    {
+      "month": 12,
+      "monthMean": 5.764705882352941
+    },
+    {
+      "month": 11,
+      "monthMean": 9.764705882352942
+    }
+  ]
+}
