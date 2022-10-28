@@ -295,6 +295,16 @@
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
+	<Rects
+		{monthScale}
+		{dayScale}
+		{fillScale}
+		{sizeScale}
+		days={card1IsVisible ? rainData2022.flat(1) : []}
+		format={monthFormat}
+		topDays={topRainyDays2022}
+		isAnnotation={card2IsVisible}
+	/>
 	{#if card3IsVisible}
 		<Rects
 			{monthScale}
@@ -308,17 +318,6 @@
 			period={1900}
 		/>
 	{/if}
-
-	<Rects
-		{monthScale}
-		{dayScale}
-		{fillScale}
-		{sizeScale}
-		days={card1IsVisible ? rainData2022.flat(1) : []}
-		format={monthFormat}
-		topDays={topRainyDays2022}
-		isAnnotation={card2IsVisible}
-	/>
 </Svg>
 
 <style>
