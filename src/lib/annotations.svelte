@@ -9,20 +9,35 @@
 	// Falta crear los path para la izquierda
 	// actualizar eñ texto de la carta 3
 
-	function pathGenerator(type = 'top-right', ref) {
+	let pathWidth;
+	let pathHeight;
+
+	function getNodePath(node) {
+		pathWidth = node.getBBox().width;
+		pathHeight = node.getBBox().height;
+	}
+
+	$: console.log('pathHeight :>> ', pathHeight);
+	function pathGenerator(type = 'top-right', pX, pY) {
 		const path = d3.path();
 		let style;
+		let pathX;
+		let pathY;
 
 		if (type === 'top-right') {
 			path.moveTo(0, 0);
 			path.arcTo(0, -65, 150, -60, 50);
 			style = `translate:${x + rectCenter - 1.5}px ${y - rectCenter}px`;
+			pathX = pX + x + 15;
+			pathY = y - pY;
 		}
 
 		if (type === 'bottom-right') {
 			path.moveTo(0, 0);
 			path.arcTo(0, 65, 150, 60, 50);
 			style = `translate:${x + rectCenter - 1.5}px ${y + rectCenter}px`;
+			pathX = pX + x + 15; //arcRef?.getBBox().width + x + 15
+			pathY = y + pY + 15;
 		}
 		if (type === 'top-left') {
 			path.moveTo(0, 0);
@@ -32,15 +47,16 @@
 			path.moveTo(0, 0);
 			path.arcTo(0, 65, 150, 60, 50);
 		}
-		return { path: path.toString(), style };
+		return { path: path.toString(), style, pathX, pathY };
 	}
 
 	const labelFormatDate = d3.timeFormat('%d de %b del %Y');
 	let arcRef;
 	let dateTextRef;
 	let labelRef;
-	const { path, style } = pathGenerator(typeGenerator, arcRef);
-
+	const { path, style } = pathGenerator(typeGenerator);
+	$: pathX = pathGenerator(typeGenerator, pathWidth).pathX;
+	$: pathY = pathGenerator(typeGenerator, pathWidth, pathHeight).pathY;
 	onMount(() => {
 		const arcs = Array.from(
 			labelRef.querySelectorAll(['path', '.date', '.mm'])
@@ -65,19 +81,20 @@
 </script>
 
 <g class="label" bind:this={labelRef}>
-	<path bind:this={arcRef} d={path} fill="none" {style} {stroke} />
-	<text
-		class="date"
-		bind:this={dateTextRef}
-		x={arcRef?.getBBox().width + x + 15}
-		y={y - arcRef?.getBBox().height}
-		fill={stroke}
-	>
+	<path
+		bind:this={arcRef}
+		d={path}
+		fill="none"
+		{style}
+		{stroke}
+		use:getNodePath
+	/>
+	<text class="date" bind:this={dateTextRef} x={pathX} y={pathY} fill={stroke}>
 		{labelFormatDate(date)}
 	</text>
 	<text
 		class="mm"
-		x={arcRef?.getBBox().width + x + 15}
+		x={pathX}
 		y={dateTextRef?.getBBox().height - arcRef?.getBBox().height + y + 8}
 		fill={stroke}
 	>
