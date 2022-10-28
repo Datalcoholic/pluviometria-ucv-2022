@@ -40,15 +40,37 @@
 	let rainData2022; //= getRainData2022($year2022);
 
 	// Top 3 rainy days 2022
-	const top3PrevYears = $prevYears.maxRainyDay.map((d) => {
+	const top3PrevYears = $prevYears.maxRainyDay.map((d, i) => {
 		const { date, day, month, year, mm } = d;
-		return { date: new Date(date), day, indexDay: day, month, year, mm };
+		const position = i === 1 || i === 2 ? 'top-right' : 'top-left';
+		return {
+			date: new Date(date),
+			day,
+			indexDay: day,
+			month,
+			year,
+			mm,
+			position,
+		};
 	});
 	let isTop3 = false;
 	let topRainyDays2022 = dataForCard1
 		.flat(1)
 		.sort((a, b) => b.mm - a.mm)
-		.splice(0, 3);
+		.splice(0, 3)
+		.map((d, i) => {
+			const { date, day, indexDay, month, year, mm } = d;
+			const position = i === 0 || i === 1 ? 'top-left' : 'bottom-left';
+			return {
+				date,
+				day,
+				indexDay,
+				month,
+				year,
+				mm,
+				position,
+			};
+		});
 
 	// topRainyDays2022 = topRainyDays2022.concat(top3PrevYears);
 	console.log('topRainyDays2022 :>> ', topRainyDays2022);
