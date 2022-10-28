@@ -55,7 +55,11 @@
 		}
 		if (type === 'bottom-left') {
 			path.moveTo(0, 0);
-			path.arcTo(0, 65, 150, 60, 50);
+			path.arcTo(0, 180, -150, -60, 50);
+			style = `translate:${x - rectCenter + 1.5}px ${y + rectCenter}px`;
+			pathX = x - pX - 15;
+			pathY = y + pY;
+			dateY = dH + pY + y + 8;
 		}
 		return { path: path.toString(), style, pathX, pathY, dateY };
 	}
@@ -137,7 +141,8 @@
 		stroke-width: 3px;
 		paint-order: stroke;
 	}
-	#top-left {
+	#top-left,
+	#bottom-left {
 		text-anchor: end;
 	}
 </style>
