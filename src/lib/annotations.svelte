@@ -11,18 +11,22 @@
 
 	let pathWidth;
 	let pathHeight;
+	let DateNodeHeight;
 
 	function getNodePath(node) {
 		pathWidth = node.getBBox().width;
 		pathHeight = node.getBBox().height;
 	}
-
+	function getDateNodeDimension(node) {
+		DateNodeHeight = node.getBBox().height;
+	}
 	$: console.log('pathHeight :>> ', pathHeight);
-	function pathGenerator(type = 'top-right', pX, pY) {
+	function pathGenerator(type = 'top-right', pX, pY, dH) {
 		const path = d3.path();
 		let style;
 		let pathX;
 		let pathY;
+		let dateY;
 
 		if (type === 'top-right') {
 			path.moveTo(0, 0);
@@ -30,6 +34,7 @@
 			style = `translate:${x + rectCenter - 1.5}px ${y - rectCenter}px`;
 			pathX = pX + x + 15;
 			pathY = y - pY;
+			dateY = dH - pY + y + 8; //dateTextRef?.getBBox().height - arcRef?.getBBox().height + y + 8
 		}
 
 		if (type === 'bottom-right') {
@@ -38,6 +43,7 @@
 			style = `translate:${x + rectCenter - 1.5}px ${y + rectCenter}px`;
 			pathX = pX + x + 15; //arcRef?.getBBox().width + x + 15
 			pathY = y + pY + 15;
+			dateY = dH + pY + y + 20;
 		}
 		if (type === 'top-left') {
 			path.moveTo(0, 0);
@@ -47,7 +53,7 @@
 			path.moveTo(0, 0);
 			path.arcTo(0, 65, 150, 60, 50);
 		}
-		return { path: path.toString(), style, pathX, pathY };
+		return { path: path.toString(), style, pathX, pathY, dateY };
 	}
 
 	const labelFormatDate = d3.timeFormat('%d de %b del %Y');
@@ -57,6 +63,12 @@
 	const { path, style } = pathGenerator(typeGenerator);
 	$: pathX = pathGenerator(typeGenerator, pathWidth).pathX;
 	$: pathY = pathGenerator(typeGenerator, pathWidth, pathHeight).pathY;
+	$: dateY = pathGenerator(
+		typeGenerator,
+		pathWidth,
+		pathHeight,
+		DateNodeHeight
+	).dateY;
 	onMount(() => {
 		const arcs = Array.from(
 			labelRef.querySelectorAll(['path', '.date', '.mm'])
@@ -89,15 +101,17 @@
 		{stroke}
 		use:getNodePath
 	/>
-	<text class="date" bind:this={dateTextRef} x={pathX} y={pathY} fill={stroke}>
+	<text
+		class="date"
+		bind:this={dateTextRef}
+		x={pathX}
+		y={pathY}
+		fill={stroke}
+		use:getDateNodeDimension
+	>
 		{labelFormatDate(date)}
 	</text>
-	<text
-		class="mm"
-		x={pathX}
-		y={dateTextRef?.getBBox().height - arcRef?.getBBox().height + y + 8}
-		fill={stroke}
-	>
+	<text class="mm" x={pathX} y={dateY} fill={stroke}>
 		{`${mm} mm`}
 	</text>
 </g>
