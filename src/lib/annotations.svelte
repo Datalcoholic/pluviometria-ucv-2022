@@ -65,8 +65,6 @@
 	}
 
 	const labelFormatDate = d3.timeFormat('%d de %b del %Y');
-	let arcRef;
-	let dateTextRef;
 	let labelRef;
 	const { path, style } = pathGenerator(position);
 	$: pathX = pathGenerator(position, pathNodeWidth).pathX;
@@ -101,22 +99,8 @@
 </script>
 
 <g class="label" bind:this={labelRef} id={position}>
-	<path
-		bind:this={arcRef}
-		d={path}
-		fill="none"
-		{style}
-		{stroke}
-		use:getPathNodeDimensions
-	/>
-	<text
-		class="date"
-		bind:this={dateTextRef}
-		x={pathX}
-		y={pathY}
-		fill={stroke}
-		use:getDateNodeDimension
-	>
+	<path d={path} fill="none" {style} {stroke} use:getPathNodeDimensions />
+	<text class="date" x={pathX} y={pathY} fill={stroke} use:getDateNodeDimension>
 		{labelFormatDate(date)}
 	</text>
 	<text class="mm" x={pathX} y={dateY} fill={stroke}>
