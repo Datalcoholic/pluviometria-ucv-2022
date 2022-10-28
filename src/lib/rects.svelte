@@ -89,7 +89,7 @@
 					y={monthScale(format(top.date))}
 					date={top.date}
 					mm={top.mm}
-					typeGenerator={'bottom-right'}
+					position={'top-left'}
 					stroke={'var(--sandy-brown-2)'}
 				/>
 			{/each}

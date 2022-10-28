@@ -2,7 +2,7 @@
 	import * as d3 from 'd3';
 	import { onMount } from 'svelte';
 	import gsap from 'gsap';
-	export let rectCenter, typeGenerator, x, y, date, mm, stroke;
+	export let rectCenter, position, x, y, date, mm, stroke;
 
 	//TODO:
 	// Buscar la manera que pathGeneretor pueda tomar la referencia del texto
@@ -47,7 +47,11 @@
 		}
 		if (type === 'top-left') {
 			path.moveTo(0, 0);
-			path.arcTo(0, 65, 150, 60, 50);
+			path.arcTo(0, -65, -20, -60, 50);
+			style = `translate:${x - rectCenter + 1.5}px ${y - rectCenter}px`;
+			pathX = x - pX - 15;
+			pathY = y - pY;
+			dateY = dH - pY + y + 8;
 		}
 		if (type === 'bottom-left') {
 			path.moveTo(0, 0);
@@ -60,11 +64,11 @@
 	let arcRef;
 	let dateTextRef;
 	let labelRef;
-	const { path, style } = pathGenerator(typeGenerator);
-	$: pathX = pathGenerator(typeGenerator, pathNodeWidth).pathX;
-	$: pathY = pathGenerator(typeGenerator, pathNodeWidth, pathNodeHeight).pathY;
+	const { path, style } = pathGenerator(position);
+	$: pathX = pathGenerator(position, pathNodeWidth).pathX;
+	$: pathY = pathGenerator(position, pathNodeWidth, pathNodeHeight).pathY;
 	$: dateY = pathGenerator(
-		typeGenerator,
+		position,
 		pathNodeWidth,
 		pathNodeHeight,
 		DateNodeHeight
@@ -92,7 +96,7 @@
 	});
 </script>
 
-<g class="label" bind:this={labelRef}>
+<g class="label" bind:this={labelRef} id={position}>
 	<path
 		bind:this={arcRef}
 		d={path}
@@ -132,5 +136,8 @@
 		stroke: var(--black-coral);
 		stroke-width: 3px;
 		paint-order: stroke;
+	}
+	#top-left {
+		text-anchor: end;
 	}
 </style>
