@@ -15,7 +15,7 @@
 		},
 		{
 			name: 'card-3',
-			text: 'En la cual tenemos que los meses que presentan la mayor cantidad de  días con lluvias son Junio con un total de “ “ días, Agosto con “ “ días y Septiembre con “ “ días',
+			text: 'En contraste los dias con mayor cantidad de lluvia registrados historicamente fueron el 17 de Noviembre de 2008, 22 de Octubre de 1994 y el 2 de Septiembre de 2020',
 		},
 
 		{
