@@ -82,7 +82,7 @@
 		{/each}
 		{#if isAnnotation}
 			<g class="labels" />
-			{#each topDays as top}
+			{#each topDays as top, i}
 				<Annotations
 					rectCenter={sizeScale(top.mm) / 2}
 					x={dayScale(top.indexDay)}
@@ -91,6 +91,7 @@
 					mm={top.mm}
 					position={top.position}
 					stroke={'var(--sandy-brown-2)'}
+					{i}
 				/>
 			{/each}
 		{/if}
@@ -112,7 +113,7 @@
 		{/each}
 		{#if isAnnotation}
 			<g class="labels" />
-			{#each topDays as top}
+			{#each topDays as top, i}
 				<Annotations
 					rectCenter={sizeScale(top.mm) / 2}
 					x={dayScale(top.indexDay)}
@@ -121,6 +122,7 @@
 					mm={top.mm}
 					position={top.position}
 					stroke={'var(--indigo-dye-3)'}
+					{i}
 				/>
 			{/each}
 		{/if}

@@ -1,13 +1,7 @@
 <script>
 	import * as d3 from 'd3';
-	import { onMount } from 'svelte';
 	import gsap from 'gsap';
-	export let rectCenter, position, x, y, date, mm, stroke;
-
-	//TODO:
-	// Buscar la manera que pathGeneretor pueda tomar la referencia del texto
-	// Falta crear los path para la izquierda
-	// actualizar eñ texto de la carta 3
+	export let rectCenter, position, x, y, date, mm, stroke, i;
 
 	let pathNodeWidth;
 	let pathNodeHeight;
@@ -75,14 +69,17 @@
 		pathNodeHeight,
 		DateNodeHeight
 	).dateY;
-	onMount(() => {
-		const arcs = Array.from(
-			labelRef.querySelectorAll(['path', '.date', '.mm'])
-		);
+
+	function getNodes(node, { delay = 0 }) {
+		const [path, date, mm] = node.querySelectorAll([
+			'.label-path',
+			'.date',
+			'.mm',
+		]);
 		const tl = gsap.timeline();
 
 		tl.fromTo(
-			arcs[0],
+			path,
 			{
 				strokeDashoffset: '0',
 				strokeDasharray: '0 100',
@@ -93,13 +90,25 @@
 				},
 			}
 		)
-			.from(arcs[1], { y: -10, opacity: 0 })
-			.from(arcs[2], { y: -10, opacity: 0 }, '+=0.02');
-	});
+			.from(date, { y: -10, opacity: 0 })
+			.from(mm, { y: -10, opacity: 0 }, '+=0.02')
+			.delay(delay * 0.5);
+
+		return {
+			delay: 0,
+		};
+	}
 </script>
 
-<g class="label" bind:this={labelRef} id={position}>
-	<path d={path} fill="none" {style} {stroke} use:getPathNodeDimensions />
+<g class="label" bind:this={labelRef} id={position} in:getNodes={{ delay: i }}>
+	<path
+		class="label-path"
+		d={path}
+		fill="none"
+		{style}
+		{stroke}
+		use:getPathNodeDimensions
+	/>
 	<text class="date" x={pathX} y={pathY} fill={stroke} use:getDateNodeDimension>
 		{labelFormatDate(date)}
 	</text>
