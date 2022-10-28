@@ -282,7 +282,6 @@
 			days={card1IsVisible ? top3PrevYears : []}
 			format={monthFormat}
 			topDays={top3PrevYears}
-			isTop={isTop3}
 			isAnnotation={card3IsVisible}
 			period={1900}
 		/>
@@ -296,7 +295,6 @@
 		days={card1IsVisible ? rainData2022.flat(1) : []}
 		format={monthFormat}
 		topDays={topRainyDays2022}
-		isTop={isTop3}
 		isAnnotation={card2IsVisible}
 	/>
 </Svg>
