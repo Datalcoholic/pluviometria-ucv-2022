@@ -9,18 +9,18 @@
 	// Falta crear los path para la izquierda
 	// actualizar eñ texto de la carta 3
 
-	let pathWidth;
-	let pathHeight;
+	let pathNodeWidth;
+	let pathNodeHeight;
 	let DateNodeHeight;
 
-	function getNodePath(node) {
-		pathWidth = node.getBBox().width;
-		pathHeight = node.getBBox().height;
+	function getPathNodeDimensions(node) {
+		pathNodeWidth = node.getBBox().width;
+		pathNodeHeight = node.getBBox().height;
 	}
 	function getDateNodeDimension(node) {
 		DateNodeHeight = node.getBBox().height;
 	}
-	$: console.log('pathHeight :>> ', pathHeight);
+
 	function pathGenerator(type = 'top-right', pX, pY, dH) {
 		const path = d3.path();
 		let style;
@@ -34,7 +34,7 @@
 			style = `translate:${x + rectCenter - 1.5}px ${y - rectCenter}px`;
 			pathX = pX + x + 15;
 			pathY = y - pY;
-			dateY = dH - pY + y + 8; //dateTextRef?.getBBox().height - arcRef?.getBBox().height + y + 8
+			dateY = dH - pY + y + 8;
 		}
 
 		if (type === 'bottom-right') {
@@ -61,12 +61,12 @@
 	let dateTextRef;
 	let labelRef;
 	const { path, style } = pathGenerator(typeGenerator);
-	$: pathX = pathGenerator(typeGenerator, pathWidth).pathX;
-	$: pathY = pathGenerator(typeGenerator, pathWidth, pathHeight).pathY;
+	$: pathX = pathGenerator(typeGenerator, pathNodeWidth).pathX;
+	$: pathY = pathGenerator(typeGenerator, pathNodeWidth, pathNodeHeight).pathY;
 	$: dateY = pathGenerator(
 		typeGenerator,
-		pathWidth,
-		pathHeight,
+		pathNodeWidth,
+		pathNodeHeight,
 		DateNodeHeight
 	).dateY;
 	onMount(() => {
@@ -99,7 +99,7 @@
 		fill="none"
 		{style}
 		{stroke}
-		use:getNodePath
+		use:getPathNodeDimensions
 	/>
 	<text
 		class="date"
