@@ -11,6 +11,7 @@
 	import Rects from './rects.svelte';
 	import ButtonsDiv from './devComponents/buttonsDiv.svelte';
 	import { onMount } from 'svelte';
+	import AreaRect from './areaRect.svelte';
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
@@ -282,6 +283,7 @@
 					duration: 0.5,
 				});
 				rainData2022 = dataForCard4;
+				card4IsVisible = true;
 			},
 			onLeave: () => {
 				gsap.to($cardsStored[cardIndex4], {
@@ -306,6 +308,7 @@
 		topDays={topRainyDays2022}
 		isAnnotation={card2IsVisible}
 	/>
+
 	{#if card3IsVisible}
 		<Rects
 			{monthScale}
@@ -318,6 +321,9 @@
 			isAnnotation={card3IsVisible}
 			period={1900}
 		/>
+	{/if}
+	{#if card4IsVisible}
+		<AreaRect data={rainData2022} />
 	{/if}
 </Svg>
 
