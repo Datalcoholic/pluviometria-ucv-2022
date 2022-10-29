@@ -20,36 +20,39 @@
 	console.log('dataArea :>> ', dataArea);
 
 	function areaPath(start, end, height, r) {
-		const width = end - start;
+		const width = end - start + 30;
 		const path = d3.path();
 		const x = 0;
 		const y = 0;
-		path.moveTo(x + 30, y);
-		path.lineTo(width - 30, y);
+		path.moveTo(x + width / 2, y);
+		path.lineTo(width - width / 2, y);
 		path.arcTo(width, y, width, height, r);
 		path.lineTo(width, height / 2);
 		path.arcTo(width, height, width / 2, height, r);
 		path.lineTo(x + width / 2, height);
 		path.arcTo(x, height, x, height / 2, r);
 		path.lineTo(x, height / 2);
-		path.arcTo(x, y, x + 30, y, r);
+		path.arcTo(x, y, x + height / 2, y, r);
 		path.closePath();
 		return path.toString();
 	}
-
-	console.log('data :>> ', data);
 </script>
 
-{#each dataArea as month}
-	<path
-		d={areaPath(dayScale(month.min), dayScale(month.max), rectWidth, 8)}
-		fill="none"
-		stroke="coral"
-		style="translate:{dayScale(1) - 15}px 
-    {monthScale(format(new Date(`2022-${month.month}-01`))) - rectWidth / 2}px"
-	/>
-{/each}
+<g class="area-rect">
+	{#each dataArea as month}
+		<path
+			d={areaPath(dayScale(month.min), dayScale(month.max), rectWidth, 8)}
+			fill="none"
+			stroke="var(--sandy-brown-2)"
+			style="translate:{dayScale(1) - 15}px 
+      {monthScale(format(new Date(`2022-${month.month}-01`))) -
+				rectWidth / 2}px"
+		/>
+	{/each}
+</g>
 
 <style>
-	/* your styles go here */
+	.area-rect {
+		stroke-width: 2px;
+	}
 </style>
