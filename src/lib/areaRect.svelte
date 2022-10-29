@@ -1,6 +1,23 @@
 <script>
 	import * as d3 from 'd3';
-	export let data, isVisible;
+	export let data, monthScale, dayScale, format;
+
+	const dataArea = data.map((month, i) => {
+		const min = d3.min(month, (d) => d.indexDay);
+		const max = d3.max(month, (d) => d.indexDay);
+		const length = d3.count(month, (d) => d.indexDay);
+
+		return {
+			min,
+			max,
+			length,
+			month: i + 1,
+		};
+	});
+
+	let rectWidth = 30;
+
+	console.log('dataArea :>> ', dataArea);
 
 	function areaPath(start, end, height, r) {
 		const width = end - start;
@@ -23,12 +40,17 @@
 	console.log('data :>> ', data);
 </script>
 
-<path
-	d={areaPath(0, 500, 50, 8)}
-	fill="none"
-	stroke="coral"
-	style="translate:250px 150px"
-/>
+{#each dataArea as month}
+	<path
+		d={areaPath(dayScale(month.min), dayScale(month.max), rectWidth, 8)}
+		fill="none"
+		stroke="coral"
+		style="translate:{0}px {monthScale(
+			format(new Date(`2022-${month.month}-01`))
+		) -
+			rectWidth / 2}px"
+	/>
+{/each}
 
 <style>
 	/* your styles go here */

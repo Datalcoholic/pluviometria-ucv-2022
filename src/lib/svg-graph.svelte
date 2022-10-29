@@ -323,7 +323,12 @@
 		/>
 	{/if}
 	{#if card4IsVisible}
-		<AreaRect data={rainData2022} />
+		<AreaRect
+			data={rainData2022}
+			{monthScale}
+			{dayScale}
+			format={monthFormat}
+		/>
 	{/if}
 </Svg>
 
