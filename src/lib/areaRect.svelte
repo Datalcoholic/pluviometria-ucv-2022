@@ -1,6 +1,6 @@
 <script>
 	import * as d3 from 'd3';
-	export let data, monthScale, dayScale, format;
+	export let data, monthScale, dayScale, format, rectMargin;
 
 	const dataArea = data.map((month, i) => {
 		const min = d3.min(month, (d) => d.indexDay);
@@ -45,10 +45,8 @@
 		d={areaPath(dayScale(month.min), dayScale(month.max), rectWidth, 8)}
 		fill="none"
 		stroke="coral"
-		style="translate:{0}px {monthScale(
-			format(new Date(`2022-${month.month}-01`))
-		) -
-			rectWidth / 2}px"
+		style="translate:{dayScale(1) - 15}px 
+    {monthScale(format(new Date(`2022-${month.month}-01`))) - rectWidth / 2}px"
 	/>
 {/each}
 

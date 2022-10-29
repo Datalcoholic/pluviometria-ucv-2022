@@ -328,6 +328,7 @@
 			{monthScale}
 			{dayScale}
 			format={monthFormat}
+			rectMargin={margin}
 		/>
 	{/if}
 </Svg>
