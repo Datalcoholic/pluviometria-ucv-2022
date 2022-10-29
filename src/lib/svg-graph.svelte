@@ -100,7 +100,7 @@
 		if (i + 1 === 11) {
 			firstDateOfTheMonth = new Date('2022/11/01');
 		} else if (i + 1 === 12) {
-			firstDateOfTheMonth = new Date('01/12/2022');
+			firstDateOfTheMonth = new Date('2022/12/01');
 		} else {
 			firstDateOfTheMonth = d[0]?.date;
 		}

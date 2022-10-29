@@ -1,17 +1,21 @@
 <script>
 	import * as d3 from 'd3';
 	export let data, monthScale, dayScale, format, rectMargin;
+	console.log('data :>> ', data);
 
 	const dataArea = data.map((month, i) => {
 		const min = d3.min(month, (d) => d.indexDay);
 		const max = d3.max(month, (d) => d.indexDay);
 		const length = d3.count(month, (d) => d.indexDay);
+		const date = d3.min(month, (d) => d.date);
+		const m = format(date);
 
 		return {
 			min,
 			max,
 			length,
 			month: i + 1,
+			m,
 		};
 	});
 
@@ -45,8 +49,7 @@
 			fill="none"
 			stroke="var(--sandy-brown-2)"
 			style="translate:{dayScale(1) - 15}px 
-      {monthScale(format(new Date(`2022-${month.month}-01`))) -
-				rectWidth / 2}px"
+      {monthScale(month.m) - rectWidth / 2}px"
 		/>
 	{/each}
 </g>
