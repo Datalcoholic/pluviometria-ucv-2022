@@ -138,11 +138,11 @@
 		//rainData2022 = data;
 		return data;
 	};
-	const dataForCard2 = getRainyDays();
+	const dataForCard4 = getRainyDays();
 
 	const dateFormat = d3.timeFormat('%d.%b.%Y');
 	const getconsecutiveRainyDays = () => {
-		let data = dataForCard2.map((month, i) => {
+		let data = dataForCard4.map((month, i) => {
 			const arrfilter = consecutiveRainyDays[i]?.map((date) => {
 				// console.log('date :>> ', date);
 				return date.map((d) => {
@@ -163,7 +163,7 @@
 		return data;
 	};
 
-	const dataForCard3 = getconsecutiveRainyDays();
+	const dataForCard5 = getconsecutiveRainyDays();
 
 	//Scroll Animations
 	gsap.registerPlugin(ScrollTrigger);
@@ -171,6 +171,7 @@
 	let card1IsVisible = false;
 	let card2IsVisible = false;
 	let card3IsVisible = false;
+	let card4IsVisible = false;
 	let isAnnotation = false;
 
 	onMount(() => {
@@ -272,22 +273,22 @@
 				card3IsVisible = false;
 			},
 		});
-		// const cardIndex4 = 2;
-		// const card4 = ScrollTrigger.create({
-		// 	trigger: $cardsStored[cardIndex4],
-		// 	onEnter: (self) => {
-		// 		gsap.to($cardsStored[cardIndex4], {
-		// 			opacity: 1,
-		// 			duration: 0.5,
-		// 		});
-		// 		rainData2022 = dataForCard3;
-		// 	},
-		// 	onLeave: () => {
-		// 		gsap.to($cardsStored[cardIndex4], {
-		// 			opacity: 0,
-		// 		});
-		// 	},
-		// });
+		const cardIndex4 = 3;
+		const card4 = ScrollTrigger.create({
+			trigger: $cardsStored[cardIndex4],
+			onEnter: (self) => {
+				gsap.to($cardsStored[cardIndex4], {
+					opacity: 1,
+					duration: 0.5,
+				});
+				rainData2022 = dataForCard4;
+			},
+			onLeave: () => {
+				gsap.to($cardsStored[cardIndex4], {
+					opacity: 0,
+				});
+			},
+		});
 	});
 </script>
 
