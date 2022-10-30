@@ -38,6 +38,30 @@
 		path.closePath();
 		return path.toString();
 	}
+	function triangle(start, end, y, tWidth, height, r) {
+		const width = end - start + 30;
+		const path = d3.path();
+		const gap = 14;
+		const x = gap + width;
+		//const y = 0;
+		path.moveTo(x, y + height * 0.5);
+		path.lineTo(x, y + height * 0.5);
+		path.arcTo(x, y + height, x + tWidth * 0.7, y + height - height / 2, r);
+		path.lineTo(x + tWidth * 0.65, y + height * 0.65);
+		path.arcTo(
+			x + tWidth,
+			y + height * 0.5,
+			x + tWidth * 0.05,
+			y + height * 0.05,
+			r
+		);
+		path.lineTo(x + tWidth * 0.3, y + height * 0.15);
+		path.arcTo(x, y, x, y + height * 0.35, r);
+		path.lineTo(x, y + height * 0.4);
+		path.closePath();
+
+		return path.toString();
+	}
 
 	function areaRectTransition(node, { delay = 0 }) {
 		const length = node.getTotalLength();
@@ -65,6 +89,10 @@
 			delay,
 		};
 	}
+
+	// TODO:
+	// Falta agregar etiquetas de dias
+	// Completar la animacion de entreda con el borde + triangulo indicador +etiqueta
 </script>
 
 <g class="area-rect">
@@ -76,6 +104,21 @@
 			style="translate:{dayScale(1) - 15}px 
       {monthScale(month.m) - rectWidth / 2}px"
 			in:areaRectTransition={{ delay: i * 0.35 }}
+		/>
+		<path
+			class="triangle"
+			d={triangle(
+				dayScale(month.min),
+				dayScale(month.max),
+				monthScale(month.m),
+				20,
+				15,
+				2
+			)}
+			stroke="var(--sandy-brown-2)"
+			fill="none"
+			style="translate:{dayScale(1) - 15}px 
+      {-rectWidth / 5}px"
 		/>
 	{/each}
 </g>
