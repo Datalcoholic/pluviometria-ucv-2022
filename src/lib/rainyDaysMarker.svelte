@@ -31,48 +31,50 @@
 	}
 </script>
 
-<g class="marker-2022" in:enter={{ delay: i * 0.08 }}>
-	<path
-		class="area"
-		d={pathRect}
-		fill="none"
-		stroke="var(--sandy-brown-2)"
-		style="translate:{tx}px 
-      {ty}px"
-	/>
-
-	<path
-		bind:this={triangleRef}
-		class="triangle"
-		d={pathTriangle}
-		stroke="var(--sandy-brown-2)"
-		fill="none"
-		style="translate:{tx}px 
-      {-rectWidth / 5}px"
-	/>
-	<g class="label">
-		<text
-			bind:this={labelRef}
-			class="label-text"
-			x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
-			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+{#if month.length > 0}
+	<g class="marker-2022" in:enter={{ delay: i * 0.08 }}>
+		<path
+			class="area"
+			d={pathRect}
 			fill="none"
-		>
-			{month.length}
-		</text>
+			stroke="var(--sandy-brown-2)"
+			style="translate:{tx}px 
+      {ty}px"
+		/>
 
-		<text
-			class="label-dias"
-			x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
-			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
-			fill="none">dias</text
-		>
+		<path
+			bind:this={triangleRef}
+			class="triangle"
+			d={pathTriangle}
+			stroke="var(--sandy-brown-2)"
+			fill="none"
+			style="translate:{tx}px 
+      {-rectWidth / 5}px"
+		/>
+		<g class="label">
+			<text
+				bind:this={labelRef}
+				class="label-text"
+				x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
+				y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+				fill="none"
+			>
+				{month.length}
+			</text>
+
+			<text
+				class="label-dias"
+				x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
+				y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+				fill="none">dias</text
+			>
+		</g>
 	</g>
-</g>
+{/if}
 
 <style>
 	.marker-2022 {
-		stroke-width: 2px;
+		stroke-width: 1px;
 	}
 	.label-text {
 		font-size: 1rem;
