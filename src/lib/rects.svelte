@@ -104,7 +104,7 @@
 				height={sizeScale(day.mm)}
 				rx={r}
 				fill="url(#line)"
-				stroke="var(--indigo-dye-3)"
+				stroke="var(--indigo-dye-4)"
 				in:fly={{ duration: 800, delay: i * 10, y: -15, easing: elasticOut }}
 				out:fade|local={{ duration: 200 }}
 				animate:flip={{ duration: 850, easing: elasticOut }}
@@ -121,7 +121,7 @@
 					date={top.date}
 					mm={top.mm}
 					position={top.position}
-					stroke={'var(--indigo-dye-3)'}
+					stroke={'var(--indigo-dye-4)'}
 					{i}
 				/>
 			{/each}
