@@ -1,14 +1,38 @@
 <script>
+	import { easeBounceIn, easeBounceOut, easeQuadIn } from 'd3';
+	import gsap from 'gsap';
 	export let month, i, pathRect, tx, ty, pathTriangle, rectWidth;
-	let areaRef;
 	let triangleRef;
 	let labelRef;
-	$: console.log('triangleRef :>> ', triangleRef?.getBBox());
+	function enter(node, { delay = 0 }) {
+		const [area, triangle, label] = node.querySelectorAll([
+			'.area',
+			'.triangle',
+			'.label',
+			'label-dias',
+		]);
+
+		const tl = gsap.timeline({ ease: easeQuadIn });
+
+		tl.from(area, { scaleX: 0 }, '+=0.8')
+			.from(triangle, {
+				x: -2,
+				opacity: 0,
+			})
+			.from(label, {
+				x: -8,
+				opacity: 0,
+			})
+			.delay(delay);
+
+		return {
+			delay,
+		};
+	}
 </script>
 
-<g class="marker-2022">
+<g class="marker-2022" in:enter={{ delay: i * 0.08 }}>
 	<path
-		bind:this={areaRef}
 		class="area"
 		d={pathRect}
 		fill="none"
@@ -26,29 +50,31 @@
 		style="translate:{tx}px 
       {-rectWidth / 5}px"
 	/>
-	<text
-		bind:this={labelRef}
-		class="label"
-		x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
-		y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
-		fill="none"
-	>
-		{month.length}
-	</text>
+	<g class="label">
+		<text
+			bind:this={labelRef}
+			class="label-text"
+			x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
+			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+			fill="none"
+		>
+			{month.length}
+		</text>
 
-	<text
-		class="label-dias"
-		x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
-		y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
-		fill="none">dias</text
-	>
+		<text
+			class="label-dias"
+			x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
+			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+			fill="none">dias</text
+		>
+	</g>
 </g>
 
 <style>
 	.marker-2022 {
 		stroke-width: 2px;
 	}
-	.label {
+	.label-text {
 		font-size: 1rem;
 		font-weight: 400;
 		stroke: var(--sandy-brown-2);
