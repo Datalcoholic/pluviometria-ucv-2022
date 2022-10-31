@@ -73,15 +73,9 @@
 			};
 		});
 
-	// topRainyDays2022 = topRainyDays2022.concat(top3PrevYears);
-	console.log('topRainyDays2022 :>> ', topRainyDays2022);
-	console.log('rainData2022 :>> ', rainData2022);
-
 	const consecutiveRainyDays = $year2022?.map(
 		(month) => month.consecutiveRainyDays.consecutiveRainyDays
 	);
-	console.log('$year2022 :>> ', $year2022);
-	// console.log('consecutiveRainyDays :>> ', consecutiveRainyDays);
 	const margin = { top: 35, right: 20, bottom: 15, left: 15 };
 
 	// Scales
@@ -111,8 +105,8 @@
 		.scaleBand()
 		.domain(months)
 		.paddingOuter(1)
-		.paddingInner(1)
-		.range([margin.top, height]);
+		.paddingInner(-0.5)
+		.range([margin.top, height - margin.top - margin.bottom]);
 
 	//Fill
 	const mm = dataForCard1?.flat(1).map((m) => m.mm);
@@ -274,6 +268,9 @@
 				card3IsVisible = false;
 			},
 		});
+		// TODO:
+		// completar la entrada, salida, reentrada y resalida de la card4
+
 		const cardIndex4 = 3;
 		const card4 = ScrollTrigger.create({
 			trigger: $cardsStored[cardIndex4],
@@ -328,7 +325,6 @@
 			{monthScale}
 			{dayScale}
 			format={monthFormat}
-			rectMargin={margin}
 		/>
 	{/if}
 </Svg>
