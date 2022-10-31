@@ -91,13 +91,14 @@
 	}
 
 	// TODO:
-	// Falta agregar etiquetas de dias
+
 	// Completar la animacion de entreda con el borde + triangulo indicador +etiqueta
 </script>
 
-<g class="area-rect">
+<g class="area">
 	{#each dataArea as month, i}
 		<path
+			class="area"
 			d={areaPath(dayScale(month.min), dayScale(month.max), rectWidth, 8)}
 			fill="none"
 			stroke="var(--sandy-brown-2)"
@@ -120,11 +121,75 @@
 			style="translate:{dayScale(1) - 15}px 
       {-rectWidth / 5}px"
 		/>
+
+		<text
+			class="label"
+			x={dayScale(1) -
+				15 +
+				dayScale(month.max) -
+				dayScale(month.min) +
+				30 +
+				14 +
+				20 +
+				10}
+			y={monthScale(month.m) + rectWidth / 5}
+			fill="none"
+		>
+			{month.length > 1 ? `${month.length}` : `${month.length}`}
+		</text>
+		<g class="area-labels">
+			{#if month.length >= 10}
+				<text
+					class="label-dias"
+					x={dayScale(1) -
+						15 +
+						dayScale(month.max) -
+						dayScale(month.min) +
+						30 +
+						14 +
+						20 +
+						10 +
+						30}
+					y={monthScale(month.m) + rectWidth / 5}
+					fill="none"
+				>
+					{month.length > 1 ? `dias` : `dia`}
+				</text>
+			{:else}
+				<text
+					class="label-dias"
+					x={dayScale(1) -
+						15 +
+						dayScale(month.max) -
+						dayScale(month.min) +
+						30 +
+						14 +
+						20 +
+						10 +
+						20}
+					y={monthScale(month.m) + rectWidth / 5}
+					fill="none"
+				>
+					{month.length > 1 ? `dias` : `dia`}
+				</text>
+			{/if}
+		</g>
 	{/each}
 </g>
 
 <style>
-	.area-rect {
+	.area {
 		stroke-width: 2px;
+	}
+	.label {
+		font-size: 1rem;
+		font-weight: 400;
+		stroke: var(--sandy-brown-2);
+		/* fill: var(--sandy-brown-2); */
+		stroke-width: 1px;
+	}
+	.label-dias {
+		font-size: 0.98rem;
+		fill: var(--sandy-brown-2);
 	}
 </style>
