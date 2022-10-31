@@ -1,6 +1,5 @@
 <script>
 	import * as d3 from 'd3';
-	import gsap from 'gsap';
 	import RainyDaysMarker from './rainyDaysMarker.svelte';
 	export let data, monthScale, dayScale, format;
 
@@ -62,33 +61,6 @@
 		path.closePath();
 
 		return path.toString();
-	}
-
-	function areaRectTransition(node, { delay = 0 }) {
-		const length = node.getTotalLength();
-		const factor = 150;
-		gsap
-			.fromTo(
-				node,
-				{
-					strokeDasharray: `0 ${length}`,
-					strokeDashoffset: factor, //`${length * factor}`,
-				},
-				{
-					duration: 0.95,
-					keyframes: {
-						'100%': {
-							strokeDasharray: `${length} 0`,
-							strokeDashoffset: factor + 50, //`${length * factor + 50}`,
-						},
-					},
-				}
-			)
-			.delay(delay);
-
-		return {
-			delay,
-		};
 	}
 
 	// TODO:
