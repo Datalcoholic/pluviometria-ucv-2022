@@ -78,15 +78,20 @@
 	);
 	const margin = { top: 35, right: 20, bottom: 15, left: 15 };
 
+	const prevMeans = $prevYears.rainyDaysMean;
 	// Scales
 	//Days
 	const rangeDays = d3.range(1, 32, 1);
 	$: dayScale = d3
-		.scaleBand()
+		.scaleLinear()
 		.domain(rangeDays)
-		.paddingInner(-1)
-		.paddingOuter(0.8)
-		.range([margin.right + 45, width - margin.left - margin.right]);
+		.range([margin.left + 55, width * 0.107]);
+	// $: dayScale = d3
+	// 	.scaleBand()
+	// 	.domain(rangeDays)
+	// 	.paddingInner(1)
+	// 	.paddingOuter(2.5)
+	// 	.range([margin.right, width - margin.left]);
 	//Month
 	const monthFormat = d3.timeFormat('%b');
 	const months = dataForCard1?.map((d, i) => {
@@ -118,8 +123,15 @@
 		.interpolate(d3.interpolateHsl);
 
 	// Size
-
 	const sizeScale = d3.scaleSqrt().domain([mmExtend[0], 105]).range([0, 35]);
+
+	// Mean
+	const meansRange = prevMeans.map((d) => d.monthMean);
+	const meanExt = d3.extent(meansRange);
+	$: meanScale = d3
+		.scaleLinear()
+		.domain(meanExt)
+		.range([margin.right, width - margin.left]);
 
 	// Filter functions
 	const getRainyDays = () => {
@@ -295,6 +307,16 @@
 <Svg {width} {height}>
 	<YAxis scale={monthScale} {months} x={margin.right} />
 	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
+	{#if card4IsVisible}
+		<AreaRect
+			data={rainData2022}
+			data2={prevMeans}
+			{monthScale}
+			{dayScale}
+			{meanScale}
+			format={monthFormat}
+		/>
+	{/if}
 	<Rects
 		{monthScale}
 		{dayScale}
@@ -317,14 +339,6 @@
 			topDays={top3PrevYears}
 			isAnnotation={card3IsVisible}
 			period={1900}
-		/>
-	{/if}
-	{#if card4IsVisible}
-		<AreaRect
-			data={rainData2022}
-			{monthScale}
-			{dayScale}
-			format={monthFormat}
 		/>
 	{/if}
 </Svg>

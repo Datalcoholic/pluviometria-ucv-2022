@@ -1,7 +1,9 @@
 <script>
 	import * as d3 from 'd3';
+	import { scale } from 'svelte/transition';
+	import PrevDaysMarker from './prevDaysMarker.svelte';
 	import RainyDaysMarker from './rainyDaysMarker.svelte';
-	export let data, monthScale, dayScale, format;
+	export let data, data2, monthScale, dayScale, meanScale, format;
 
 	const dataArea = data.map((month, i) => {
 		const min = d3.min(month, (d) => d.indexDay);
@@ -18,11 +20,19 @@
 			m,
 		};
 	});
+	const dataMean = data2.map((d) => {
+		let { month, monthMean } = d;
+		month = format(new Date(`2022-${month}-01`));
+		return { m: month, mean: monthMean };
+	});
+
+	console.log('dataMean :>> ', dataMean);
 
 	let rectWidth = 30;
+	let rectWidthPreV = 40;
 
 	function areaPath(start, end, height, r) {
-		const width = end - start + 30;
+		const width = end - start;
 		const path = d3.path();
 		const x = 0;
 		const y = 0;
@@ -62,36 +72,54 @@
 
 		return path.toString();
 	}
-
-	// TODO:
-
-	// Completar la animacion de entreda con el borde + triangulo indicador +etiqueta
 </script>
 
 <g class="area">
-	{#each dataArea as month, i}
-		<RainyDaysMarker
-			{month}
-			{i}
-			pathRect={areaPath(
-				dayScale(month.min),
-				dayScale(month.max),
-				rectWidth,
-				8
-			)}
-			pathTriangle={triangle(
-				dayScale(month.min),
-				dayScale(month.max),
-				monthScale(month.m),
-				20,
-				15,
-				2
-			)}
-			tx={dayScale(1) - 15}
-			ty={monthScale(month.m) - rectWidth / 2}
-			{rectWidth}
-		/>
-	{/each}
+	<g id="current-year">
+		{#each dataArea as month, i}
+			<RainyDaysMarker
+				{month}
+				{i}
+				pathRect={areaPath(
+					dayScale(month.min),
+					dayScale(month.max),
+					rectWidth,
+					8
+				)}
+				pathTriangle={triangle(
+					dayScale(month.min),
+					dayScale(month.max),
+					monthScale(month.m),
+					20,
+					15,
+					2
+				)}
+				tx={dayScale(1)}
+				ty={monthScale(month.m) - rectWidth / 2}
+				{rectWidth}
+			/>
+		{/each}
+	</g>
+	<g id="prev-years">
+		{#each dataMean as month, i}
+			<PrevDaysMarker
+				{month}
+				{i}
+				pathRect={areaPath(dayScale(1), dayScale(month.mean), rectWidthPreV, 8)}
+				pathTriangle={triangle(
+					0,
+					dayScale(month.mean),
+					monthScale(month.m),
+					20,
+					15,
+					2
+				)}
+				tx={dayScale(1)}
+				ty={monthScale(month.m) - rectWidthPreV / 2}
+				rectWidth={rectWidthPreV}
+			/>
+		{/each}
+	</g>
 </g>
 
 <style>
