@@ -1,6 +1,7 @@
 <script>
 	import * as d3 from 'd3';
 	import gsap from 'gsap';
+	import RainyDaysMarker from './rainyDaysMarker.svelte';
 	export let data, monthScale, dayScale, format;
 
 	const dataArea = data.map((month, i) => {
@@ -97,18 +98,16 @@
 
 <g class="area">
 	{#each dataArea as month, i}
-		<path
-			class="area"
-			d={areaPath(dayScale(month.min), dayScale(month.max), rectWidth, 8)}
-			fill="none"
-			stroke="var(--sandy-brown-2)"
-			style="translate:{dayScale(1) - 15}px 
-      {monthScale(month.m) - rectWidth / 2}px"
-			in:areaRectTransition={{ delay: i * 0.35 }}
-		/>
-		<path
-			class="triangle"
-			d={triangle(
+		<RainyDaysMarker
+			{month}
+			{i}
+			pathRect={areaPath(
+				dayScale(month.min),
+				dayScale(month.max),
+				rectWidth,
+				8
+			)}
+			pathTriangle={triangle(
 				dayScale(month.min),
 				dayScale(month.max),
 				monthScale(month.m),
@@ -116,80 +115,12 @@
 				15,
 				2
 			)}
-			stroke="var(--sandy-brown-2)"
-			fill="none"
-			style="translate:{dayScale(1) - 15}px 
-      {-rectWidth / 5}px"
+			tx={dayScale(1) - 15}
+			ty={monthScale(month.m) - rectWidth / 2}
+			{rectWidth}
 		/>
-
-		<text
-			class="label"
-			x={dayScale(1) -
-				15 +
-				dayScale(month.max) -
-				dayScale(month.min) +
-				30 +
-				14 +
-				20 +
-				10}
-			y={monthScale(month.m) + rectWidth / 5}
-			fill="none"
-		>
-			{month.length > 1 ? `${month.length}` : `${month.length}`}
-		</text>
-		<g class="area-labels">
-			{#if month.length >= 10}
-				<text
-					class="label-dias"
-					x={dayScale(1) -
-						15 +
-						dayScale(month.max) -
-						dayScale(month.min) +
-						30 +
-						14 +
-						20 +
-						10 +
-						30}
-					y={monthScale(month.m) + rectWidth / 5}
-					fill="none"
-				>
-					{month.length > 1 ? `dias` : `dia`}
-				</text>
-			{:else}
-				<text
-					class="label-dias"
-					x={dayScale(1) -
-						15 +
-						dayScale(month.max) -
-						dayScale(month.min) +
-						30 +
-						14 +
-						20 +
-						10 +
-						20}
-					y={monthScale(month.m) + rectWidth / 5}
-					fill="none"
-				>
-					{month.length > 1 ? `dias` : `dia`}
-				</text>
-			{/if}
-		</g>
 	{/each}
 </g>
 
 <style>
-	.area {
-		stroke-width: 2px;
-	}
-	.label {
-		font-size: 1rem;
-		font-weight: 400;
-		stroke: var(--sandy-brown-2);
-		/* fill: var(--sandy-brown-2); */
-		stroke-width: 1px;
-	}
-	.label-dias {
-		font-size: 0.98rem;
-		fill: var(--sandy-brown-2);
-	}
 </style>
