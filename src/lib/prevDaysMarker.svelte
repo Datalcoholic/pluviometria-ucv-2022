@@ -36,7 +36,7 @@
 
 <defs />
 
-<g class="marker-prev" in:enter={{ delay: i * 0.08 }}>
+<g class="marker-prev" in:enter={{ delay: i * 0.3 }}>
 	<path
 		class="area"
 		d={pathRect}
@@ -52,14 +52,14 @@
 		d={pathTriangle}
 		stroke="var(--indigo-dye-3)"
 		fill="none"
-		style="translate:{tx}px 
+		style="translate:{0}px 
       {-rectWidth / 5}px"
 	/>
 	<g class="label">
 		<text
 			bind:this={labelRef}
 			class="label-text"
-			x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
+			x={triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
 			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
 			fill="none"
 		>
@@ -76,18 +76,18 @@
 </g>
 
 <style>
-	.marker-2022 {
+	.marker-prev {
 		stroke-width: 1px;
 	}
 	.label-text {
 		font-size: 1rem;
 		font-weight: 400;
-		stroke: var(--sandy-brown-2);
-		/* fill: var(--sandy-brown-2); */
+		stroke: var(--indigo-dye-3);
+		/* fill: var(--indigo-dye-3); */
 		stroke-width: 1px;
 	}
 	.label-dias {
 		font-size: 0.98rem;
-		fill: var(--sandy-brown-2);
+		fill: var(--indigo-dye-3);
 	}
 </style>
