@@ -364,6 +364,9 @@
 			format={monthFormat}
 		/>
 	{/if}
+	{#if card5IsVisible}
+		<RectConsecutive data={$year2022} xScale={dayScale} yScale={monthScale} />
+	{/if}
 	<Rects
 		{monthScale}
 		{dayScale}
@@ -387,10 +390,6 @@
 			isAnnotation={card3IsVisible}
 			period={1900}
 		/>
-	{/if}
-
-	{#if card5IsVisible}
-		<RectConsecutive data={$year2022} xScale={dayScale} yScale={monthScale} />
 	{/if}
 </Svg>
 
