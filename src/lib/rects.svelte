@@ -50,6 +50,23 @@
 			/>
 			<!-- <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2" /> -->
 		</pattern>
+		<pattern
+			id="line-pattern"
+			viewBox="1000, 0 ,60 ,18"
+			width="100%"
+			height="16%"
+		>
+			<line
+				class="pattern-line"
+				x1="0"
+				y1="0"
+				x2="2500"
+				y2="0"
+				stroke="var(--indigo-dye-5)"
+			/>
+
+			<!-- <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2" /> -->
+		</pattern>
 	</defs>
 
 	{#if period === 2022}
@@ -138,7 +155,10 @@
 	#line {
 		transform: rotate(45deg);
 	}
+	#line-pattern {
+		transform: rotate(45deg);
+	}
 	.pattern-line {
-		stroke-width: 20px;
+		stroke-width: 16px;
 	}
 </style>
