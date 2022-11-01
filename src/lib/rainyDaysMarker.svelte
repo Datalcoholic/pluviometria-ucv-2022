@@ -12,7 +12,7 @@
 			'label-dias',
 		]);
 
-		const tl = gsap.timeline({ ease: easeQuadIn });
+		const tl = gsap.timeline({ ease: 'expo.in' });
 
 		tl.from(area, { scaleX: 0 }, '+=0.8')
 			.from(triangle, {
