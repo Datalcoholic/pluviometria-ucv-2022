@@ -1,19 +1,12 @@
 <script>
 	import { easeQuadIn } from 'd3';
+	import * as d3 from 'd3';
 	import gsap from 'gsap';
 	export let month, i, pathRect, tx, ty, pathTriangle, rectWidth;
 	let triangleRef;
 	let labelRef;
+	const formatMean = d3.format('.1f');
 
-	console.log('params :>> ', {
-		month,
-		i,
-		pathRect,
-		tx,
-		ty,
-		pathTriangle,
-		rectWidth,
-	});
 	function enter(node, { delay = 0 }) {
 		const [area, triangle, label] = node.querySelectorAll([
 			'.area',
@@ -70,7 +63,7 @@
 			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
 			fill="none"
 		>
-			{month.mean}
+			{formatMean(month.mean)}
 		</text>
 
 		<text
