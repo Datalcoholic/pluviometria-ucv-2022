@@ -13,7 +13,8 @@
 				xScale(+dayFormat(start)),
 				xScale(+dayFormat(end)),
 				45,
-				5
+				5,
+				10
 			);
 			const m = monthFormat(new Date(`2022-${month.month}-1`));
 			return {
