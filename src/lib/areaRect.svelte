@@ -49,9 +49,9 @@
 		return path.toString();
 	}
 	function triangle(start, end, y, tWidth, height, r) {
-		const width = end - start + 30;
+		const width = end - start;
 		const path = d3.path();
-		const gap = 14;
+		const gap = 10;
 		const x = gap + width;
 		//const y = 0;
 		path.moveTo(x, y + height * 0.5);
