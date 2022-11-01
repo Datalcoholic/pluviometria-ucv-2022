@@ -270,7 +270,7 @@
 					duration: 0.5,
 				});
 				card3IsVisible = true;
-				//rainData2022 = dataForCard2;
+				rainData2022 = dataForCard1;
 			},
 			onLeaveBack: (self) => {
 				gsap.to($cardsStored[cardIndex3], {
@@ -298,6 +298,19 @@
 				gsap.to($cardsStored[cardIndex4], {
 					opacity: 0,
 				});
+				card4IsVisible = false;
+			},
+			onEnterBack: () => {
+				gsap.to($cardsStored[cardIndex4], {
+					opacity: 1,
+				});
+				card4IsVisible = true;
+			},
+			onLeaveBack: (self) => {
+				gsap.to($cardsStored[cardIndex4], {
+					opacity: 0,
+				});
+				card4IsVisible = false;
 			},
 		});
 	});
