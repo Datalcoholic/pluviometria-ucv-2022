@@ -4,7 +4,7 @@
 	import PrevDaysMarker from './prevDaysMarker.svelte';
 	import RainyDaysMarker from './rainyDaysMarker.svelte';
 	export let data, data2, monthScale, dayScale, meanScale, format;
-
+	const numFormat = d3.format('.1f');
 	const dataArea = data.map((month, i) => {
 		const min = d3.min(month, (d) => d.indexDay);
 		const max = d3.max(month, (d) => d.indexDay);
@@ -12,6 +12,7 @@
 		const date = d3.min(month, (d) => d.date);
 		const m = format(date);
 		const isShow = length > data2[i].monthMean ? true : false;
+		const howManyTimes = numFormat(length / data2[i].monthMean);
 
 		return {
 			min,
@@ -20,18 +21,18 @@
 			month: i + 1,
 			m,
 			isShow,
+			howManyTimes,
 		};
 	});
+	console.log('dataArea :>> ', dataArea);
 
 	const dataMean = data2.map((d, i) => {
 		let { month, monthMean } = d;
-		month = format(new Date(`2022-${month}-01`));
+		month = format(new Date(`2022-${month}-1`));
 		const isShow = monthMean > dataArea[i].length ? true : false;
 
 		return { m: month, mean: monthMean, isShow };
 	});
-
-	console.log('dataMean :>> ', dataMean);
 
 	let rectWidth = 30;
 	let rectWidthPreV = 40;

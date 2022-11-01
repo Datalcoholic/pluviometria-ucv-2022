@@ -11,7 +11,7 @@
 
 		{
 			name: 'card-2',
-			text: 'Los dias que se registaron mayor candidad de lluvias se produjeron el 22 de Abril, 26 de Agosto y 26 de Septiembre ',
+			text: 'Los dias que se registaron mayor candidad de lluvias se fueron el 22 de Abril, 26 de Agosto y 26 de Septiembre ',
 		},
 		{
 			name: 'card-3',
@@ -20,7 +20,7 @@
 
 		{
 			name: 'card-4',
-			text: 'Lo cual pone a mes tal tantas veces por encima/de bajo del promedio de tantos meses',
+			text: 'Para este 2022 tenemos que Agosto fue el mes con mas dias lluvioso con 1,6 veces sobre el promedio historico, seguido por Junio con 1,4 veces sobre el promedio y Septiembre con 1,4 veces sobre el promedio. Destaca Marzo el cual registro 2 veces mas dias lluviosos sobre el promedio',
 		},
 		{
 			name: 'card-5',
