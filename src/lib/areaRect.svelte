@@ -11,6 +11,7 @@
 		const length = d3.count(month, (d) => d.indexDay);
 		const date = d3.min(month, (d) => d.date);
 		const m = format(date);
+		const isShow = length > data2[i].monthMean ? true : false;
 
 		return {
 			min,
@@ -18,12 +19,16 @@
 			length,
 			month: i + 1,
 			m,
+			isShow,
 		};
 	});
-	const dataMean = data2.map((d) => {
+
+	const dataMean = data2.map((d, i) => {
 		let { month, monthMean } = d;
 		month = format(new Date(`2022-${month}-01`));
-		return { m: month, mean: monthMean };
+		const isShow = monthMean > dataArea[i].length ? true : false;
+
+		return { m: month, mean: monthMean, isShow };
 	});
 
 	console.log('dataMean :>> ', dataMean);
@@ -75,6 +80,27 @@
 </script>
 
 <g class="area">
+	<g id="prev-years">
+		{#each dataMean as month, i}
+			<PrevDaysMarker
+				{month}
+				{i}
+				pathRect={areaPath(dayScale(1), dayScale(month.mean), rectWidthPreV, 8)}
+				pathTriangle={triangle(
+					0,
+					dayScale(month.mean),
+					monthScale(month.m),
+					20,
+					15,
+					2
+				)}
+				tx={dayScale(1)}
+				ty={monthScale(month.m) - rectWidthPreV / 2}
+				rectWidth={rectWidthPreV}
+			/>
+		{/each}
+	</g>
+
 	<g id="current-year">
 		{#each dataArea as month, i}
 			<RainyDaysMarker
@@ -97,26 +123,6 @@
 				tx={dayScale(1)}
 				ty={monthScale(month.m) - rectWidth / 2}
 				{rectWidth}
-			/>
-		{/each}
-	</g>
-	<g id="prev-years">
-		{#each dataMean as month, i}
-			<PrevDaysMarker
-				{month}
-				{i}
-				pathRect={areaPath(dayScale(1), dayScale(month.mean), rectWidthPreV, 8)}
-				pathTriangle={triangle(
-					0,
-					dayScale(month.mean),
-					monthScale(month.m),
-					20,
-					15,
-					2
-				)}
-				tx={dayScale(1)}
-				ty={monthScale(month.m) - rectWidthPreV / 2}
-				rectWidth={rectWidthPreV}
 			/>
 		{/each}
 	</g>

@@ -41,38 +41,40 @@
 		class="area"
 		d={pathRect}
 		fill="url(#line-pattern)"
-		stroke="var(--indigo-dye-3)"
+		stroke={month.isShow ? 'var(--indigo-dye-4)' : 'var(--indigo-dye-3)'}
 		style="translate:{tx}px 
       {ty}px"
 	/>
-
-	<path
-		bind:this={triangleRef}
-		class="triangle"
-		d={pathTriangle}
-		stroke="var(--indigo-dye-3)"
-		fill="none"
-		style="translate:{0}px 
-      {-rectWidth / 5}px"
-	/>
-	<g class="label">
-		<text
-			bind:this={labelRef}
-			class="label-text"
-			x={triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
-			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+	{#if month.isShow}
+		<!-- content here -->
+		<path
+			bind:this={triangleRef}
+			class="triangle"
+			d={pathTriangle}
+			stroke="var(--indigo-dye-4)"
 			fill="none"
-		>
-			{formatMean(month.mean)}
-		</text>
+			style="translate:{0}px 
+			 {-rectWidth / 5}px"
+		/>
+		<g class="label">
+			<text
+				bind:this={labelRef}
+				class="label-text"
+				x={triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
+				y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+				fill="none"
+			>
+				{formatMean(month.mean)}
+			</text>
 
-		<text
-			class="label-dias"
-			x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
-			y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
-			fill="none">dias</text
-		>
-	</g>
+			<text
+				class="label-dias"
+				x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
+				y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+				fill="none">dias</text
+			>
+		</g>
+	{/if}
 </g>
 
 <style>
@@ -82,12 +84,12 @@
 	.label-text {
 		font-size: 1rem;
 		font-weight: 400;
-		stroke: var(--indigo-dye-3);
-		/* fill: var(--indigo-dye-3); */
+		stroke: var(--indigo-dye-4);
+		/* fill: var(--indigo-dye-4); */
 		stroke-width: 1px;
 	}
 	.label-dias {
 		font-size: 0.98rem;
-		fill: var(--indigo-dye-3);
+		fill: var(--indigo-dye-4);
 	}
 </style>

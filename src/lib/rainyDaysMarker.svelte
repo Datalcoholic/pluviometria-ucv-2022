@@ -36,39 +36,40 @@
 		<path
 			class="area"
 			d={pathRect}
-			fill="none"
+			fill={month.isShow ? 'var(--sandy-brown-2)' : 'none'}
 			stroke="var(--sandy-brown-2)"
 			style="translate:{tx}px 
       {ty}px"
 		/>
-
-		<path
-			bind:this={triangleRef}
-			class="triangle"
-			d={pathTriangle}
-			stroke="var(--sandy-brown-2)"
-			fill="none"
-			style="translate:{tx}px 
-      {-rectWidth / 5}px"
-		/>
-		<g class="label">
-			<text
-				bind:this={labelRef}
-				class="label-text"
-				x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
-				y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+		{#if month.isShow}
+			<path
+				bind:this={triangleRef}
+				class="triangle"
+				d={pathTriangle}
+				stroke="var(--sandy-brown-2)"
 				fill="none"
-			>
-				{month.length}
-			</text>
+				style="translate:{tx}px 
+      {-rectWidth / 5}px"
+			/>
+			<g class="label">
+				<text
+					bind:this={labelRef}
+					class="label-text"
+					x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
+					y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+					fill="none"
+				>
+					{month.length}
+				</text>
 
-			<text
-				class="label-dias"
-				x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
-				y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
-				fill="none">dias</text
-			>
-		</g>
+				<text
+					class="label-dias"
+					x={labelRef?.getBBox().x + labelRef?.getBBox().width + 8}
+					y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
+					fill="none">dias</text
+				>
+			</g>
+		{/if}
 	</g>
 {/if}
 
@@ -77,7 +78,7 @@
 		stroke-width: 1px;
 	}
 	.label-text {
-		font-size: 1rem;
+		font-size: 1.5rem;
 		font-weight: 400;
 		stroke: var(--sandy-brown-2);
 		/* fill: var(--sandy-brown-2); */
