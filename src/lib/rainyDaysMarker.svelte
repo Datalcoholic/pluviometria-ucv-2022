@@ -12,7 +12,10 @@
 			'label-dias',
 		]);
 
-		const tl = gsap.timeline({ ease: 'expo.in' });
+		const tl = gsap.timeline({
+			ease: 'expo.in',
+			transformOrigin: 'left center',
+		});
 
 		tl.from(area, { scaleX: 0 }, '+=0.8')
 			.from(triangle, {
@@ -36,7 +39,7 @@
 		<path
 			class="area"
 			d={pathRect}
-			fill={month.isShow ? 'var(--sandy-brown-2)' : 'none'}
+			fill={month.isShow ? 'var(--sandy-brown-3)' : 'none'}
 			stroke="var(--sandy-brown-2)"
 			style="translate:{tx}px 
       {ty}px"
@@ -57,7 +60,8 @@
 					class="label-text"
 					x={tx + triangleRef?.getBBox().x + triangleRef?.getBBox().width + 10}
 					y={triangleRef?.getBBox().y + triangleRef?.getBBox().height / 2}
-					fill="none"
+					fill="var(--sandy-brown-2)"
+					stroke="var(--orange-soda)"
 				>
 					{month.length}
 				</text>
@@ -77,12 +81,16 @@
 	.marker-2022 {
 		stroke-width: 1px;
 	}
+	.area {
+		transform-origin: left center;
+	}
 	.label-text {
 		font-size: 1.5rem;
 		font-weight: 400;
-		stroke: var(--sandy-brown-2);
+		stroke: var(--orange-soda);
 		/* fill: var(--sandy-brown-2); */
 		stroke-width: 1px;
+		paint-order: stroke;
 	}
 	.label-dias {
 		font-size: 0.98rem;
