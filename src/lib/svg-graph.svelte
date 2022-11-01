@@ -84,8 +84,8 @@
 	const rangeDays = d3.range(1, 32, 1);
 	$: dayScale = d3
 		.scaleLinear()
-		.domain(rangeDays)
-		.range([margin.left + 55, width * 0.107]);
+		.domain([1, 31])
+		.range([margin.left + 55, width - margin.right]);
 	// $: dayScale = d3
 	// 	.scaleBand()
 	// 	.domain(rangeDays)
