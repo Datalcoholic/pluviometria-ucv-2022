@@ -1,9 +1,9 @@
 import * as d3 from 'd3';
 
-function areaPath(start, end, height, r) {
-	const width = end - start;
+function areaPath(start, end, height, r, gap = 0) {
+	const width = end - start + gap;
 	const path = d3.path();
-	const x = 0;
+	const x = 0 - gap;
 	const y = 0;
 	path.moveTo(x + width / 2, y);
 	path.lineTo(width - width / 2, y);
