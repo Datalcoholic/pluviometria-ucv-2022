@@ -1,5 +1,4 @@
 <script>
-	import { easeBounceIn, easeBounceOut, easeQuadIn } from 'd3';
 	import gsap from 'gsap';
 	export let month, i, pathRect, tx, ty, pathTriangle, rectWidth;
 	let triangleRef;
