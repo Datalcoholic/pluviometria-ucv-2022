@@ -12,6 +12,7 @@
 	import ButtonsDiv from './devComponents/buttonsDiv.svelte';
 	import { onMount } from 'svelte';
 	import AreaRect from './areaRect.svelte';
+	import RectConsecutive from './rectConsecutive.svelte';
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
@@ -164,7 +165,7 @@
 		});
 		data = data.map((d) => {
 			return d.map((a, i) => {
-				return { ...a, indexDay: i + 1 };
+				return { ...a, indexDay: a.day };
 			});
 		});
 		return data;
@@ -179,6 +180,7 @@
 	let card2IsVisible = false;
 	let card3IsVisible = false;
 	let card4IsVisible = false;
+	let card5IsVisible = false;
 	let isAnnotation = false;
 
 	onMount(() => {
@@ -305,6 +307,7 @@
 					opacity: 1,
 				});
 				card4IsVisible = true;
+				rainData2022 = dataForCard4;
 			},
 			onLeaveBack: (self) => {
 				gsap.to($cardsStored[cardIndex4], {
@@ -312,6 +315,37 @@
 				});
 				card4IsVisible = false;
 			},
+		});
+
+		const cardIndex5 = 4;
+		const card5 = ScrollTrigger.create({
+			trigger: $cardsStored[cardIndex5],
+			onEnter: (self) => {
+				gsap.to($cardsStored[cardIndex5], {
+					opacity: 1,
+					duration: 0.5,
+				});
+				rainData2022 = dataForCard5;
+				card5IsVisible = true;
+			},
+			onLeave: () => {
+				gsap.to($cardsStored[cardIndex5], {
+					opacity: 0,
+				});
+				card5IsVisible = false;
+			},
+			// onEnterBack: () => {
+			// 	gsap.to($cardsStored[cardIndex4], {
+			// 		opacity: 1,
+			// 	});
+			// 	card4IsVisible = true;
+			// },
+			// onLeaveBack: (self) => {
+			// 	gsap.to($cardsStored[cardIndex4], {
+			// 		opacity: 0,
+			// 	});
+			// 	card4IsVisible = false;
+			// },
 		});
 	});
 </script>
@@ -353,6 +387,10 @@
 			isAnnotation={card3IsVisible}
 			period={1900}
 		/>
+	{/if}
+
+	{#if card5IsVisible}
+		<RectConsecutive data={$year2022} xScale={dayScale} yScale={monthScale} />
 	{/if}
 </Svg>
 
