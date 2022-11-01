@@ -34,6 +34,7 @@
 		<path
 			d={month.path}
 			style="translate:{xScale(month.day)}px {yScale(month.month) - 45 / 2}px"
+			fill="var(--sandy-brown-3)"
 		/>
 	{/each}
 </g>
