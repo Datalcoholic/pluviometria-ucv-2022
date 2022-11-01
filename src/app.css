@@ -12,11 +12,13 @@
 --indigo-dye-2: hsl(209, 77%, 35%);
 --indigo-dye-3: hsl(209, 77%, 60%);
 --indigo-dye-4: hsl(209, 77%, 75%);
+--indigo-dye-5: hsla(209, 77%, 60%, 0.45);
 --lemon-meringue: hsl(48, 82%, 89%);
 --orange-yellow-crayola: hsl(47, 87%, 66%);
 --orange-yellow-crayola-1: hsl(47, 87%, 80%);
 --sandy-brown: hsl(28, 83%, 61%);
 --sandy-brown-2: hsl(28, 83%, 81%);
+--sandy-brown-3: hsla(28, 83%, 81%, 0.45);
 --orange-soda: hsl(10, 94%, 60%);
 
 --backgrond-color: var(--black-coral);
