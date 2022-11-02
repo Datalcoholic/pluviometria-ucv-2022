@@ -33,8 +33,8 @@
 		<section class="svg-container" bind:this={containerRef}>
 			<SvgGraph />
 		</section>
-		<ScrolleCards />
 	</article>
+	<ScrolleCards />
 </main>
 
 <style>
@@ -42,20 +42,20 @@
 		display: grid;
 		justify-items: center;
 		align-items: center;
+		position: relative;
 	}
 
 	.main-container {
 		/* position: relative; */
-		outline: solid tomato;
-		top: 60px;
-		height: 200%;
-		display: grid;
-		justify-items: center;
+		outline: solid #ff6347;
+		top: 0px;
+		height: 100%;
+		/* display: grid;
+		justify-items: center; */
+		position: sticky;
 	}
 	.svg-container {
 		width: clamp(600px, 70vw, 900px);
-		height: 700px;
-		position: sticky;
-		top: 0px;
+		height: 800px;
 	}
 </style>

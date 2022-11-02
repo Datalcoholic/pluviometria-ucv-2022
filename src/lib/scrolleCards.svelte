@@ -40,14 +40,14 @@
 
 <style>
 	.cards-container {
-		width: 45vw;
-		height: 2500px;
+		height: 3500px;
 		/* outline: solid turquoise; */
 		/* position: absolute; */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 3.5em;
+		/* gap: 2.5em; */
+		padding-top: 10em;
 		z-index: 25;
 	}
 </style>
