@@ -187,7 +187,7 @@
 		ScrollTrigger.defaults({
 			start: 'top 85%',
 			end: '70% 25%',
-			markers: { startColor: 'white', endColor: '#ff6347' },
+			// markers: { startColor: 'white', endColor: '#ff6347' },
 		});
 		const cardIndex1 = 0;
 		const card1 = ScrollTrigger.create({
