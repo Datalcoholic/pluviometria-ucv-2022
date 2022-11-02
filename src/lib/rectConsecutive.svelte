@@ -1,6 +1,7 @@
 <script>
 	import { areaPath } from '../Utilities/utils';
 	import * as d3 from 'd3';
+	import gsap from 'gsap';
 	export let data, xScale, yScale;
 	const dayFormat = d3.timeFormat('%d');
 	const monthFormat = d3.timeFormat('%b');
@@ -30,19 +31,42 @@
 		});
 		return cons.map((d) => d);
 	});
-	console.log('consecutiveData :>> ', consecutiveData);
+
+	function scaleFromCenter(node, { delay = 0 }) {
+		// gsap.from(node, { scaleX: 0, duration: 2 }).delay(delay);
+
+		const tl = gsap.timeline({ ease: 'expo.in' });
+		const length = node.getTotalLength();
+
+		tl.fromTo(
+			node,
+			{ strokeDasharray: `0 ${length / 2}`, strokeDashoffset: length / 2 },
+			{
+				duration: 0.7,
+				strokeDasharray: `${length / 2} 0`,
+				strokeDashoffset: `${length / 2}`,
+			}
+		)
+			.from(node, { fillOpacity: 0, duration: 0.9 })
+			.delay(delay);
+		return { delay };
+	}
 </script>
 
 <g class="consecutive-paths">
-	{#each consecutiveData.flat(1) as month}
+	{#each consecutiveData.flat(1) as month, i}
 		<path
+			in:scaleFromCenter={{ delay: i * 0.08 }}
 			d={month.path}
 			style="translate:{xScale(month.day)}px {yScale(month.month) - 45 / 2}px"
 			fill={d3.rgb('hsl(28, 83%, 81%)').copy({ opacity: month.opacity })}
+			stroke="var(--sandy-brown-2)"
 		/>
 	{/each}
 </g>
 
 <style>
-	/* your styles go here */
+	path {
+		transform-origin: center;
+	}
 </style>
