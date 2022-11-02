@@ -4,6 +4,7 @@
 	export let data, xScale, yScale;
 	const dayFormat = d3.timeFormat('%d');
 	const monthFormat = d3.timeFormat('%b');
+	const opacityScale = d3.scaleLinear().domain([1, 8]).range([0.2, 1]);
 	const consecutiveData = data.map((month) => {
 		const cons = month.consecutiveRainyDays.consecutiveRainyDays.map((d) => {
 			const start = new Date(d3.min(d));
@@ -17,16 +18,19 @@
 				10
 			);
 			const m = monthFormat(new Date(`2022-${month.month}-1`));
+			const opacity = opacityScale(+dayFormat(end) - day);
 			return {
 				month: m,
 				day,
 				path,
 				start: +dayFormat(start),
 				end: +dayFormat(end),
+				opacity,
 			};
 		});
 		return cons.map((d) => d);
 	});
+	console.log('consecutiveData :>> ', consecutiveData);
 </script>
 
 <g class="consecutive-paths">
@@ -34,7 +38,7 @@
 		<path
 			d={month.path}
 			style="translate:{xScale(month.day)}px {yScale(month.month) - 45 / 2}px"
-			fill="var(--sandy-brown-3)"
+			fill={d3.rgb('hsl(28, 83%, 81%)').copy({ opacity: month.opacity })}
 		/>
 	{/each}
 </g>
