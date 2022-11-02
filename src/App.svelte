@@ -55,7 +55,7 @@
 		position: sticky;
 	}
 	.svg-container {
-		width: clamp(600px, 70vw, 900px);
-		height: 800px;
+		width: clamp(600px, 70vw, 1200px);
+		height: 750px;
 	}
 </style>
