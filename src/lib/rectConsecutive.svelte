@@ -5,12 +5,14 @@
 	export let data, xScale, yScale;
 	const dayFormat = d3.timeFormat('%d');
 	const monthFormat = d3.timeFormat('%b');
-	const opacityScale = d3.scaleLinear().domain([1, 8]).range([0.2, 1]);
+	const opacityScale = d3.scaleLinear().domain([1, 7]).range([0.1, 1]);
 	const consecutiveData = data.map((month) => {
 		const cons = month.consecutiveRainyDays.consecutiveRainyDays.map((d) => {
 			const start = new Date(d3.min(d));
 			const end = new Date(d3.max(d));
 			const day = +dayFormat(start);
+			const delta = +dayFormat(end) - day + 1;
+
 			const path = areaPath(
 				xScale(+dayFormat(start)),
 				xScale(+dayFormat(end)),
@@ -19,7 +21,7 @@
 				10
 			);
 			const m = monthFormat(new Date(`2022-${month.month}-1`));
-			const opacity = opacityScale(+dayFormat(end) - day);
+			const opacity = opacityScale(delta);
 			return {
 				month: m,
 				day,
@@ -27,11 +29,12 @@
 				start: +dayFormat(start),
 				end: +dayFormat(end),
 				opacity,
+				delta,
 			};
 		});
 		return cons.map((d) => d);
 	});
-
+	console.log('consecutiveData :>> ', consecutiveData);
 	function scaleFromCenter(node, { delay = 0 }) {
 		// gsap.from(node, { scaleX: 0, duration: 2 }).delay(delay);
 
