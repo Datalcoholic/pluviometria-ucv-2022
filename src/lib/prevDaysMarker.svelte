@@ -82,14 +82,14 @@
 		stroke-width: 1px;
 	}
 	.label-text {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		font-weight: 400;
 		stroke: var(--indigo-dye-4);
 		/* fill: var(--indigo-dye-4); */
 		stroke-width: 1px;
 	}
 	.label-dias {
-		font-size: 0.98rem;
+		font-size: 0.88rem;
 		fill: var(--indigo-dye-4);
 	}
 </style>
