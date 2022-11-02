@@ -24,15 +24,8 @@
 		},
 		{
 			name: 'card-5',
-			text: 'Pero lo que realmente hay que tomar en cuenta son los días consecutivos de lluvias. Donde tenemos que se produjeron tantos días en mes “este” tantos días en el mes cual y tantos días en este mes.',
+			text: 'No solo los dias de lluvias y la cantidad de la misma son factores a tomar en cuenta, tambien se toman los dias consecutivos de lluvias, ya que a mas dias consecutivos lloviendo mayor es la propencion de los suelos a saturarse. Este añp el mes con mayor dias continuos de lluvias fue Agosto con 7 dias',
 		},
-
-		{
-			name: 'card-6',
-			text: 'Lo cual pone (Estadisticas comparativas respecto a los meses anteriores)',
-		},
-
-		{ name: 'card-7', text: 'Distribuidos de la siguiente manera en el mes' },
 	];
 
 	let cardsRef = [];
@@ -48,7 +41,7 @@
 <style>
 	.cards-container {
 		width: 45vw;
-		height: 1500px;
+		height: 2500px;
 		/* outline: solid turquoise; */
 		/* position: absolute; */
 		display: flex;
