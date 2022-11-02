@@ -24,7 +24,6 @@
 	const h = 25;
 	const r = 2.2;
 
-	// $: console.log('days :>> ', days);
 	function theScale(node, { delay = 0, duration = 400, easing = elasticIn }) {
 		return {
 			delay,
@@ -149,9 +148,10 @@
 <style>
 	.rects {
 		stroke: var(--black-coral-1);
-		stroke-width: 2px;
+		stroke-width: 1.5px;
 		paint-order: stroke;
 	}
+
 	#line {
 		transform: rotate(45deg);
 	}
