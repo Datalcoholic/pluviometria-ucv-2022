@@ -34,6 +34,6 @@
 		text-anchor: middle;
 	}
 	.leyend {
-		translate: 670px 0;
+		translate: 68% 0;
 	}
 </style>
