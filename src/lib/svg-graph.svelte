@@ -14,6 +14,7 @@
 	import AreaRect from './areaRect.svelte';
 	import RectConsecutive from './rectConsecutive.svelte';
 	import Leyend from './leyend.svelte';
+
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
@@ -121,7 +122,7 @@
 		.interpolate(d3.interpolateHsl);
 
 	// Size
-	const sizeScale = d3.scaleSqrt().domain([mmExtend[0], 105]).range([0, 35]);
+	const sizeScale = d3.scaleSqrt().domain([mmExtend[0], 105]).range([2, 35]);
 
 	// Mean
 	const meansRange = prevMeans.map((d) => d.monthMean);
