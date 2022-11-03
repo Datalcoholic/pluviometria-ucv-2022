@@ -5,7 +5,7 @@
 		de la Universidad Central de Venezuela (UCV).
 	</p>
 	<div class="credits">
-		<p>Vizualización hecha por:</p>
+		<p>Vizualización:</p>
 		<a
 			class="contact"
 			href="https://www.instagram.com/dataalcoholic"
