@@ -23,7 +23,7 @@
 					/></svg
 				>
 			</div>
-			<strong>@DataAlcoholic</strong>
+			<strong>@Dataalcoholic</strong>
 		</a>
 	</div>
 </section>
