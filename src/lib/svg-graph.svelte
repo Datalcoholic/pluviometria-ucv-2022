@@ -13,6 +13,7 @@
 	import { onMount } from 'svelte';
 	import AreaRect from './areaRect.svelte';
 	import RectConsecutive from './rectConsecutive.svelte';
+	import Leyend from './leyend.svelte';
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
@@ -110,8 +111,8 @@
 	$: monthScale = d3
 		.scaleBand()
 		.domain(months)
-		.paddingOuter(1)
-		.paddingInner(-0.5)
+		.paddingOuter(0.5)
+		.paddingInner(0.1)
 		.range([margin.top, height - margin.top - margin.bottom]);
 
 	//Fill
@@ -282,8 +283,6 @@
 				card3IsVisible = false;
 			},
 		});
-		// TODO:
-		// completar la entrada, salida, reentrada y resalida de la card4
 
 		const cardIndex4 = 3;
 		const card4 = ScrollTrigger.create({
@@ -349,6 +348,7 @@
 </script>
 
 <Svg {width} {height}>
+	<Leyend range={mmExtend} fill={fillScale} size={sizeScale} />
 	<g class="graph">
 		<YAxis scale={monthScale} {months} x={margin.right} />
 		<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
@@ -394,6 +394,6 @@
 
 <style>
 	.graph {
-		translate: 0 35px;
+		translate: 0 50px;
 	}
 </style>
