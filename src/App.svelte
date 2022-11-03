@@ -3,7 +3,7 @@
 	import { svgContainerSize } from './stores/appStores';
 	import SvgGraph from './lib/svg-graph.svelte';
 	import ScrolleCards from './lib/scrolleCards.svelte';
-
+	import Footer from './lib/footer.svelte';
 	let containerRef;
 	// let containerSize;
 	$: console.log('containerSize :>> ', $svgContainerSize);
@@ -28,18 +28,25 @@
 </script>
 
 <main class="main">
-	<article class="main-container">
-		<h1>¿Han estado las lluvias de este 2022 por encima del promedio?</h1>
-		<h3>Datos para Caracas</h3>
-		<section class="svg-container" bind:this={containerRef}>
-			<SvgGraph />
-		</section>
-	</article>
-	<ScrolleCards />
+	<section class="container">
+		<article class="main-container">
+			<h1>¿Han estado las lluvias de este 2022 por encima del promedio?</h1>
+			<h3>Datos para Caracas</h3>
+			<section class="svg-container" bind:this={containerRef}>
+				<SvgGraph />
+			</section>
+		</article>
+		<ScrolleCards />
+	</section>
+	<Footer />
 </main>
 
 <style>
 	.main {
+		display: grid;
+		justify-items: center;
+	}
+	.container {
 		display: grid;
 		justify-items: center;
 		align-items: center;
