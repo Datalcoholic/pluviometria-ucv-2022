@@ -70,7 +70,7 @@
 	}
 	.main-container > h3 {
 		font-weight: 100;
-		margin-top: 0;
+		margin: 0.5em 0 0;
 	}
 	.svg-container {
 		width: clamp(600px, 70vw, 1200px);
