@@ -1,8 +1,8 @@
 <section class="footer">
 	<h3>Titke</h3>
 	<p>
-		Datos facilitados por el profesor <strong>name</strong> jefe del departamento
-		de hidrologia de la Universidad Central de Venezuela (UCV).
+		Datos facilitados por el profesor <strong>Alfredo Gil</strong> Ing. hidrometeorologista
+		de la Universidad Central de Venezuela (UCV).
 	</p>
 	<div class="credits">
 		<p>Vizualización hecha por:</p>
