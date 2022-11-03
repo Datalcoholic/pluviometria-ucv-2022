@@ -90,12 +90,6 @@
 		.domain(daysExt)
 		.range([margin.left + 55, width - margin.left - margin.right]);
 
-	// $: dayScale = d3
-	// 	.scaleBand()
-	// 	.domain(rangeDays)
-	// 	.paddingInner(1)
-	// 	.paddingOuter(2.5)
-	// 	.range([margin.right, width - margin.left]);
 	//Month
 	const monthFormat = d3.timeFormat('%b');
 	const months = dataForCard1?.map((d, i) => {
