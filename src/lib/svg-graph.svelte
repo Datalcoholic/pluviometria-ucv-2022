@@ -83,11 +83,13 @@
 	const prevMeans = $prevYears.rainyDaysMean;
 	// Scales
 	//Days
-	const rangeDays = d3.range(1, 32, 1);
+	$: rangeDays = d3.range(1, 31.5, width < 680 ? 7 : 1);
+	$: daysExt = d3.extent(rangeDays);
 	$: dayScale = d3
 		.scaleLinear()
-		.domain([1, 31])
-		.range([margin.left + 55, width - margin.right - margin.left]);
+		.domain(daysExt)
+		.range([margin.left + 55, width - margin.left - margin.right]);
+
 	// $: dayScale = d3
 	// 	.scaleBand()
 	// 	.domain(rangeDays)
