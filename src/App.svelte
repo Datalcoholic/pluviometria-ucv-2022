@@ -29,7 +29,8 @@
 
 <main class="main">
 	<article class="main-container">
-		<h1>Title</h1>
+		<h1>¿Han estado las lluvias de este 2022 por encima del promedio?</h1>
+		<h3>Datos para Caracas</h3>
 		<section class="svg-container" bind:this={containerRef}>
 			<SvgGraph />
 		</section>
@@ -53,6 +54,16 @@
 		/* display: grid;
 		justify-items: center; */
 		position: sticky;
+	}
+	.main-container > h1 {
+		text-transform: uppercase;
+		font-weight: 100;
+		font-size: 1.35rem;
+		margin-bottom: 0.22em;
+	}
+	.main-container > h3 {
+		font-weight: 100;
+		margin-top: 0;
 	}
 	.svg-container {
 		width: clamp(600px, 70vw, 1200px);
