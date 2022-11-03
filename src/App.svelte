@@ -68,6 +68,5 @@
 	.svg-container {
 		width: clamp(600px, 70vw, 1200px);
 		height: 750px;
-		translate: 0 40px;
 	}
 </style>

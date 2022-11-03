@@ -348,48 +348,52 @@
 	});
 </script>
 
-<!-- <ButtonsDiv onclick={{ getRainyDays, getconsecutiveRainyDays }} /> -->
 <Svg {width} {height}>
-	<YAxis scale={monthScale} {months} x={margin.right} />
-	<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
-	{#if card4IsVisible}
-		<AreaRect
-			data={rainData2022}
-			data2={prevMeans}
-			{monthScale}
-			{dayScale}
-			{meanScale}
-			format={monthFormat}
-		/>
-	{/if}
-	{#if card5IsVisible}
-		<RectConsecutive data={$year2022} xScale={dayScale} yScale={monthScale} />
-	{/if}
-	<Rects
-		{monthScale}
-		{dayScale}
-		{fillScale}
-		{sizeScale}
-		days={card1IsVisible ? rainData2022.flat(1) : []}
-		format={monthFormat}
-		topDays={topRainyDays2022}
-		isAnnotation={card2IsVisible}
-	/>
-
-	{#if card3IsVisible}
+	<g class="graph">
+		<YAxis scale={monthScale} {months} x={margin.right} />
+		<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
+		{#if card4IsVisible}
+			<AreaRect
+				data={rainData2022}
+				data2={prevMeans}
+				{monthScale}
+				{dayScale}
+				{meanScale}
+				format={monthFormat}
+			/>
+		{/if}
+		{#if card5IsVisible}
+			<RectConsecutive data={$year2022} xScale={dayScale} yScale={monthScale} />
+		{/if}
 		<Rects
 			{monthScale}
 			{dayScale}
 			{fillScale}
 			{sizeScale}
-			days={card1IsVisible ? top3PrevYears : []}
+			days={card1IsVisible ? rainData2022.flat(1) : []}
 			format={monthFormat}
-			topDays={top3PrevYears}
-			isAnnotation={card3IsVisible}
-			period={1900}
+			topDays={topRainyDays2022}
+			isAnnotation={card2IsVisible}
 		/>
-	{/if}
+
+		{#if card3IsVisible}
+			<Rects
+				{monthScale}
+				{dayScale}
+				{fillScale}
+				{sizeScale}
+				days={card1IsVisible ? top3PrevYears : []}
+				format={monthFormat}
+				topDays={top3PrevYears}
+				isAnnotation={card3IsVisible}
+				period={1900}
+			/>
+		{/if}
+	</g>
 </Svg>
 
 <style>
+	.graph {
+		translate: 0 35px;
+	}
 </style>
