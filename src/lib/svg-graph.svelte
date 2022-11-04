@@ -188,8 +188,8 @@
 
 	onMount(() => {
 		ScrollTrigger.defaults({
-			start: 'top 85%',
-			end: '70% 25%',
+			start: 'top 90%',
+			end: 'top 8%',
 			// markers: { startColor: 'white', endColor: '#ff6347' },
 		});
 		const cardIndex1 = 0;

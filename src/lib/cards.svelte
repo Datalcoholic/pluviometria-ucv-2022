@@ -7,7 +7,7 @@
 </div>
 
 <style>
-	.card {
+	/* .card {
 		background-color: var(--black-coral-2);
 		border: solid 1.7px var(--black-coral-1);
 		border-radius: 6px;
@@ -18,5 +18,5 @@
 		padding: 0.8em;
 		margin: 20em 0 0em;
 		opacity: 0;
-	}
+	} */
 </style>

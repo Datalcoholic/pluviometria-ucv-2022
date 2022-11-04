@@ -39,15 +39,13 @@
 </section>
 
 <style>
-	.cards-container {
+	/* .cards-container {
 		height: 3500px;
-		/* outline: solid turquoise; */
-		/* position: absolute; */
+		outline: solid turquoise;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		/* gap: 2.5em; */
 		padding-top: 10em;
 		z-index: 25;
-	}
+	} */
 </style>

@@ -41,7 +41,9 @@
 				<SvgGraph />
 			</section>
 		</article>
-		<ScrolleCards />
+		<section class="cards">
+			<ScrolleCards />
+		</section>
 	</section>
 	<Footer />
 </main>
@@ -51,22 +53,19 @@
 		display: grid;
 		justify-items: center;
 	}
-	.container {
+	/* .container {
 		display: grid;
 		justify-items: center;
 		align-items: center;
 		position: relative;
-	}
+	} */
 
-	.main-container {
-		/* position: relative; */
-		outline: solid #ff6347;
+	/* .main-container {
 		top: 0px;
 		height: 100%;
-		/* display: grid;
-		justify-items: center; */
-		position: sticky;
-	}
+				position: sticky;
+	} */
+
 	.main-container > h1 {
 		text-transform: uppercase;
 		font-weight: 100;
@@ -77,7 +76,7 @@
 		font-weight: 100;
 		margin: 0.5em 0 0;
 	}
-	.svg-container {
+	/* .svg-container {
 		width: clamp(600px, 70vw, 1200px);
 		height: 750px;
 		container-type: inline-size;
@@ -86,5 +85,5 @@
 		display: grid;
 		justify-items: center;
 		align-items: center;
-	}
+	} */
 </style>
