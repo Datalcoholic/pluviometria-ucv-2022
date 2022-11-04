@@ -11,20 +11,20 @@
 
 		{
 			name: 'card-2',
-			text: 'Los dias que se registaron mayor candidad de lluvias se fueron el 22 de Abril, 26 de Agosto y 26 de Septiembre ',
+			text: 'Los días que se registraron mayor cantidad de lluvias se fueron el 22 de Abril, 26 de Agosto y 26 de Septiembre ',
 		},
 		{
 			name: 'card-3',
-			text: 'En contraste los dias con mayor cantidad de lluvia registrados historicamente fueron el 17 de Noviembre de 2008, 22 de Octubre de 1994 y el 2 de Septiembre de 2020',
+			text: 'En contraste los días con la mayor cantidad de lluvia registrados históricamente fueron el 17 de Noviembre de 2008, 22 de Octubre de 1994 y el 2 de Septiembre de 2020',
 		},
 
 		{
 			name: 'card-4',
-			text: 'Para este 2022 tenemos que Agosto fue el mes con mas dias lluvioso con 1,6 veces sobre el promedio historico, seguido por Junio con 1,4 veces sobre el promedio y Septiembre con 1,4 veces sobre el promedio. Destaca Marzo el cual registro 2 veces mas dias lluviosos sobre el promedio',
+			text: 'Para este 2022 tenemos que Agosto fue el mes con más días lluviosos con 1,6 veces sobre el promedio histórico, seguido por Junio con 1,4 veces sobre el promedio y Septiembre con 1,4 veces sobre el promedio. Destaca Marzo el cual registró 2 veces más días lluviosos sobre el promedio',
 		},
 		{
 			name: 'card-5',
-			text: 'No solo los dias de lluvias y la cantidad de la misma son factores a tomar en cuenta, tambien se toman los dias consecutivos de lluvias, ya que a mas dias consecutivos lloviendo mayor es la propencion de los suelos a saturarse. Este añp el mes con mayor dias continuos de lluvias fue Agosto con 7 dias',
+			text: 'No solo los días de lluvias y la cantidad de la misma son factores a tomar en cuenta, también se toman los días consecutivos de lluvias, ya que a más días consecutivos lloviendo mayor es la propensión de los suelos a saturarse. Este año el mes con mayor días continuos de lluvias fue Agosto con 7 días',
 		},
 	];
 
