@@ -8,12 +8,11 @@
 	{/each}
 </g>
 
-<!-- markup (zero or more items) goes here -->
 <style>
 	.x-axis {
 		fill: currentColor;
 		text-anchor: middle;
 		font-weight: var(--axis-labels-font-weight);
-		font-size: 0.95rem;
+		font-size: 0.9rem;
 	}
 </style>
