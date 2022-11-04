@@ -47,4 +47,5 @@ let localeEs = readable({
 });
 
 const cardsStored = writable([]);
-export { svgContainerSize, localeEs, cardsStored };
+const card1Stored = writable(false);
+export { svgContainerSize, localeEs, cardsStored, card1Stored };

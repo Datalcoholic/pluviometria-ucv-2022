@@ -1,7 +1,12 @@
 <script>
 	import Svg from './svg.svelte';
 	import { startOfMonth } from 'date-fns';
-	import { svgContainerSize, localeEs, cardsStored } from '../stores/appStores';
+	import {
+		svgContainerSize,
+		localeEs,
+		cardsStored,
+		card1Stored,
+	} from '../stores/appStores';
 	import { year2022, prevYears } from '../stores/dataStore';
 	import * as d3 from 'd3';
 	import gsap from 'gsap';
@@ -174,7 +179,7 @@
 	//Scroll Animations
 	gsap.registerPlugin(ScrollTrigger);
 
-	let card1IsVisible = false;
+	$: card1IsVisible = $card1Stored;
 	let card2IsVisible = false;
 	let card3IsVisible = false;
 	let card4IsVisible = false;
@@ -196,7 +201,7 @@
 					duration: 0.5,
 				});
 				rainData2022 = dataForCard1;
-				card1IsVisible = true;
+				card1Stored.set(true);
 			},
 			onLeave: (self) => {
 				gsap.to($cardsStored[cardIndex1], {
@@ -206,7 +211,7 @@
 				//card1IsVisible = false;
 			},
 			onEnterBack: (self) => {
-				card1IsVisible = true;
+				card1Stored.set(true);
 				gsap.to($cardsStored[cardIndex1], {
 					opacity: 1,
 					duration: 0.5,

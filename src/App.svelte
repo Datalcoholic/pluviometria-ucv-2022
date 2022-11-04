@@ -1,9 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	import { svgContainerSize } from './stores/appStores';
+	import { card1Stored, svgContainerSize } from './stores/appStores';
 	import SvgGraph from './lib/svg-graph.svelte';
 	import ScrolleCards from './lib/scrolleCards.svelte';
 	import Footer from './lib/footer.svelte';
+	import Instructions from './lib/instructions.svelte';
+	// import Instructions from './lib/instructions.svelte';
 	let containerRef;
 	// let containerSize;
 	$: console.log('containerSize :>> ', $svgContainerSize);
@@ -33,6 +35,9 @@
 			<h1>¿Han estado las lluvias de este 2022 por encima del promedio?</h1>
 			<h3>Datos para Caracas</h3>
 			<section class="svg-container" bind:this={containerRef}>
+				{#if !$card1Stored}
+					<Instructions />
+				{/if}
 				<SvgGraph />
 			</section>
 		</article>
@@ -77,5 +82,9 @@
 		height: 750px;
 		container-type: inline-size;
 		container-name: svg;
+		position: relative;
+		display: grid;
+		justify-items: center;
+		align-items: center;
 	}
 </style>
