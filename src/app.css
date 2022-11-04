@@ -33,6 +33,10 @@ body{
   /* font-family:"Inter", Helvetica, sans-serif; */
   
 }
+.main{
+  display: grid;
+  justify-items: center;
+}
 .container {
   display: grid;
   justify-items: center;
