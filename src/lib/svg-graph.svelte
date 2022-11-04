@@ -49,7 +49,7 @@
 	let rainData2022; //= getRainData2022($year2022);
 
 	// Top 3 rainy days 2022
-	const top3PrevYears = $prevYears.maxRainyDay.map((d, i) => {
+	const top3PrevYears = $prevYears.maxRainyDay?.map((d, i) => {
 		const { date, day, month, year, mm } = d;
 		const position = i === 1 || i === 2 ? 'top-right' : 'top-left';
 		return {
