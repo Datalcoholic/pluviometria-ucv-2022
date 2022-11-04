@@ -35,7 +35,7 @@ let rawData = await readFile('../data/Maximos.csv', 'utf-8', (err, data) => {
 			const rainyDaysLength = rainyDays.length;
 
 			// get the 2022 year consecutive rainy days
-
+			console.log('rainyDays :>> ', rainyDays);
 			const consecutiveRainyDays = getMaxConsecutiveDays(
 				getConsecutiveDays(rainyDays)
 			);
