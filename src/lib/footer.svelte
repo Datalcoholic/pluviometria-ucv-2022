@@ -1,11 +1,11 @@
 <section class="footer">
-	<h3>Titke</h3>
+	<h3>Información:</h3>
 	<p>
-		Datos facilitados por el profesor <strong>Alfredo Gil</strong> Ing. hidrometeorologista
+		- Datos facilitados por el profesor <strong>Alfredo Gil</strong> Ing. hidrometeorologista
 		de la Universidad Central de Venezuela (UCV).
 	</p>
 	<div class="credits">
-		<p>Vizualización:</p>
+		<p>- Vizualización:</p>
 		<a
 			class="contact"
 			href="https://www.instagram.com/dataalcoholic"
@@ -58,9 +58,10 @@
 		transition: scale 0.5s, color 0.3s;
 	}
 	.contact:hover {
-		scale: 1.1;
+		scale: 1.05;
 		gap: 0.4;
 		color: var(--sandy-brown-2);
+		fill: var(--sandy-brown-2);
 	}
 	.icon {
 		fill: var(--white-coral-1);
