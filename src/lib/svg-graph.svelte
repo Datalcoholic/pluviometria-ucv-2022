@@ -155,12 +155,10 @@
 	const getconsecutiveRainyDays = () => {
 		let data = dataForCard4.map((month, i) => {
 			const arrfilter = consecutiveRainyDays[i]?.map((date) => {
-				// console.log('date :>> ', date);
 				return date.map((d) => {
 					return dateFormat(new Date(d));
 				});
 			});
-			//console.log('month :>> ', month, 'dates:', arrfilter.flat(1));
 
 			return month.filter((d) =>
 				arrfilter.flat(1).includes(dateFormat(d.date))

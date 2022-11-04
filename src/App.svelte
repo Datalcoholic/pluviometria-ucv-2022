@@ -5,10 +5,7 @@
 	import ScrolleCards from './lib/scrolleCards.svelte';
 	import Footer from './lib/footer.svelte';
 	import Instructions from './lib/instructions.svelte';
-	// import Instructions from './lib/instructions.svelte';
 	let containerRef;
-	// let containerSize;
-	$: console.log('containerSize :>> ', $svgContainerSize);
 
 	onMount(() => {
 		const resizeObserver = new ResizeObserver((entries) => {
