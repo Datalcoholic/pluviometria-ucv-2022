@@ -5,9 +5,11 @@
 </script>
 
 <g class="y-axis">
-	{#each months as month}
-		<text {x} y={scale(month)}>{month}</text>
-	{/each}
+	{#if months}
+		{#each months as month}
+			<text {x} y={scale(month)}>{month}</text>
+		{/each}
+	{/if}
 </g>
 
 <style>

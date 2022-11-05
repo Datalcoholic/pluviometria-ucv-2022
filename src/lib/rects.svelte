@@ -18,7 +18,7 @@
 	export let period = 2022;
 
 	const [top1, top2, top3] = topDays.map((d) => d.date);
-	//$: console.log('isTop :>> ', isTop, top1, top2, top3);
+	// console.log('isTop :>> ', top1, top2, top3);
 	const dayFormat = d3.timeFormat('%e');
 	const w = 10;
 	const h = 25;

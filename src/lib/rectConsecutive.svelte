@@ -6,34 +6,38 @@
 	const dayFormat = d3.timeFormat('%d');
 	const monthFormat = d3.timeFormat('%b');
 	const opacityScale = d3.scaleLinear().domain([1, 7]).range([0.1, 1]);
-	const consecutiveData = data.map((month) => {
-		const cons = month.consecutiveRainyDays.consecutiveRainyDays.map((d) => {
-			const start = new Date(d3.min(d));
-			const end = new Date(d3.max(d));
-			const day = +dayFormat(start);
-			const delta = +dayFormat(end) - day + 1;
+	const consecutiveData = data
+		? data?.map((month) => {
+				const cons = month.consecutiveRainyDays.consecutiveRainyDays.map(
+					(d) => {
+						const start = new Date(d3.min(d));
+						const end = new Date(d3.max(d));
+						const day = +dayFormat(start);
+						const delta = +dayFormat(end) - day + 1;
 
-			const path = areaPath(
-				xScale(+dayFormat(start)),
-				xScale(+dayFormat(end)),
-				30,
-				5,
-				10
-			);
-			const m = monthFormat(new Date(`2022-${month.month}-1`));
-			const opacity = opacityScale(delta);
-			return {
-				month: m,
-				day,
-				path,
-				start: +dayFormat(start),
-				end: +dayFormat(end),
-				opacity,
-				delta,
-			};
-		});
-		return cons.map((d) => d);
-	});
+						const path = areaPath(
+							xScale(+dayFormat(start)),
+							xScale(+dayFormat(end)),
+							30,
+							5,
+							10
+						);
+						const m = monthFormat(new Date(`2022-${month.month}-1`));
+						const opacity = opacityScale(delta);
+						return {
+							month: m,
+							day,
+							path,
+							start: +dayFormat(start),
+							end: +dayFormat(end),
+							opacity,
+							delta,
+						};
+					}
+				);
+				return cons.map((d) => d);
+		  })
+		: undefined;
 	console.log('consecutiveData :>> ', consecutiveData);
 	function enter(node, { delay = 0 }) {
 		// gsap.from(node, { scaleX: 0, duration: 2 }).delay(delay);
@@ -78,36 +82,39 @@
 	}
 </script>
 
-{#each consecutiveData.flat(1) as month, i}
-	<g class="consecutive-paths" in:enter={{ delay: i * 0.08 }}>
-		<path
-			d={month.path}
-			style="translate:{xScale(month.day)}px {yScale(month.month) - 30 / 2}px"
-			fill={d3.rgb('hsl(28, 83%, 81%)').copy({ opacity: month.opacity })}
-			stroke="var(--sandy-brown-2)"
-		/>
-		{#if month.delta === 7}
+{#if consecutiveData}
+	{#each consecutiveData?.flat(1) as month, i}
+		<g class="consecutive-paths" in:enter={{ delay: i * 0.08 }}>
 			<path
-				class="triangle"
-				d={triangle(0, 0, 0, 20, 15, 2)}
-				style="translate:{xScale(month.day) -
-					20 +
-					xScale(month.delta - 1) / 2 -
-					15}px {yScale(month.month) + 15 + 10}px; rotate:{90}deg"
+				d={month.path}
+				style="translate:{xScale(month.day)}px {yScale(month.month) - 30 / 2}px"
+				fill={d3.rgb('hsl(28, 83%, 81%)').copy({ opacity: month.opacity })}
+				stroke="var(--sandy-brown-2)"
 			/>
-			<text
-				class="amount"
-				x={xScale(month.day) - 20 + xScale(month.delta - 1) / 2 - 15}
-				y={yScale(month.month) + 15 + 10 + 20 + 18}>{month.delta}</text
-			>
-			<text
-				class="unit"
-				x={xScale(month.day) - 20 + xScale(month.delta - 1) / 2 - 15 + 15}
-				y={yScale(month.month) + 15 + 10 + 20 + 18}>dias</text
-			>
-		{/if}
-	</g>
-{/each}
+			{#if month.delta === 7}
+				<path
+					class="triangle"
+					d={triangle(0, 0, 0, 20, 15, 2)}
+					style="translate:{xScale(month.day) -
+						20 +
+						xScale(month.delta - 1) / 2 -
+						15}px {yScale(month.month) + 15 + 10}px; rotate:{90}deg"
+				/>
+				<text
+					class="amount"
+					x={xScale(month.day) - 20 + xScale(month.delta - 1) / 2 - 15}
+					y={yScale(month.month) + 15 + 10 + 20 + 18}>{month.delta}</text
+				>
+				<text
+					class="unit"
+					x={xScale(month.day) - 20 + xScale(month.delta - 1) / 2 - 15 + 15}
+					y={yScale(month.month) + 15 + 10 + 20 + 18}>dias</text
+				>
+			{/if}
+		</g>
+	{/each}
+	<!-- content here -->
+{/if}
 
 <style>
 	path {

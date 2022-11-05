@@ -5,6 +5,7 @@
 	import ScrolleCards from './lib/scrolleCards.svelte';
 	import Footer from './lib/footer.svelte';
 	import Instructions from './lib/instructions.svelte';
+	// import Graph from './lib/graph.svelte';
 	let containerRef;
 
 	onMount(() => {
@@ -28,6 +29,7 @@
 
 <main class="main">
 	<section class="container">
+		<!-- <Graph /> -->
 		<article class="main-container">
 			<h1>¿Han estado las lluvias de este 2022 por encima del promedio?</h1>
 			<h3>Datos para Caracas</h3>

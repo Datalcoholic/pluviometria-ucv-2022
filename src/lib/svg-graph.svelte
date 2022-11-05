@@ -7,7 +7,7 @@
 		cardsStored,
 		card1Stored,
 	} from '../stores/appStores';
-	import { year2022, prevYears } from '../stores/dataStore';
+	import { data } from '../stores/dataStore2.js';
 	import * as d3 from 'd3';
 	import gsap from 'gsap';
 	import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -21,7 +21,8 @@
 	import Leyend from './leyend.svelte';
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
-
+	$: prevYears = data.prevYears;
+	$: year2022 = data.year2022;
 	$: width = $svgContainerSize?.width < 600 ? 660 : $svgContainerSize?.width;
 	$: height = $svgContainerSize?.height;
 
@@ -29,8 +30,9 @@
 	const palette = {
 		indigoDye1: 'hsl(28, 83%, 81%)',
 		indigoDye2: 'hsl(28, 83%, 55%)',
-		blackcoral1: 'hsla(213, 23%, 42%, 1)',
+		blackcoral1: 'hsl(213, 23%, 42%)',
 	};
+	const margin = { top: 35, right: 20, bottom: 15, left: 15 };
 
 	const getRainData2022 = (arr) => {
 		return arr?.map((d) => {
@@ -44,11 +46,10 @@
 		});
 	};
 
-	const dataForCard1 = getRainData2022($year2022);
+	$: dataForCard1 = getRainData2022($year2022);
 	let rainData2022; //= getRainData2022($year2022);
-
-	// Top 3 rainy days 2022
-	const top3PrevYears = $prevYears.maxRainyDay?.map((d, i) => {
+	// // Top 3 rainy days 2022
+	$: top3PrevYears = $prevYears?.maxRainyDay?.map((d, i) => {
 		const { date, day, month, year, mm } = d;
 		const position = i === 1 || i === 2 ? 'top-right' : 'top-left';
 		return {
@@ -61,43 +62,44 @@
 			position,
 		};
 	});
-	let isTop3 = false;
-	let topRainyDays2022 = dataForCard1
-		.flat(1)
-		.sort((a, b) => b.mm - a.mm)
-		.splice(0, 3)
-		.map((d, i) => {
-			const { date, day, indexDay, month, year, mm } = d;
-			const position = i === 0 || i === 1 ? 'top-left' : 'bottom-left';
-			return {
-				date,
-				day,
-				indexDay,
-				month,
-				year,
-				mm,
-				position,
-			};
-		});
 
-	const consecutiveRainyDays = $year2022?.map(
+	// let isTop3 = false;
+	$: topRainyDays2022 = dataForCard1
+		? dataForCard1
+				.flat(1)
+				.sort((a, b) => b.mm - a.mm)
+				.splice(0, 3)
+				.map((d, i) => {
+					const { date, day, indexDay, month, year, mm } = d;
+					const position = i === 0 || i === 1 ? 'top-left' : 'bottom-left';
+					return {
+						date,
+						day,
+						indexDay,
+						month,
+						year,
+						mm,
+						position,
+					};
+				})
+		: [];
+	$: consecutiveRainyDays = $year2022?.map(
 		(month) => month.consecutiveRainyDays.consecutiveRainyDays
 	);
-	const margin = { top: 35, right: 20, bottom: 15, left: 15 };
-
-	const prevMeans = $prevYears.rainyDaysMean;
-	// Scales
-	//Days
-	$: rangeDays = d3.range(1, 31.5, width < 680 ? 7 : 1);
+	$: prevMeans = $prevYears?.rainyDaysMean;
+	// // Scales
+	// //Days
+	$: rangeDays = d3.range(1, 31.5, width < 650 ? 7 : 1);
 	$: daysExt = d3.extent(rangeDays);
 	$: dayScale = d3
 		.scaleLinear()
 		.domain(daysExt)
 		.range([margin.left + 55, width - margin.left - margin.right]);
 
+	//BREAK:
 	//Month
 	const monthFormat = d3.timeFormat('%b');
-	const months = dataForCard1?.map((d, i) => {
+	$: months = dataForCard1?.map((d, i) => {
 		let firstDateOfTheMonth;
 		if (i + 1 === 11) {
 			firstDateOfTheMonth = new Date('2022/11/01');
@@ -108,33 +110,43 @@
 		}
 		return monthFormat(startOfMonth(firstDateOfTheMonth));
 	});
-
-	$: monthScale = d3
-		.scaleBand()
-		.domain(months)
-		.paddingOuter(0.5)
-		.paddingInner(0.1)
-		.range([margin.top, height - margin.top - margin.bottom]);
+	//BREAK:
+	$: monthScale = months
+		? d3
+				.scaleBand()
+				.domain(months)
+				.paddingOuter(0.5)
+				.paddingInner(0.1)
+				.range([margin.top, height - margin.top - margin.bottom])
+		: undefined;
 
 	//Fill
-	const mm = dataForCard1?.flat(1).map((m) => m.mm);
-	const mmExtend = d3.extent(mm);
-	const fillScale = d3
-		.scaleLinear()
-		.domain(mmExtend)
-		.range([palette.indigoDye1, palette.indigoDye2])
-		.interpolate(d3.interpolateHsl);
+	$: mm = dataForCard1?.flat(1).map((m) => m.mm);
+	$: mmExtend = mm ? d3.extent(mm) : undefined;
+	//BREAK:
+	$: fillScale = mm
+		? d3
+				.scaleLinear()
+				.domain(mmExtend)
+				.range([palette.indigoDye1, palette.indigoDye2])
+				.interpolate(d3.interpolateHsl)
+		: undefined;
 
 	// Size
-	const sizeScale = d3.scaleSqrt().domain([mmExtend[0], 105]).range([2, 35]);
+	//BREAK:
+	$: sizeScale = mm
+		? d3.scaleSqrt().domain([mmExtend[0], 105]).range([2, 35])
+		: undefined;
 
 	// Mean
-	const meansRange = prevMeans.map((d) => d.monthMean);
-	const meanExt = d3.extent(meansRange);
-	$: meanScale = d3
-		.scaleLinear()
-		.domain(meanExt)
-		.range([margin.right, width - margin.left]);
+	$: meansRange = prevMeans?.map((d) => d.monthMean);
+	$: meanExt = meansRange ? d3.extent(meansRange) : undefined;
+	$: meanScale = meanExt
+		? d3
+				.scaleLinear()
+				.domain(meanExt)
+				.range([margin.right, width - margin.left])
+		: undefined;
 
 	// Filter functions
 	const getRainyDays = () => {
@@ -148,7 +160,8 @@
 		//rainData2022 = data;
 		return data;
 	};
-	const dataForCard4 = getRainyDays();
+	$: dataForCard4 = dataForCard1 ? getRainyDays() : undefined;
+	$: console.log('dataForCard4 :>> ', dataForCard4);
 
 	const dateFormat = d3.timeFormat('%d.%b.%Y');
 	const getconsecutiveRainyDays = () => {
@@ -171,7 +184,8 @@
 		return data;
 	};
 
-	const dataForCard5 = getconsecutiveRainyDays();
+	$: dataForCard5 = dataForCard4 ? getconsecutiveRainyDays() : undefined;
+	console.log('dataForCard5 :>> ', dataForCard5);
 
 	//Scroll Animations
 	gsap.registerPlugin(ScrollTrigger);
@@ -214,7 +228,7 @@
 					duration: 0.5,
 				});
 				rainData2022 = dataForCard1;
-				isTop3 = false;
+				// isTop3 = false;
 			},
 		});
 
@@ -347,7 +361,7 @@
 </script>
 
 <Svg {width} {height}>
-	<Leyend range={mmExtend} fill={fillScale} size={sizeScale} />
+	<!-- <Leyend range={mmExtend} fill={fillScale} size={sizeScale} /> -->
 	<g class="graph">
 		<YAxis scale={monthScale} {months} x={margin.right} />
 		<XAvis scale={dayScale} days={rangeDays} y={margin.top} />
@@ -369,7 +383,11 @@
 			{dayScale}
 			{fillScale}
 			{sizeScale}
-			days={card1IsVisible ? rainData2022.flat(1) : []}
+			days={card1IsVisible
+				? rainData2022?.flat(1)
+				: rainData2022
+				? rainData2022.flat()
+				: []}
 			format={monthFormat}
 			topDays={topRainyDays2022}
 			isAnnotation={card2IsVisible}
