@@ -19,7 +19,6 @@
 	import AreaRect from './areaRect.svelte';
 	import RectConsecutive from './rectConsecutive.svelte';
 	import Leyend from './leyend.svelte';
-
 	d3.timeFormatDefaultLocale($localeEs);
 	d3.formatDefaultLocale($localeEs);
 
