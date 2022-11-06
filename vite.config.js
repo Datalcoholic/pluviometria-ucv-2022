@@ -5,6 +5,6 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 export default defineConfig({
 	plugins: [svelte()],
 	build: {
-		target: ['edge105', 'chrome105', 'firefox105', 'safari16'],
+		target: ['edge107', 'chrome107', 'firefox105', 'safari16'],
 	},
 });
