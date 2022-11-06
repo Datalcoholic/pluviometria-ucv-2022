@@ -1,8 +1,9 @@
 <section class="footer">
 	<h3>Información:</h3>
 	<p>
-		- Datos facilitados por el profesor <strong>Alfredo Gil</strong> Ing. hidrometeorologista
-		de la Universidad Central de Venezuela (UCV).
+		- Datos recabados en la estación pluviometrica de la UCV facilitados por el
+		profesor <strong>Alfredo Gil</strong> Ing. hidrometeorologista de la Universidad
+		Central de Venezuela.
 	</p>
 	<div class="credits">
 		<p>- Vizualización:</p>
