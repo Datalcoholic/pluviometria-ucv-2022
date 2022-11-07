@@ -25,7 +25,6 @@
 			howManyTimes,
 		};
 	});
-	console.log('dataArea :>> ', dataArea);
 
 	const dataMean = data2.map((d, i) => {
 		let { month, monthMean } = d;
