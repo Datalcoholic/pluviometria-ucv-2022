@@ -153,10 +153,10 @@
 	}
 
 	#line {
-		transform: rotate(45deg);
+		rotate: 45deg;
 	}
 	#line-pattern {
-		transform: rotate(45deg);
+		rotate: 45deg;
 	}
 	.pattern-line {
 		stroke-width: 16px;
