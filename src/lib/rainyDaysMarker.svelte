@@ -33,7 +33,7 @@
 	}
 </script>
 
-{#if month.length > 0}
+{#if month.length > 1}
 	<g class="marker-2022" in:enter={{ delay: i * 0.08 }}>
 		<path
 			class="area"
